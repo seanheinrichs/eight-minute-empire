@@ -32,6 +32,9 @@ struct Node {
 class Map {
     private:
         std::map<Node, int[]>* nodes;
+
+        // returns a node. Helper function for the public methods
+        Node getNode(std::string region);
     public:
         // TODO: parameterized constructors
         Map();
@@ -46,7 +49,6 @@ class Map {
         void addCity(std::string player, std::string region);
         // remove cities from Node
         void removeCity(std::string player, std::string region);
-
-        // TODO: getters and setters. Do I need this if the driver will be a friend so it can see inside?
+        
         // TODO: Destructor
 };
