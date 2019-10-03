@@ -21,7 +21,7 @@ class Map {
         // second is true if water-crossing
         std::pair<std::string, bool>* connectedTo[];
 
-        Node(std::string r, std::string c, std::string players[], int armies[][2]);
+        Node(std::string regn, std::string cont, std::map<std::string, std::pair<int, int>> arm, std::pair<std::string, bool> conn[]);
         ~Node();
         };
 
@@ -33,7 +33,7 @@ class Map {
         Node getNode(std::string region);
     public:
         // TODO: parameterized constructors
-        Map();
+        Map(std::string regions[], std::string continents[],std::map<std::string, std::pair<int, int>> armies[], std::pair<std::string, bool> connections[], std::string startingRegion);
         ~Map();
         // calculate and set the owner for a node
         void updateOwnership(); // update all
