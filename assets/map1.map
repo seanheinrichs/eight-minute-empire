@@ -1,6 +1,6 @@
 players("red", "blue", "green").
 continents("north", "south").
-regions(["seoul", "ilsan", "pyongyang", "jeju"]).
+regions("seoul", "ilsan", "pyongyang", "jeju").
 region("seoul","south", ["ilsan"], ["jeju]).
 region("ilsan", "south", ["pyongyang", "seoul"], []).
 region("pyongyang", "north", ["ilsan"], []).
