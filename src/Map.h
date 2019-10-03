@@ -4,23 +4,6 @@
 #include <utility>
 #include "Map.h"
 
-// TODO: Make this into a subclass with pointers and a constructor.
-class Node {
-    // region name
-    std::string region;
-    // continent name
-    std::string continent;
-    // key is playername
-    // value is array of two ints: armies, cities
-    std::map<std::string, std::pair<int, int>> armies;
-    // playername for owner
-    std::string owner;
-    // array of regions it is connected to
-    // first of pair is region name
-    // second is true if water-crossing
-    std::pair<std::string, bool> connectedTo[];
-};
-
 class Map {
     private:
         class Node {
