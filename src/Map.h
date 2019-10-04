@@ -23,17 +23,21 @@ private:
         // second is true if water-crossing
         std::vector<std::pair<std::string, bool>> *connectedTo;
 
+    public:
         Node(std::string regn, std::string cont, std::map<std::string, std::pair<int, int>> arm, std::vector<std::pair<std::string, bool>> conn);
         ~Node();
+        // recalculates ownership of a region
+        void updateOwner();
+        // adds armies or cities to a region
+        void addArmies(std::string player, std::pair<int, int> army);
+        // removes armies or cities from a region
+        void removeArmies(std::string player, std::pair<int, int> army);
     };
 
     // connected graph of Nodes
     std::map<std::string, Node> *nodes;
     // starting node
     std::string *start;
-
-    // returns a node. Helper function for the public methods
-    Node getNode(std::string region);
 
 public:
     Map(std::string regions[], std::string continents[], std::map<std::string, std::pair<int, int>> armies[], std::vector<std::pair<std::string, bool>> connections[], std::string startingRegion);
