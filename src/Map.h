@@ -1,8 +1,8 @@
 #pragma once
 #include <iostream>
 #include <map>
+#include <vector>
 #include <utility>
-#include "Map.h"
 
 class Map
 {
@@ -21,9 +21,9 @@ private:
         // array of regions it is connected to
         // first of pair is region name
         // second is true if water-crossing
-        std::pair<std::string, bool> *connectedTo[];
+        std::vector<std::pair<std::string, bool>> *connectedTo;
 
-        Node(std::string regn, std::string cont, std::map<std::string, std::pair<int, int>> arm, std::pair<std::string, bool> conn[]);
+        Node(std::string regn, std::string cont, std::map<std::string, std::pair<int, int>> arm, std::vector<std::pair<std::string, bool>> conn);
         ~Node();
     };
 
@@ -31,15 +31,17 @@ private:
     std::map<Node, int[]> *nodes;
     // starting node
     std::string *start;
+
     // returns a node. Helper function for the public methods
     Node getNode(std::string region);
 
 public:
     Map(std::string regions[], std::string continents[], std::map<std::string, std::pair<int, int>> armies[], std::pair<std::string, bool> connections[], std::string startingRegion);
     ~Map();
-    // calculate and set the owner for a node
-    void updateOwnership();                   // update all
-    void updateOwnership(std::string region); // update one
+    // calculate and set the owner for all nodes
+    void updateOwnership();
+    // calculate and set the owner for all nodes
+    void updateOwnership(std::string region);
     // add army to Node
     void addArmies(std::string player, std::string region, int armies);
     // remove armies from Node
