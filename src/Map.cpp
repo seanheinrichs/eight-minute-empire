@@ -28,10 +28,18 @@ Map::Node::~Node()
 }
 
 // Map Class Constructor and Deconstructor
-Map::Map(std::string regions[], std::string continents[], std::map<std::string, std::pair<int, int>> armies[], std::pair<std::string, bool> connections[], std::string startingRegion)
+Map::Map(std::string regions[], std::string continents[], std::map<std::string, std::pair<int, int>> armies[], std::vector<std::pair<std::string, bool>> connections[], std::string startingRegion)
 {
+    // regions[], continents[], armies[], connections[], startingRegion
+    start = &startingRegion;
+    std::string region, continent;
+
     for (int i = 0; i < regions->size(); i++)
     {
+        region = regions[i];
+        continent = continents[i];
+        Map::Node node = Map::Node::Node(region, continent, armies[i], connections[i]);
+        // nodes->insert(regions[i], node);
     }
 }
 Map::~Map()

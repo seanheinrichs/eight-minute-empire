@@ -28,7 +28,7 @@ private:
     };
 
     // connected graph of Nodes
-    std::map<Node, int[]> *nodes;
+    std::map<std::string, Node> *nodes;
     // starting node
     std::string *start;
 
@@ -36,7 +36,7 @@ private:
     Node getNode(std::string region);
 
 public:
-    Map(std::string regions[], std::string continents[], std::map<std::string, std::pair<int, int>> armies[], std::pair<std::string, bool> connections[], std::string startingRegion);
+    Map(std::string regions[], std::string continents[], std::map<std::string, std::pair<int, int>> armies[], std::vector<std::pair<std::string, bool>> connections[], std::string startingRegion);
     ~Map();
     // calculate and set the owner for all nodes
     void updateOwnership();
