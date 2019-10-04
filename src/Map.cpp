@@ -1,7 +1,5 @@
 #pragma once
-#include <iostream>
-#include <map>
-#include <utility>
+#include <iterator>
 #include "Map.h"
 
 // Inner Class Node Constructor and Deconstructor
@@ -12,9 +10,16 @@ Map::Node::Node(std::string regn, std::string cont, std::map<std::string, std::p
     armies = &arm;
     connectedTo = &conn;
 
-    // set the thing below to arm.begin's key
-    // iterate over it and switch it up as it gets larger
-    std::string *owner;
+    std::map<std::string, std::pair<int, int>>::iterator armyIterator = armies->begin();
+    std::string tempOwner;
+    int maxArmies = 0;
+    for (armyIterator; armyIterator != arm.end(); armyIterator++) {
+        if (armyIterator-> second.first + armyIterator->second.second > maxArmies) {
+            tempOwner = armyIterator->first;
+            maxArmies = armyIterator-> second.first + armyIterator->second.second;
+        }
+    }
+    owner = &tempOwner;
 }
 
 Map::Node::~Node()
