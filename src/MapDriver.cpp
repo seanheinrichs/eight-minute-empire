@@ -42,4 +42,6 @@ int main()
     mapData.totalRegions = std::size(regions);
 
     Map myMap(mapData);
+
+    myMap.printNodes();
 }

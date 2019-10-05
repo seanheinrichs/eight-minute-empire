@@ -4,9 +4,11 @@
 #include <utility>
 #include <vector>
 
-class Map {
+class Map
+{
 private:
-  class Node {
+  class Node
+  {
     // region name
     std::string *region;
     // continent name
@@ -32,6 +34,34 @@ private:
     void addArmies(std::string player, std::pair<int, int> army);
     // removes armies or cities from a region
     void removeArmies(std::string player, std::pair<int, int> army);
+    // display node's data
+    void printNode()
+    {
+      std::cout << "Region: " << &region << ", Continent: " << &continent << ", Armies: [";
+
+      std::map<std::string, std::pair<int, int>>::iterator armiesIter = armies->begin();
+      for (armiesIter; armiesIter != armies->end(); armiesIter++)
+      {
+        std::cout << " (" << armiesIter->first << ": " << armiesIter->second.first << " armies, " << armiesIter->second.second << "cities)";
+      }
+
+      std::cout << " ], Owner: " << owner << ", Connected to: ";
+
+      std::vector<std::pair<std::string, bool>>::iterator connectedIter = connectedTo->begin();
+      for (connectedIter; connectedIter != connectedTo->end(); connectedIter++)
+      {
+        std::cout << connectedIter->first << "(";
+        if (connectedIter->second)
+        {
+          std::cout << "Water) ";
+        }
+        else
+        {
+          std::cout << "Land) ";
+        }
+      }
+      std::cout << std::endl;
+    }
   };
 
   // connected graph of Nodes
@@ -41,7 +71,8 @@ private:
 
 public:
   // struct containing data needed to instantiate Map
-  struct MapInfo {
+  struct MapInfo
+  {
     std::string *regions;
     std::string *continents;
     std::map<std::string, std::pair<int, int>> *armies;
@@ -65,4 +96,13 @@ public:
   void addCity(std::string player, std::string region);
   // remove cities from Node
   void removeCity(std::string player, std::string region);
+  // display information of all nodes
+  void printNodes()
+  {
+    std::map<std::string, Node>::iterator nodesIter = nodes->begin();
+    for (nodesIter; nodesIter != nodes->end(); nodesIter)
+    {
+      nodesIter->second.printNode();
+    }
+  }
 };
