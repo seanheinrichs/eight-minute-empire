@@ -26,7 +26,11 @@ Map::Node::Node(std::string regn, std::string cont, std::map<std::string, std::p
 
 Map::Node::~Node()
 {
-    std::cout << "yup" << std::endl;
+    delete region;
+    delete continent;
+    delete armies;
+    delete owner;
+    delete connectedTo;
 }
 
 // Node Class Methods
@@ -66,7 +70,6 @@ void Map::Node::removeArmies(std::string player, std::pair<int, int> army)
 // Map Class Constructor and Deconstructor
 Map::Map(std::string regions[], std::string continents[], std::map<std::string, std::pair<int, int>> armies[], std::vector<std::pair<std::string, bool>> connections[], std::string startingRegion)
 {
-    // regions[], continents[], armies[], connections[], startingRegion
     start = &startingRegion;
     std::string region, continent;
 
@@ -81,7 +84,8 @@ Map::Map(std::string regions[], std::string continents[], std::map<std::string, 
 
 Map::~Map()
 {
-    std::cout << "yup" << std::endl;
+    delete nodes;
+    delete start;
 }
 
 // Map Class methods
