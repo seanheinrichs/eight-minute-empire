@@ -6,6 +6,10 @@
 #include <string>
 #include <ostream>
 #include <vector>
+#include <ctime>
+#include <algorithm>
+#include <iostream>
+using namespace std;
 
 using std::string;
 
@@ -16,6 +20,9 @@ private:
 public:
 
     Cards(string *good, string *action);
+
+    Cards();
+
     virtual ~Cards();
 
     inline string *getGood() const {
@@ -34,10 +41,13 @@ public:
         Cards::action = action;
     }
 
+    friend std::ostream &operator<<(std::ostream &os, const Cards &cards);
+
 };
 
 class Deck {
     std::vector<Cards> deck;
+
 public:
     const Cards cards01 = Cards((string *) "Wild", (string *)"MOVE_OVER_WATER 2");
     const Cards cards02 = Cards((string *) "Wild", (string *)"MOVE_OVER_WATER 2");
@@ -89,6 +99,8 @@ public:
 
     virtual ~Deck();
     void draw();
+
+    friend std::ostream &operator<<(std::ostream &os, const Deck &deck);
 
 };
 
