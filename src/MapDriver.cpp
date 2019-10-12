@@ -13,14 +13,14 @@ int main()
     n1.region = "region1";
     n1.continent = "continent1";
     n1.owner = "mike";
-    n1.armies.insert(make_pair("mike", std::pair<int, int>(10, false)));
+    n1.armies.insert(make_pair("mike", std::pair<int, bool>(10, false)));
     n1.connectedTo.emplace_back(std::pair<std::string, bool>("region2", true));
 
     Node n2 = Node{};
     n2.region = "region2";
     n2.continent = "continent1";
     n2.owner = "mike";
-    n2.armies.insert(make_pair("mike", std::pair<int, int>(10, true)));
+    n2.armies.insert(make_pair("mike", std::pair<int, bool>(10, true)));
     n2.connectedTo.emplace_back(std::pair<std::string, bool>("region1", true));
 
     std::vector<Node> nodeVector;
@@ -28,12 +28,12 @@ int main()
     nodeVector.emplace_back(n2);
 
     // Example of a valid map
-    Map m1(nodeVector, "region1", regions, continents, players);
-    m1.printNodes();
+    // Map m1(nodeVector, "region1", regions, continents, players);
+    // m1.printNodes();
 
     // Example of addArmy function
-    m1.addArmy("region1", "mike");
-    m1.printNodes();
+    // m1.addArmy("region1", "mike");
+    // m1.printNodes();
 
     // Example of map with invalid region name
     // nodeVector.at(0).region = "this is an invalid name";
@@ -54,7 +54,8 @@ int main()
     // Example of map with invalid starting region
     // Map m6(nodeVector, "invalid region name", regions, continents, players);
 
-    MapLoader::generateMap("assets/map1.map");
+    Map m = MapLoader::generateMap("assets/map1.map");
+    m.printNodes();
 
     return 0;
 }

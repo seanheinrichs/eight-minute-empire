@@ -1,5 +1,5 @@
 COMMENT|This is an example of a valid map
-COMMENT| Note that the nesting of delimiters is consistent: | / ,
+COMMENT| Note that the nesting of delimiters is consistent: | ; / ,
 REGIONS|Canada;USA;UK
 CONTINENTS|North America;Europe;Asia
 PLAYERS|mike;jia;sean

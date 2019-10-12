@@ -14,16 +14,87 @@ std::vector<std::string> MapLoader::split(const std::string &input, char delimit
     {
         output.emplace_back(chunk);
     }
-
     return output;
 }
+Node MapLoader::generateNode(const std::vector<std::string> inputVector)
+{
+    // TODO: Add size, it must always be five or this will crash
+    Node n{};
 
-void MapLoader::generateMap(const std::string &fileName)
+    // add strings to Node
+    n.region = inputVector.at(0);
+    n.continent = inputVector.at(1);
+    n.owner = inputVector.at(2);
+
+    // add armies to Node
+    std::map<std::string, std::pair<int, bool>> armies;
+    std::vector<std::string> rawArmies = split(inputVector.at(3), '/');
+    std::vector<std::string> rawArmy;
+    std::string playerName;
+    int totalArmies;
+    bool hasCity;
+
+    for (int i = 0; i < rawArmies.size(); i++)
+    {
+        rawArmy = split(rawArmies.at(i), ',');
+        {
+            playerName = rawArmy.at(0);
+            std::stringstream(rawArmy.at(1)) >> totalArmies;
+            if (rawArmy.at(2) == "true")
+            {
+                hasCity = true;
+            }
+            else if (rawArmy.at(2) == "false")
+            {
+                hasCity = false;
+            }
+            else
+            {
+                // TODO: throw error on invalid value
+            }
+            armies.insert(std::make_pair(playerName, std::make_pair(totalArmies, hasCity)));
+        }
+    }
+    n.armies = armies;
+
+    // add connections to Node
+    std::vector<std::pair<std::string, bool>> connectedTo;
+    auto rawConnections = split(inputVector.at(4), '/');
+    std::vector<std::string> rawConnection;
+    std::string region;
+    bool waterConnection;
+
+    for (int i = 0; i < rawConnections.size(); i++)
+    {
+
+        rawConnection = split(rawConnections.at(i), ',');
+        region = rawConnection.at(0);
+        if (rawConnection.at(1) == "true")
+        {
+            waterConnection = true;
+        }
+        else if (rawConnection.at(1) == "false")
+        {
+            waterConnection = false;
+        }
+        else
+        {
+            // TODO: throw error on invalid value
+        }
+        connectedTo.emplace_back(std::make_pair(region, waterConnection));
+    }
+    n.connectedTo = connectedTo;
+
+    return n;
+}
+
+Map MapLoader::generateMap(const std::string &fileName)
 {
     // processing variables
     std::ifstream inputFile(fileName);
     std::string line;
     std::vector<std::string> rawData;
+    Node n;
 
     // map generation variables
     std::vector<std::string> regions;
@@ -68,9 +139,12 @@ void MapLoader::generateMap(const std::string &fileName)
             }
             else if (rawData.front() == "NODE")
             {
-                // TODO: Generate Node
+                rawData = split(rawData.at(1), ';');
+                n = generateNode(rawData);
+                nodes.emplace_back(n);
             }
         }
         inputFile.close();
+        return Map(nodes, start, regions, continents, players);
     }
 }
