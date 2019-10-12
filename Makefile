@@ -5,6 +5,7 @@ BIN		:= bin
 SRC		:= src
 INCLUDE	:= include
 LIB		:= lib
+TEST := test
 
 LIBRARIES	:=
 
@@ -22,5 +23,8 @@ clean:
 run: all
 	./$(BIN)/$(EXECUTABLE)
 
+# test:
+# 	$(BIN)/$(TEST)/$(EXECUTABLE): $(SRC)/*$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -g -o $@ $(LIBRARIES)
+
 $(BIN)/$(EXECUTABLE): $(SRC)/*
-	$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -o $@ $(LIBRARIES)
+	$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -g -o $@ $(LIBRARIES)

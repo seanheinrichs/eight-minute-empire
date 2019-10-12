@@ -1,0 +1,11 @@
+players("red", "blue", "green").
+continents("north", "south").
+regions("seoul", "ilsan", "pyongyang", "jeju").
+start("seoul").
+region("seoul","south", ["ilsan"], ["jeju]).
+region("ilsan", "south", ["pyongyang", "seoul"], []).
+region("pyongyang", "north", ["ilsan"], []).
+region("jeju", "south", [], ["seoul"]).
+player("red", "pyongyang", 10, 1, "seoul", 2, 0, "jeju", 0, 0).
+player("green", "pyongyang", 1, 1, "seoul", 1, 1, "jeju", 1, 1).
+player("blue", "pyongyang", 0, 0, "seoul", 0, 0, "jeju", 5, 1).
