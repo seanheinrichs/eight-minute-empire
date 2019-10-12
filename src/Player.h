@@ -18,8 +18,8 @@ private:
     int* cities;
     int* dateOfBirth;
     std::string* name;
-    std::vector<std::string*> regions;          // TODO: Figure out why we need this
-    std::vector<std::string*> countries;        // TODO: Figure out why we need this
+    std::vector<std::string>* regions;          // TODO: Figure out why we need this
+    std::vector<std::string>* countries;        // TODO: Figure out why we need this
     BiddingFacility* biddingFacility;
 
 public:
