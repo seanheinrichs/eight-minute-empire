@@ -28,11 +28,11 @@ public:
 
     // Gameplay Methods
     void payCoin(int cost);         // TODO: Implement to reflect cost of actual card
-    void placeNewArmies();          // TODO: Require Map Implementation
-    void moveArmies();              // TODO: Require Map Implementation
-    void moveOverLand();            // TODO: Require Map Implementation
-    void buildCity();               // TODO: Require Map Implementation
-    void destroyArmy();             // TODO: Require Map Implementation
+    bool placeNewArmies(int totalArmies);          // TODO: Require Map Implementation
+    bool moveOverWater(int totalMoves);              // TODO: Require Map Implementation
+    bool moveOverLand(int totalMoves);            // TODO: Require Map Implementation
+    bool buildCity();               // TODO: Require Map Implementation
+    bool destroyArmy();             // TODO: Require Map Implementation
 
     // Accessors
     int* getCoins() const;
