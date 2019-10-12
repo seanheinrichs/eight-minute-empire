@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include "Player.h"
+#include "Map.h"
 #include "BiddingFacility.h"
 
 Player::Player(std::string name, int dateOfBirth) {
@@ -50,45 +51,41 @@ void Player::payCoin(int cost) {
     }
 }
 
-bool placeNewArmies(int totalArmies) {
-    if () {
-        return true;
-    } else {
-        return false
-    }
+bool Player::placeNewArmies(int totalArmies, std::string regionName, Map gameBoard) {
+    return gameBoard.addArmy(regionName, *this->getName());
 }
 
-bool moveOverWater(int totalMoves) {
-    if () {
-        return true;
-    } else {
-        return false
-    }
-}
-
-bool moveOverLand(int totalMoves) {
-    if () {
-        return true;
-    } else {
-        return false
-    }
-}
-
-bool buildCity() {
-    if () {
-        return true;
-    } else {
-        return false
-    }
-}
-
-bool destroyArmy() {
-    if () {
-        return true;
-    } else {
-        return false
-    }
-}
+//bool moveOverWater(int totalMoves) {
+//    if () {
+//        return true;
+//    } else {
+//        return false
+//    }
+//}
+//
+//bool moveOverLand(int totalMoves) {
+//    if () {
+//        return true;
+//    } else {
+//        return false
+//    }
+//}
+//
+//bool buildCity() {
+//    if () {
+//        return true;
+//    } else {
+//        return false
+//    }
+//}
+//
+//bool destroyArmy() {
+//    if () {
+//        return true;
+//    } else {
+//        return false
+//    }
+//}
 
 // Accessor and Mutator Methods
 

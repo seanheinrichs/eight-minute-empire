@@ -46,6 +46,11 @@ int main() {
 
     // Example of map with invalid starting region    
     // Map m6(nodeVector, "invalid region name", regions, continents, players);
-    
+
+    // TESZ ZONE
+
+    m1.addArmy("region1", "mike");
+    m1.printNodes();
+
     return 0;
 }

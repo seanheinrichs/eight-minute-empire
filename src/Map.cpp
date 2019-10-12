@@ -167,4 +167,5 @@ bool Map::addArmy(std::string regionName, std::string playerName) {
   }
 
   nodes->at(nodeIndex).armies[playerName].first++;
+  return true;
 }
