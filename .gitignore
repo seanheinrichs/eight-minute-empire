@@ -33,3 +33,5 @@
 
 # Directories
 .vscode
+.idea
+bin

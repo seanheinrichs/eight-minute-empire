@@ -28,6 +28,10 @@ int main() {
     Map m1(nodeVector, "region1", regions, continents, players);
     m1.printNodes();
 
+    // Example of addArmy function
+    m1.addArmy("region1", "mike");
+    m1.printNodes();
+
     // Example of map with invalid region name
     // nodeVector.at(0).region = "this is an invalid name";
     // Map m2(nodeVector, "region1", regions, continents, players);
@@ -46,6 +50,6 @@ int main() {
 
     // Example of map with invalid starting region    
     // Map m6(nodeVector, "invalid region name", regions, continents, players);
-    
+
     return 0;
 }
