@@ -1,117 +1,147 @@
-#include "Map.h"
 #include <iterator>
+#include "Map.h"
 
-// Inner Class Node Constructor and Deconstructor
-Map::Node::Node(std::string regn, std::string cont,
-                std::map<std::string, std::pair<int, int>> arm,
-                std::vector<std::pair<std::string, bool>> conn) {
-  region = &regn;
-  continent = &cont;
-  armies = &arm;
-  connectedTo = &conn;
+Map::Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players) {
+    bool connetionError;
+    bool regionError;
+    bool continentError;
+    bool ownerError;
+    std::vector<std::string>::iterator regionIter;
+    std::vector<std::string>::iterator continentIter;
+    std::vector<std::string>::iterator playerIter;
+    std::map<std::string, std::pair<int, bool>>::iterator armyIter;
 
-  std::map<std::string, std::pair<int, int>>::iterator armyIterator =
-      armies->begin();
-  std::string tempOwner;
-  int maxArmies = 0;
-  for (armyIterator; armyIterator != arm.end(); armyIterator++) {
-    if (armyIterator->second.first + armyIterator->second.second > maxArmies) {
-      tempOwner = armyIterator->first;
-      maxArmies = armyIterator->second.first + armyIterator->second.second;
+    auto nodeIter = inputNodes.begin();
+    try {
+        while (nodeIter != inputNodes.end()) {
+            regionIter = regions.begin();
+            continentIter = continents.begin();
+            playerIter = players.begin();
+            connetionError = true;
+            regionError = true;
+            continentError = true;
+            ownerError = true;
+
+            if (nodeIter->connectedTo.size() > 0) {
+                connetionError = false;
+            }
+
+            while (regionIter != regions.end()) {
+                if (*regionIter == nodeIter->region) {
+                    regionError = false;
+                    break;
+                }
+                regionIter++;
+            }
+
+            while (continentIter != continents.end()) {
+                if (*continentIter == nodeIter->continent) {
+                    continentError = false;
+                    break;
+                }
+                continentIter++;
+            }
+
+            while (playerIter != players.end()) {
+                if (*playerIter == nodeIter->owner || playerIter->empty()) {
+                    ownerError = false;
+                    break;
+                }
+                playerIter++;
+            }
+
+            if (connetionError) {
+                throw "Region has no connections.";
+            } else if (regionError) {
+                throw "Invalid region name";
+            } else if (continentError) {
+                throw "Invalid continent name.";
+            } else if (ownerError) {
+                throw "Invalid owner name.";
+            }
+            nodeIter++;
+        }
+        regionIter = regions.begin();
+        regionError = true;
+        while (regionIter != regions.end()) {
+            if (*regionIter == startRegion) {
+                regionError = false;
+                break;
+            }
+            regionIter++;
+        }
+        if (regionError) {
+            throw "Invalid starting region name";
+        }
     }
-  }
-  owner = &tempOwner;
-}
 
-Map::Node::~Node() {
-  delete region;
-  delete continent;
-  delete armies;
-  delete owner;
-  delete connectedTo;
-}
-
-// Node Class Methods
-void Map::Node::updateOwner() {
-  std::map<std::string, std::pair<int, int>>::iterator armyIterator =
-      armies->begin();
-  std::string tempOwner;
-  int maxArmies = 0;
-  for (armyIterator; armyIterator != armies->end(); armyIterator++) {
-    if (armyIterator->second.first + armyIterator->second.second > maxArmies) {
-      tempOwner = armyIterator->first;
-      maxArmies = armyIterator->second.first + armyIterator->second.second;
+    catch (const char* msg) {
+        std::cerr << msg << std::endl;
+        exit(1);
     }
-  }
-  owner = &tempOwner;
-}
 
-void Map::Node::addArmies(std::string player, std::pair<int, int> army) {
-  armies->at(player).first += army.first;
-  if (armies->at(player).second == 0 && army.second == 1) {
-    armies->at(player).second = 1;
-  }
-}
-void Map::Node::removeArmies(std::string player, std::pair<int, int> army) {
-  armies->at(player).first -= army.first;
-  if (armies->at(player).second == 1 && army.second == 1) {
-    armies->at(player).second = 0;
-  }
-}
-struct MapInfo {
-  std::string *regions = nullptr;
-  std::string *continents = nullptr;
-  std::map<std::string, std::pair<int, int>> *armies = nullptr;
-  std::vector<std::pair<std::string, bool>> *connections = nullptr;
-  int totalRegions = 0;
-  std::string startingRegion = "";
-};
+    nodes = new std::vector<Node>;
+    *nodes = inputNodes;
+    start = new std::string(startRegion);
 
-// Map Class Constructor and Deconstructor
-Map::Map(MapInfo const &MapInfo) {
-  std::string startToString = MapInfo.startingRegion;
-  start = &startToString;
-
-  std::string region, continent;
-
-  for (int i = 0; i < MapInfo.totalRegions; i++) {
-    region = MapInfo.regions[i];
-    continent = MapInfo.continents[i];
-    Map::Node node =
-        Node(region, continent, MapInfo.armies[i], MapInfo.connections[i]);
-    nodes->insert(std::pair<std::string, Map::Node>(region, node));
-  }
 }
 
 Map::~Map() {
-  delete nodes;
-  delete start;
+    if (start) {
+        delete start;
+        start = NULL;
+    }
+    if (nodes) {
+        delete nodes;
+        start = NULL;
+    }
 }
 
-// Map Class methods
-void Map::updateOwnership() {
-  std::map<std::string, Map::Node>::iterator mapIterator = nodes->begin();
-  for (mapIterator; mapIterator != nodes->end(); mapIterator++) {
-    mapIterator->second.updateOwner();
-  }
+Map::Map(Map const &m) {
+    nodes = new std::vector<Node>();
+    *nodes = *m.nodes;
+
+    start = new std::string;
+    *start = *m.start;
 }
 
-void Map::updateOwnership(std::string region) {
-  nodes->at(region).updateOwner();
-}
+void Map::printNodes() {
+    std::vector<Node>::iterator nodeIter = nodes->begin();
+    std::vector<std::pair<std::string, bool>>::iterator connectionIter;
+    std::map<std::string, std::pair<int, bool>>::iterator armyIter;
 
-void Map::addArmies(std::string region, std::string player, int armies) {
-  nodes->at(region).addArmies(player, std::pair<int, int>(armies, 0));
-}
+    while (nodeIter != nodes->end()) {
+        connectionIter = nodeIter->connectedTo.begin();
+        armyIter = nodeIter->armies.begin();
+        std::cout << "Region :" << nodeIter->region << std::endl;
+        std::cout << "Continent: " << nodeIter->continent << std::endl;
 
-void Map::removeArmies(std::string player, std::string region, int armies) {
-  nodes->at(region).removeArmies(player, std::pair<int, int>(armies, 0));
-}
+        if (nodeIter->owner.empty()) {
+            std::cout << "No owner yet." << std::endl;
+        } else {
+            std::cout << "Owner: " << nodeIter->owner << std::endl;
+        }
 
-void Map::addCity(std::string player, std::string region) {
-  nodes->at(region).addArmies(player, std::pair<int, int>(0, 1));
-}
+        while (connectionIter != nodeIter->connectedTo.end()) {
+            std::cout << "Connected to " << connectionIter->first;
+            if (connectionIter->second) {
+                std::cout << " by sea." << std::endl;
+            } else {
+                std::cout << " by land." << std::endl;
+            }
+            connectionIter++;
+        }
 
-void Map::removeCity(std::string player, std::string region) {
-  nodes->at(region).removeArmies(player, std::pair<int, int>(0, 1));
+        while (armyIter != nodeIter->armies.end()) {
+            std::cout << armyIter->first << " has " << armyIter->second.first << " armies and ";
+            if (armyIter->second.second) {
+                std::cout << "1 city." << std::endl;
+            } else {
+                std::cout << "no cities." << std::endl;
+            }
+            armyIter++;
+        }
+        std::cout << std::endl;
+        nodeIter++;
+    }
 }

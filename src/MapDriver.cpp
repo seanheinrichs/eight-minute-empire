@@ -1,47 +1,51 @@
-#include "Map.h"
 #include <iostream>
+#include "Map.h"
 
-int main()
-{
-    // std::string regions[]
-    std::string regions[2] = {"r1", "r2"};
+int main() {
+    std::vector<std::string> regions = {"region1", "region2"};
+    std::vector<std::string> continents = {"continent1"};
+    std::vector<std::string> players = {"mike"};
 
-    // std::string continents[]
-    std::string continents[2] = {"nord", "sud"};
+    Node n1 = Node{};
+    n1.region = "region1";
+    n1.continent = "continent1";
+    n1.owner = "mike";
+    n1.armies.insert(make_pair("mike", std::pair<int, int>(10, false)));
+    n1.connectedTo.emplace_back(std::pair<std::string, bool>("region2", true));
 
-    // std::map<std::string, std::pair<int, int>> armies[]
-    std::map<std::string, std::pair<int, int>> r1_armies;
-    std::map<std::string, std::pair<int, int>> r2_armies;
-    r1_armies.insert(std::pair<std::string, std::pair<int, int>>(
-        "red", std::pair<int, int>(10, 0)));
-    r1_armies.insert(std::pair<std::string, std::pair<int, int>>(
-        "blue", std::pair<int, int>(5, 1)));
-    r2_armies.insert(std::pair<std::string, std::pair<int, int>>(
-        "red", std::pair<int, int>(2, 1)));
-    r2_armies.insert(std::pair<std::string, std::pair<int, int>>(
-        "red", std::pair<int, int>(6, 0)));
-    std::map<std::string, std::pair<int, int>> armies[] = {r1_armies, r2_armies};
+    Node n2 = Node{};
+    n2.region = "region2";
+    n2.continent = "continent1";
+    n2.owner = "mike";
+    n2.armies.insert(make_pair("mike", std::pair<int, int>(10, true)));
+    n2.connectedTo.emplace_back(std::pair<std::string, bool>("region1", true));
 
-    // std::vector<std::pair<std::string, bool>> connections[]
-    std::vector<std::pair<std::string, bool>> connections[std::size(regions)];
-    std::vector<std::pair<std::string, bool>> r1_connections;
-    std::vector<std::pair<std::string, bool>> r2_connections;
-    r1_connections.emplace_back(std::pair<std::string, bool>("r2", true));
-    r2_connections.emplace_back(std::pair<std::string, bool>("r1", true));
-    connections[0] = r1_connections;
-    connections[1] = r2_connections;
+    std::vector<Node> nodeVector;
+    nodeVector.emplace_back(n1);
+    nodeVector.emplace_back(n2);
 
-    // std::string startingRegion;
-    std::string startingRegion = "r1";
+    // Example of a valid map
+    Map m1(nodeVector, "region1", regions, continents, players);
+    m1.printNodes();
 
-    Map::MapInfo mapData = Map::MapInfo{};
-    mapData.armies = armies;
-    mapData.connections = connections;
-    mapData.continents = continents;
-    mapData.startingRegion = startingRegion;
-    mapData.totalRegions = std::size(regions);
+    // Example of map with invalid region name
+    // nodeVector.at(0).region = "this is an invalid name";
+    // Map m2(nodeVector, "region1", regions, continents, players);
 
-    Map myMap(mapData);
+    // Example of map with invalid continent name
+    // nodeVector.at(0).continent = "this is an invalid continent name";
+    // Map m3(nodeVector, "region1", regions, continents, players);
 
-    myMap.printNodes();
+    // Example of map with invalid owner
+    // nodeVector.at(0).owner = "this is an invalid owner name";
+    // Map m4(nodeVector, "region1", regions, continents, players);
+
+    // Example of map with invalid connections
+    // nodeVector.at(0).connectedTo = std::vector<std::pair<std::string, bool>>();
+    // Map m5(nodeVector, "region1", regions, continents, players);
+
+    // Example of map with invalid starting region    
+    // Map m6(nodeVector, "invalid region name", regions, continents, players);
+    
+    return 0;
 }
