@@ -5,7 +5,44 @@
 #include <vector>
 #include <sstream>
 
-std::vector<std::string> MapLoader::split(const std::string &input, char delimiter)
+MapLoader::MapLoader()
+{
+    players = nullptr;
+    regions = nullptr;
+    continents = nullptr;
+}
+
+MapLoader::MapLoader(
+    std::vector<std::string> playerVector,
+    std::vector<std::string> regionVector,
+    std::vector<std::string> continentVector)
+{
+    players = new std::vector<std::string>(playerVector);
+    regions = new std::vector<std::string>(regionVector);
+    continents = new std::vector<std::string>(continentVector);
+}
+
+MapLoader::~MapLoader()
+{
+    if (players)
+    {
+        delete players;
+        players = NULL;
+    }
+    if (regions)
+    {
+        delete regions;
+        regions = NULL;
+    }
+    if (continents)
+    {
+        delete continents;
+        continents = NULL;
+    }
+}
+
+std::vector<std::string>
+MapLoader::split(const std::string &input, char delimiter)
 {
     std::vector<std::string> output;
     std::stringstream stream(input);
@@ -97,9 +134,9 @@ Map MapLoader::generateMap(const std::string &fileName)
     Node n;
 
     // map generation variables
-    std::vector<std::string> regions;
-    std::vector<std::string> continents;
-    std::vector<std::string> players;
+    std::vector<std::string> regionData;
+    std::vector<std::string> continentData;
+    std::vector<std::string> playerData;
     std::string start;
     std::vector<Node> nodes;
 
@@ -114,7 +151,7 @@ Map MapLoader::generateMap(const std::string &fileName)
                 rawData = split(rawData.at(1), ';');
                 for (int i = 0; i < rawData.size(); i++)
                 {
-                    regions.emplace_back(rawData.at(i));
+                    regionData.emplace_back(rawData.at(i));
                 }
             }
             else if (rawData.front() == "CONTINENTS")
@@ -122,7 +159,7 @@ Map MapLoader::generateMap(const std::string &fileName)
                 rawData = split(rawData.at(1), ';');
                 for (int i = 0; i < rawData.size(); i++)
                 {
-                    continents.emplace_back(rawData.at(i));
+                    continentData.emplace_back(rawData.at(i));
                 }
             }
             else if (rawData.front() == "PLAYERS")
@@ -130,7 +167,7 @@ Map MapLoader::generateMap(const std::string &fileName)
                 rawData = split(rawData.at(1), ';');
                 for (int i = 0; i < rawData.size(); i++)
                 {
-                    players.emplace_back(rawData.at(i));
+                    playerData.emplace_back(rawData.at(i));
                 }
             }
             else if (rawData.front() == "START")
@@ -145,6 +182,21 @@ Map MapLoader::generateMap(const std::string &fileName)
             }
         }
         inputFile.close();
-        return Map(nodes, start, regions, continents, players);
+
+        // if MapLoader doesn't have mapdata, add it
+        if (!players)
+        {
+            *players = playerData;
+        }
+        if (!regions)
+        {
+            *regions = regionData;
+        }
+        if (!continents)
+        {
+            *continents = continentData;
+        }
+
+        return Map(nodes, start, regionData, continentData, playerData);
     }
 }
