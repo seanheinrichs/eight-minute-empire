@@ -36,25 +36,37 @@ void MapLoader::generateMap(const std::string &fileName)
     {
         while (getline(inputFile, line))
         {
-            rawData = split(line, ',');
+            rawData = split(line, '|');
 
-            if (rawData.at(0) == "REGIONS")
+            if (rawData.front() == "REGIONS")
             {
-                // TODO: Generate regions
+                rawData = split(rawData.at(1), ';');
+                for (int i = 0; i < rawData.size(); i++)
+                {
+                    regions.emplace_back(rawData.at(i));
+                }
             }
-            else if (rawData.at(0) == "CONTINENTS")
+            else if (rawData.front() == "CONTINENTS")
             {
-                // TODO: Generate continents
+                rawData = split(rawData.at(1), ';');
+                for (int i = 0; i < rawData.size(); i++)
+                {
+                    continents.emplace_back(rawData.at(i));
+                }
             }
-            else if (rawData.at(0) == "PLAYERS")
+            else if (rawData.front() == "PLAYERS")
             {
-                // TODO: Generate players
+                rawData = split(rawData.at(1), ';');
+                for (int i = 0; i < rawData.size(); i++)
+                {
+                    players.emplace_back(rawData.at(i));
+                }
             }
-            else if (rawData.at(0) == "START")
+            else if (rawData.front() == "START")
             {
-                // TODO: Generate start
+                start = rawData.at(1);
             }
-            else if (rawData.at(0) == "NODE")
+            else if (rawData.front() == "NODE")
             {
                 // TODO: Generate Node
             }
