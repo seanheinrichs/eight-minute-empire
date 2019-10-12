@@ -4,7 +4,7 @@
 #include "Player.h"
 #include <vector>
 
-// TODO: Get rid of the this forward declaration. Current it's only to make the compiler happy.
+// Forward Declaration
 class Player;
 
 class BiddingFacility {
@@ -13,9 +13,11 @@ private:
     int* bid;
 
 public:
-
     // Constructor
     BiddingFacility();
+
+    // Deconstructor
+    ~BiddingFacility();
 
     // Gameplay Methods
     static int biddingPhase(std::vector<Player*> players, int numberOfPlayers);

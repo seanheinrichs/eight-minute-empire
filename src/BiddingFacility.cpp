@@ -1,8 +1,16 @@
 #include <iostream>
 #include "BiddingFacility.h"
 
+// Constructor
+
 BiddingFacility::BiddingFacility() {
     BiddingFacility::bid = new int(0);
+}
+
+// Destructor
+
+BiddingFacility::~BiddingFacility() {
+    delete bid;
 }
 
 int BiddingFacility::biddingPhase(std::vector<Player*> players, int numberOfPlayers) {
@@ -48,9 +56,13 @@ int BiddingFacility::biddingPhase(std::vector<Player*> players, int numberOfPlay
     return highestBidder;
 }
 
+// Accessors
+
 int *BiddingFacility::getBid() const {
     return bid;
 }
+
+// Mutators
 
 void BiddingFacility::setBid(int bid) {
     *BiddingFacility::bid = bid;
