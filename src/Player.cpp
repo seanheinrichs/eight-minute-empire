@@ -4,6 +4,8 @@
 #include "Map.h"
 #include "BiddingFacility.h"
 
+//Constructors
+
 Player::Player(std::string name, int dateOfBirth) {
     Player::cities = new int(3);
     Player::armies = new int(14);
@@ -38,6 +40,7 @@ Player::Player(std::string name, int numOfPlayers, int dateOfBirth) {
 }
 
 // Deconstructor
+
 Player::~Player() {
     delete this->coins;
     delete this->armies;
