@@ -2,23 +2,24 @@
 #define EIGHT_MINUTE_EMPIRE_PLAYER_H
 
 #include <string>
+#include <vector>
 #include "BiddingFacility.h"
 #include "Map.h"
 
-// TODO: Get rid of the this forward declaration. Current it's only to make the compiler happy.
+// Forward Declaration
 class BiddingFacility;
 
 class Player {
 
 private:
-    // TODO: Add collection of regions / countries - Requires Part 1 & 2 to be complete
     // TODO: Add Player Hand of Game Cards - Requires Part 4 to be complete
-
     int* coins;
     int* armies;
     int* cities;
     int* dateOfBirth;
     std::string* name;
+    std::vector<std::string*> regions;          // TODO: Figure out why we need this
+    std::vector<std::string*> countries;        // TODO: Figure out why we need this
     BiddingFacility* biddingFacility;
 
 public:
@@ -28,12 +29,12 @@ public:
     Player(std::string name, int numOfPlayers, int dateOfBirth);     // The number of coins is dependent on the number of players:
 
     // Gameplay Methods
-    void payCoin(int cost);                                                             // TODO: Implement to reflect cost of actual card
-    bool placeNewArmies(int totalArmies, std::string regionName, Map gameMap);          // TODO: Require Map Implementation
-    bool moveOverWater(int totalMoves);                                                 // TODO: Require Map Implementation
-    bool moveOverLand(int totalMoves);                                                  // TODO: Require Map Implementation
-    bool buildCity();                                                                   // TODO: Require Map Implementation
-    bool destroyArmy();                                                                 // TODO: Require Map Implementation
+    bool payCoin(int cost);
+    bool placeNewArmies(int totalArmies, std::string regionName, Map gameMap);
+    void moveOverWater(int totalMoves);                                         // TODO: Fully implement in assignment 2
+    void moveOverLand(int totalMoves);                                          // TODO: Fully implement in assignment 2
+    void buildCity();                                                           // TODO: Fully implement in assignment 2
+    void destroyArmy();                                                         // TODO: Fully implement in assignment 2
 
     // Accessors
     int* getCoins() const;
@@ -49,7 +50,6 @@ public:
     void setCities(int cities);
     void setDateOfBirth(int dateOfBirth);
     void setName(std::string name);
-
 };
 
 #endif

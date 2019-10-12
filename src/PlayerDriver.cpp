@@ -3,35 +3,49 @@
 
 int PlayerDriver(int argc, char *argv[]) {
 
-    // local variables for testing
+    // Local variables for testing purposes
     int numOfPlayers;
     int dateOfBirth;
     std::string name;
 
-    // Get input for test user
+    // Get input for test user (assuming perfect responses from user)
     std::cout << "Welcome to Eight-Minute-Empire, how many Players will be playing?" << std::endl;
     std::cin >> numOfPlayers;
     std::cout << "What is your name?" << std::endl;
     std::cin >> name;
-    std::cout << "What is your date of birth? (YYMMDD)" << std::endl;
+    std::cout << "How many years old are you? (eg. 18)" << std::endl;
     std::cin >> dateOfBirth;
 
     // Create user
     Player* testPlayer = new Player(name, numOfPlayers, dateOfBirth);
 
     // Output Information about the test user
-    std::cout << "Hello " << *(testPlayer->getName()) << "You were born on " << *(testPlayer->getDateOfBirth()) <<std::endl;
+    std::cout << "Hello " << *(testPlayer->getName()) << "You are " << *(testPlayer->getDateOfBirth()) << " years old." << std::endl;
     std::cout << "Each player will start with the following:" << std::endl;
     std::cout << "- " << *(testPlayer->getCoins()) << " coins." << std::endl;
     std::cout << "- " << *(testPlayer->getArmies()) << " armies." << std::endl;
     std::cout << "- " << *(testPlayer->getCities()) << " cities." << std::endl;
 
-    // payCoin() method testing
+    // Method testing
+
+    // Player::payCoin()
     testPlayer->payCoin(2);
     testPlayer->payCoin(2);
     testPlayer->payCoin(2);
     testPlayer->payCoin(2);
     testPlayer->payCoin(2);
+
+    // Player::moveOverWater()
+    testPlayer->moveOverWater(3);
+
+    // Player::moveOverLand()
+    testPlayer->moveOverLand(3);
+
+    // Player::buildCity()
+    testPlayer->buildCity();
+
+    // Player::destroyArmy()
+    testPlayer->destroyArmy();
 
     return 0;
 }

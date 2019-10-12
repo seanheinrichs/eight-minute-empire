@@ -39,15 +39,14 @@ Player::Player(std::string name, int numOfPlayers, int dateOfBirth) {
 
 // Gameplay Methods
 
-// TODO: Amount of coins should reflect cost of card
-// TODO: Should return a boolean that triggers the Player to make a new purchase
-void Player::payCoin(int cost) {
-
+bool Player::payCoin(int cost) {
     if (*(this->getCoins()) < cost) {
-        std::cout << "You don't have enough coins to purchase that" << std::endl;
+        std::cout << "You don't have enough coins to purchase that." << std::endl;
+        return false;
     } else {
         this->setCoins(*(this->getCoins()) - cost);
-        std::cout << "Successful Purchase. You have " << *(this->getCoins()) << " amount of coins remaining" << std::endl;
+        std::cout << "Successful Purchase, you have " << *(this->getCoins()) << " amount of coins remaining" << std::endl;
+        return true;
     }
 }
 
@@ -55,62 +54,38 @@ bool Player::placeNewArmies(int totalArmies, std::string regionName, Map gameBoa
     return gameBoard.addArmy(regionName, *this->getName());
 }
 
-//bool moveOverWater(int totalMoves) {
-//    if () {
-//        return true;
-//    } else {
-//        return false
-//    }
-//}
-//
-//bool moveOverLand(int totalMoves) {
-//    if () {
-//        return true;
-//    } else {
-//        return false
-//    }
-//}
-//
-//bool buildCity() {
-//    if () {
-//        return true;
-//    } else {
-//        return false
-//    }
-//}
-//
-//bool destroyArmy() {
-//    if () {
-//        return true;
-//    } else {
-//        return false
-//    }
-//}
+// TODO: Assignment 2
+void Player::moveOverWater(int totalMoves) {
+    std::cout << "This method will allow the player to move " << totalMoves << " armies across water." << std::endl;
+}
 
-// Accessor and Mutator Methods
+// TODO: Assignment 2
+void Player::moveOverLand(int totalMoves) {
+    std::cout << "This method will allow the player to move " << totalMoves << " armies across land." << std::endl;
+}
+
+// TODO: Assignment 2
+void Player::buildCity() {
+    std::cout << "This method will allow the player to build 1 city." << std::endl;
+}
+
+// TODO: Assignment 2
+void Player::destroyArmy() {
+    std::cout << "This method will allow the player to destroy other player's armies." << std::endl;
+}
+
+// Accessors
 
 int* Player::getCoins() const {
     return coins;
-}
-
-void Player::setCoins(int coins) {
-    *Player::coins = coins;
 }
 
 int* Player::getArmies() const {
     return armies;
 }
 
-void Player::setArmies(int armies) {
-    *Player::armies = armies;
-}
-
 int* Player::getCities() const {
     return cities;
-}
-
-void Player::setCities(int cities) {
-    *Player::cities = cities;
 }
 
 int *Player::getDateOfBirth() const {
@@ -121,14 +96,28 @@ std::string *Player::getName() const {
     return name;
 }
 
+BiddingFacility *Player::getBiddingFacility() const {
+    return biddingFacility;
+}
+
+// Mutators
+
+void Player::setCoins(int coins) {
+    *Player::coins = coins;
+}
+
+void Player::setArmies(int armies) {
+    *Player::armies = armies;
+}
+
+void Player::setCities(int cities) {
+    *Player::cities = cities;
+}
+
 void Player::setDateOfBirth(int dateOfBirth) {
     *Player::dateOfBirth = dateOfBirth;
 }
 
 void Player::setName(std::string name) {
     *Player::name = name;
-}
-
-BiddingFacility *Player::getBiddingFacility() const {
-    return biddingFacility;
 }
