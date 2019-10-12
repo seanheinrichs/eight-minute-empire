@@ -86,10 +86,11 @@ Deck::~Deck() {
 }
 
 // random generator function:
-int myrandom (int i) { return std::rand()%i;}
+int seed1 (int i) { return std::rand() % i;}
+int seed2 (int i) { return std::rand()%i;}
 void Deck::draw() {
 //    std::srand ( unsigned ( std::time(0) ) ); // another way to generate a Random seed
-    std::random_shuffle(deck.begin(), deck.end(), myrandom);
+    std::random_shuffle(deck.begin(), deck.end(), seed1);
 //    Check if deck shuffled well:
 //    std::cout << "deck contains:";
 //    for (std::vector<Cards>::iterator it=deck.begin(); it!=deck.end(); ++it)
@@ -154,14 +155,15 @@ Deck::Hand::Hand() {
     shuffledCards.emplace_back(cards41);
     shuffledCards.emplace_back(cards42);
 
-    std::random_shuffle(shuffledCards.begin(), shuffledCards.end(), myrandom);
+    std::random_shuffle(shuffledCards.begin(), shuffledCards.end(), seed2);
 
     for (auto i=0; i<6; i++) {
         hand.emplace_back(shuffledCards.back());
         shuffledCards.pop_back();
     }
+    int j = 0;
     for (auto it = hand.begin(); it != hand.end(); ++it){
-        cout << ' ' << *it << endl;
+        cout << "Position " << ++j << " " << *it << endl;
     }
 }
 
@@ -183,4 +185,18 @@ int *Deck::Hand::getPosition() const {
 
 void Deck::Hand::setPosition(int *position) {
     Hand::position = position;
+}
+
+void Deck::Hand::exchange() {
+    cout << "Which card do you want to buy? Please enter an integer from 1 to 6: " << endl;
+    cin >> *position;
+    int index;
+    index = *position-1;
+    *cost = posArray[index];
+    cout << "The card which shows: " << hand.at(index) << " and costs " << *cost << " dollars." << endl;
+    playerHand1.emplace_back(hand.at(index));
+    hand.erase(hand.begin()+index);
+    cout << "Top Board cards series size is " << hand.size() << endl ;
+    hand.emplace_back(shuffledCards.back());
+    cout << "Top Board cards series size is " << hand.size() << endl ;
 }

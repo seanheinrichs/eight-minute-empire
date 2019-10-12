@@ -9,6 +9,7 @@ int main(int argc, char *argv[]){
     cout << *d << endl;
 //    Deck deck1;
     Deck::Hand hand1;
+    hand1.exchange();
 
 
 //    Deck deck1;

@@ -109,11 +109,13 @@ public:class Hand {
     private:
         std::vector<Cards> shuffledCards;
         std::vector<Cards> hand;
+        std::vector<Cards> playerHand1;
+
     public:
         int* cost;
         int* position;
         int posArray[6] = { 0, 1, 1, 2, 2, 3 };
-
+        void exchange();
     };
 };
 static std::vector<Cards> deck;
