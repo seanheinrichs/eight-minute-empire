@@ -186,15 +186,15 @@ Map MapLoader::generateMap(const std::string &fileName)
         // if MapLoader doesn't have mapdata, add it
         if (!players)
         {
-            *players = playerData;
+            players = new std::vector<std::string>(playerData);
         }
         if (!regions)
         {
-            *regions = regionData;
+            regions = new std::vector<std::string>(regionData);
         }
         if (!continents)
         {
-            *continents = continentData;
+            continents = new std::vector<std::string>(continentData);
         }
 
         return Map(nodes, start, regionData, continentData, playerData);

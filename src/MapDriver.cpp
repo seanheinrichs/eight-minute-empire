@@ -54,7 +54,7 @@ int main()
     // Example of map with invalid starting region
     // Map m6(nodeVector, "invalid region name", regions, continents, players);
 
-    MapLoader loader();
+    MapLoader loader;
     Map m = loader.generateMap("assets/map1.map");
     m.printNodes();
 
