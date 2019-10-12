@@ -37,4 +37,9 @@ public:
     ~Map();
 
     void printNodes();
+
+    bool addArmy(std::string regionName, std::string playerName);
+    bool moveArmy(std::string origin, std::string destination, std::string playerName, int totalMoves, bool isWaterMove);
+    bool addCity(std::string regionName, std::string playerName);
+    bool destroyArmy(std::string regionName, std::string playerName);
 };

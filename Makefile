@@ -23,8 +23,5 @@ clean:
 run: all
 	./$(BIN)/$(EXECUTABLE)
 
-# test:
-# 	$(BIN)/$(TEST)/$(EXECUTABLE): $(SRC)/*$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -g -o $@ $(LIBRARIES)
-
 $(BIN)/$(EXECUTABLE): $(SRC)/*
 	$(CC) $(C_FLAGS) -I$(INCLUDE) -L$(LIB) $^ -g -o $@ $(LIBRARIES)
