@@ -23,18 +23,20 @@ private:
     BiddingFacility* biddingFacility;
 
 public:
-
     // Constructors
-    Player(std::string name, int dateOfBirth);                       // Default should never be called but will be set for a two player game
-    Player(std::string name, int numOfPlayers, int dateOfBirth);     // The number of coins is dependent on the number of players:
+    Player(std::string name, int dateOfBirth);
+    Player(std::string name, int numOfPlayers, int dateOfBirth);
+
+    // Deconstructor
+    ~Player();
 
     // Gameplay Methods
     bool payCoin(int cost);
     bool placeNewArmies(int totalArmies, std::string regionName, Map gameMap);
-    void moveOverWater(int totalMoves);                                         // TODO: Fully implement in assignment 2
-    void moveOverLand(int totalMoves);                                          // TODO: Fully implement in assignment 2
-    void buildCity();                                                           // TODO: Fully implement in assignment 2
-    void destroyArmy();                                                         // TODO: Fully implement in assignment 2
+    void moveOverWater(int totalMoves);     // TODO: Fully implement in assignment 2
+    void moveOverLand(int totalMoves);      // TODO: Fully implement in assignment 2
+    void buildCity();                       // TODO: Fully implement in assignment 2
+    void destroyArmy();                     // TODO: Fully implement in assignment 2
 
     // Accessors
     int* getCoins() const;

@@ -37,6 +37,16 @@ Player::Player(std::string name, int numOfPlayers, int dateOfBirth) {
     }
 }
 
+// Deconstructor
+Player::~Player() {
+    delete this->coins;
+    delete this->armies;
+    delete this->cities;
+    delete this->dateOfBirth;
+    delete this->name;
+    delete this->biddingFacility;
+};
+
 // Gameplay Methods
 
 bool Player::payCoin(int cost) {
