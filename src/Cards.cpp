@@ -82,7 +82,6 @@ Deck::Deck() {
 }
 
 Deck::~Deck() {
-
 }
 
 // random generator function:
@@ -192,11 +191,16 @@ void Deck::Hand::exchange() {
     cin >> *position;
     int index;
     index = *position-1;
-    *cost = posArray[index];
-    cout << "The card which shows: " << hand.at(index) << " and costs " << *cost << " dollars." << endl;
+    cost = reinterpret_cast<int *>(posArray[index]);
+    cout << "The card which shows: " << hand.at(index) << " and costs " << posArray[index] << " dollars." << endl;
+
+    cout << "Would you like to buy this card ? " << endl;
+    //TODO: call PayCoin() here
+
     playerHand1.emplace_back(hand.at(index));
     hand.erase(hand.begin()+index);
     cout << "Top Board cards series size is " << hand.size() << endl ;
     hand.emplace_back(shuffledCards.back());
     cout << "Top Board cards series size is " << hand.size() << endl ;
+    cout << "Player 1 's hand has " << playerHand1.back() << endl;
 }

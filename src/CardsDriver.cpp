@@ -4,27 +4,14 @@
 
 
 int main(int argc, char *argv[]){
-    cout << "Try it" << endl;
-    Cards *d = new Cards("Gold", "Sell");
-    cout << *d << endl;
-//    Deck deck1;
+
+    //test Hand and exchange()
     Deck::Hand hand1;
     hand1.exchange();
 
-
-//    Deck deck1;
-//
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    deck1.draw();
-//    return 0;
+    //test Deck and draw() Hand include all functions of Deck, so Deck or draw() are redundancies should be removed
+    Deck deck1;
+    deck1.draw();
+    deck1.draw();
+    deck1.draw();
 }
