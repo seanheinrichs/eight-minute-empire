@@ -1,56 +1,65 @@
 #include <iostream>
 #include "BiddingFacility.h"
 
+// Constructor
+
 BiddingFacility::BiddingFacility() {
     BiddingFacility::bid = new int(0);
 }
 
+// Destructor
+
+BiddingFacility::~BiddingFacility() {
+    delete bid;
+}
+
+// Gameplay Methods
+
+// TODO: Add verification to ensure that players can afford opening bid (for A1 assume user perfect inputs)
+// Returns the index of the player who goes first (ie. to determine player order)
 int BiddingFacility::biddingPhase(std::vector<Player*> players, int numberOfPlayers) {
 
-    int bid, max;
-    // TODO: Loop through player array instead of this this new array
-    int bidArray [numberOfPlayers];
-    int highestBidder = 0;
+    // Local Variables
+    int bid, highestBid, highestBidder;
 
-    // Each player enters a bid
+    // Each player gets a chance to enter a bid
     for (int i = 0; i < numberOfPlayers; i++) {
         std::cout << "How much would you like to bid " << *(players[i]->getName()) << "?" << std::endl;
         std::cin >> bid;
         players[i]->getBiddingFacility()->setBid(bid);
-        // TODO: Remove this sloppy code
-        bidArray[i] = *(players[i]->getBiddingFacility()->getBid());
     }
 
-    // Temp Code to display array
-    for (int i = 0; i < numberOfPlayers; i++) {
-        std::cout << *(players[i]->getName()) << " has bid " << bidArray[i] << " coins" << std::endl;
-    }
-
-    // set the max to the first array
-    max = bidArray[0];
+    // Assume player 1 (index 0) has the highest bid
+    highestBidder = 0;
+    highestBid = *(players[0]->getBiddingFacility()->getBid());
 
     // Bids are compared and index of the highest bidder is going to be returned
     for (int i = 0; i < numberOfPlayers-1; i++){
-        if (max < bidArray[i + 1]) {
+        if (highestBid < *(players[i + 1]->getBiddingFacility()->getBid())) {
             highestBidder = i + 1;
-            max = bidArray[i + 1];
+            highestBid = *(players[i + 1]->getBiddingFacility()->getBid());
         }
-        // Younger player always prevails, if tied then the "first" bidder goes first
-        if (max == bidArray[i + 1]) {
-            if (*(players[highestBidder]->getDateOfBirth()) > *(players[i+1]->getDateOfBirth())) {
-                highestBidder = i + 1;
-            }
+        /* If bids are tied, the younger player becomes the higher bidder
+           If they are the same age the "first" bidder is the higher bidder*/
+        if (highestBid == *(players[i + 1]->getBiddingFacility()->getBid())
+        && *(players[highestBidder]->getDateOfBirth()) > *(players[i+1]->getDateOfBirth())) {
+            highestBidder = i + 1;
         }
     }
 
+    // Highest bidder pays the cost
     players[highestBidder]->payCoin(*(players[highestBidder]->getBiddingFacility()->getBid()));
 
     return highestBidder;
 }
 
+// Accessors
+
 int *BiddingFacility::getBid() const {
     return bid;
 }
+
+// Mutators
 
 void BiddingFacility::setBid(int bid) {
     *BiddingFacility::bid = bid;
