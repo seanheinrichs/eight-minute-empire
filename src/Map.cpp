@@ -145,3 +145,26 @@ void Map::printNodes() {
         nodeIter++;
     }
 }
+
+int Map::getNodeIndex(std::string regionName) {
+  auto nodeIter = nodes->begin();
+  int result = -1;
+  int index = 0;
+  while (nodeIter != nodes->end()) {
+    if (nodeIter->region == regionName) {
+      result = index;
+      break;
+    }
+    index++;
+    nodeIter++;
+  }
+}
+
+bool Map::addArmy(std::string regionName, std::string playerName) {
+  int nodeIndex = getNodeIndex(regionName);
+  if (nodeIndex == -1) {
+    return false;
+  }
+
+  nodes->at(nodeIndex).armies[playerName].first++;
+}
