@@ -5,22 +5,35 @@
 #include <iostream>
 
 Cards::Cards() {
-    *good = nullptr;
-    *action = nullptr;
+    this->good = nullptr;
+    this->action = nullptr;
 }
-
-Cards::Cards(string *good, string *action) : good(good), action(action) {}
 
 Cards::~Cards() {
-    delete good;
-    delete action;
 }
 
-std::ostream &operator<<(std::ostream &os, const Cards &cards) {
+Cards::Cards(const string &good, const string &action) : good(good), action(action) {}
+
+const string &Cards::getGood() const {
+    return good;
+}
+
+void Cards::setGood(const string &good) {
+    Cards::good = good;
+}
+
+const string &Cards::getAction() const {
+    return action;
+}
+
+void Cards::setAction(const string &action) {
+    Cards::action = action;
+}
+
+ostream &operator<<(ostream &os, const Cards &cards) {
     os << "good: " << cards.good << " action: " << cards.action;
     return os;
 }
-
 
 Deck::Deck() {
     deck.push_back(cards01);
@@ -65,6 +78,7 @@ Deck::Deck() {
     deck.push_back(cards40);
     deck.push_back(cards41);
     deck.push_back(cards42);
+
 }
 
 Deck::~Deck() {
@@ -74,32 +88,22 @@ Deck::~Deck() {
 // random generator function:
 int myrandom (int i) { return std::rand()%i;}
 void Deck::draw() {
-    Deck deck1;
-    std::cout << deck1.cards02;
     std::srand ( unsigned ( std::time(0) ) );
     std::random_shuffle(deck.begin(), deck.end(), myrandom);
 
-    std::cout << "deck contains:";
-    for (std::vector<Cards>::iterator it=deck.begin(); it!=deck.end(); ++it)
-        std::cout << ' ' << *it;
+//    std::cout << "deck contains:";
+//    for (std::vector<Cards>::iterator it=deck.begin(); it!=deck.end(); ++it)
+//        std::cout << ' ' << *it << endl;
 
     std::cout << '\n';
+    std::cout << "draw one card: " << deck.back() << endl;
+    deck.pop_back();
+    std::cout << "deck size: " << deck.size() << endl;
+    std::cout << "next card: " << deck.back() << endl;
 }
 
 std::ostream &operator<<(std::ostream &os, const Deck &deck) {
-    os << "deck: " << " cards01: " << deck.cards01 << " cards02: " << deck.cards02 << " cards03: "
-       << deck.cards03 << " cards04: " << deck.cards04 << " cards05: " << deck.cards05 << " cards06: " << deck.cards06
-       << " cards07: " << deck.cards07 << " cards08: " << deck.cards08 << " cards09: " << deck.cards09 << " cards10: "
-       << deck.cards10 << " cards11: " << deck.cards11 << " cards12: " << deck.cards12 << " cards13: " << deck.cards13
-       << " cards14: " << deck.cards14 << " cards15: " << deck.cards15 << " cards16: " << deck.cards16 << " cards17: "
-       << deck.cards17 << " cards18: " << deck.cards18 << " cards19: " << deck.cards19 << " cards20: " << deck.cards20
-       << " cards21: " << deck.cards21 << " cards22: " << deck.cards22 << " cards23: " << deck.cards23 << " cards24: "
-       << deck.cards24 << " cards25: " << deck.cards25 << " cards26: " << deck.cards26 << " cards27: " << deck.cards27
-       << " cards28: " << deck.cards28 << " cards29: " << deck.cards29 << " cards30: " << deck.cards30 << " cards31: "
-       << deck.cards31 << " cards32: " << deck.cards32 << " cards33: " << deck.cards33 << " cards34: " << deck.cards34
-       << " cards35: " << deck.cards35 << " cards36: " << deck.cards36 << " cards37: " << deck.cards37 << " cards38: "
-       << deck.cards38 << " cards39: " << deck.cards39 << " cards40: " << deck.cards40 << " cards41: " << deck.cards41
-       << " cards42: " << deck.cards42;
+    os << "deck: " << " cards01: " << endl;
     return os;
 }
 
@@ -112,8 +116,5 @@ Hand::~Hand() {
 void Hand::exchange() {
 
 }
-
-
-
 
 
