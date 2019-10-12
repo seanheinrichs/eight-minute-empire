@@ -88,9 +88,9 @@ Deck::~Deck() {
 // random generator function:
 int myrandom (int i) { return std::rand()%i;}
 void Deck::draw() {
-    std::srand ( unsigned ( std::time(0) ) );
+//    std::srand ( unsigned ( std::time(0) ) ); // another way to generate a Random seed
     std::random_shuffle(deck.begin(), deck.end(), myrandom);
-
+//    Check if deck shuffled well:
 //    std::cout << "deck contains:";
 //    for (std::vector<Cards>::iterator it=deck.begin(); it!=deck.end(); ++it)
 //        std::cout << ' ' << *it << endl;
@@ -98,6 +98,8 @@ void Deck::draw() {
     std::cout << '\n';
     std::cout << "draw one card: " << deck.back() << endl;
     deck.pop_back();
+//    Check if the cards set shrinks after draw out one card and
+//    shuffles before each draw in order to simulate the random draw a card:
     std::cout << "deck size: " << deck.size() << endl;
     std::cout << "next card: " << deck.back() << endl;
 }
