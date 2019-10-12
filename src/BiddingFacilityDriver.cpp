@@ -18,7 +18,7 @@ int BiddingFacilityDriver(int argc, char *argv[]) {
     for(int i = 0; i < numOfPlayers; i++) {
         std::cout << "What is your name?" << std::endl;
         std::cin >> name;
-        std::cout << "How many years old are you? (eg 18)" << std::endl;
+        std::cout << "How old are you? (eg 18)" << std::endl;
         std::cin >> dateOfBirth;
 
         players.push_back(new Player(name, numOfPlayers, dateOfBirth));
