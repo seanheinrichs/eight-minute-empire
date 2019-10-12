@@ -14,9 +14,9 @@ private:
     // creates a node struct with raw string from file
     Node generateNode(const std::vector<std::string> inputVector);
     // validates node to ensure there is consistency
-    bool validateMapData(const Node &n);
+    void validateMapData(const Node &n);
     // split string into vector of strings
-    static std::vector<std::string> split(const std::string &input, char delimiter);
+    std::vector<std::string> split(const std::string &input, char delimiter);
 
 public:
     MapLoader();

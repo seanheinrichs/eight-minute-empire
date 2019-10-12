@@ -4,6 +4,8 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <algorithm>
+#include <iterator>
 
 MapLoader::MapLoader()
 {
@@ -55,74 +57,85 @@ MapLoader::split(const std::string &input, char delimiter)
 }
 Node MapLoader::generateNode(const std::vector<std::string> inputVector)
 {
-    // TODO: Add size, it must always be five or this will crash
-    Node n{};
-
-    // add strings to Node
-    n.region = inputVector.at(0);
-    n.continent = inputVector.at(1);
-    n.owner = inputVector.at(2);
-
-    // add armies to Node
-    std::map<std::string, std::pair<int, bool>> armies;
-    std::vector<std::string> rawArmies = split(inputVector.at(3), '/');
-    std::vector<std::string> rawArmy;
-    std::string playerName;
-    int totalArmies;
-    bool hasCity;
-
-    for (int i = 0; i < rawArmies.size(); i++)
+    try
     {
-        rawArmy = split(rawArmies.at(i), ',');
+        if (inputVector.size() != 5)
         {
-            playerName = rawArmy.at(0);
-            std::stringstream(rawArmy.at(1)) >> totalArmies;
-            if (rawArmy.at(2) == "true")
+            throw "Malformed line for NODE in file. Ensure you have 4 semi-colons.";
+        }
+        Node n{};
+
+        // add strings to Node
+        n.region = inputVector.at(0);
+        n.continent = inputVector.at(1);
+        n.owner = inputVector.at(2);
+
+        // add armies to Node
+        std::map<std::string, std::pair<int, bool>> armies;
+        std::vector<std::string> rawArmies = split(inputVector.at(3), '/');
+        std::vector<std::string> rawArmy;
+        std::string playerName;
+        int totalArmies;
+        bool hasCity;
+
+        for (int i = 0; i < rawArmies.size(); i++)
+        {
+            rawArmy = split(rawArmies.at(i), ',');
             {
-                hasCity = true;
+                playerName = rawArmy.at(0);
+                std::stringstream(rawArmy.at(1)) >> totalArmies;
+                if (rawArmy.at(2) == "true")
+                {
+                    hasCity = true;
+                }
+                else if (rawArmy.at(2) == "false")
+                {
+                    hasCity = false;
+                }
+                else
+                {
+                    throw "Ensure each city value is set to true or false in file.";
+                }
+                armies.insert(std::make_pair(playerName, std::make_pair(totalArmies, hasCity)));
             }
-            else if (rawArmy.at(2) == "false")
+        }
+        n.armies = armies;
+
+        // add connections to Node
+        std::vector<std::pair<std::string, bool>> connectedTo;
+        auto rawConnections = split(inputVector.at(4), '/');
+        std::vector<std::string> rawConnection;
+        std::string region;
+        bool waterConnection;
+
+        for (int i = 0; i < rawConnections.size(); i++)
+        {
+
+            rawConnection = split(rawConnections.at(i), ',');
+            region = rawConnection.at(0);
+            if (rawConnection.at(1) == "true")
             {
-                hasCity = false;
+                waterConnection = true;
+            }
+            else if (rawConnection.at(1) == "false")
+            {
+                waterConnection = false;
             }
             else
             {
-                // TODO: throw error on invalid value
+                throw "Ensure each water/land transition is set to true or false in file.";
             }
-            armies.insert(std::make_pair(playerName, std::make_pair(totalArmies, hasCity)));
+            connectedTo.emplace_back(std::make_pair(region, waterConnection));
         }
+        n.connectedTo = connectedTo;
+
+        return n;
     }
-    n.armies = armies;
-
-    // add connections to Node
-    std::vector<std::pair<std::string, bool>> connectedTo;
-    auto rawConnections = split(inputVector.at(4), '/');
-    std::vector<std::string> rawConnection;
-    std::string region;
-    bool waterConnection;
-
-    for (int i = 0; i < rawConnections.size(); i++)
+    catch (const char *msg)
     {
-
-        rawConnection = split(rawConnections.at(i), ',');
-        region = rawConnection.at(0);
-        if (rawConnection.at(1) == "true")
-        {
-            waterConnection = true;
-        }
-        else if (rawConnection.at(1) == "false")
-        {
-            waterConnection = false;
-        }
-        else
-        {
-            // TODO: throw error on invalid value
-        }
-        connectedTo.emplace_back(std::make_pair(region, waterConnection));
+        std::cerr << msg << std::endl;
+        exit(0);
     }
-    n.connectedTo = connectedTo;
-
-    return n;
 }
 
 Map MapLoader::generateMap(const std::string &fileName)
@@ -183,6 +196,28 @@ Map MapLoader::generateMap(const std::string &fileName)
         }
         inputFile.close();
 
+        // validate that there are regions, continents, and players
+        try
+        {
+            if (regionData.empty())
+            {
+                throw "No REGIONS in file.";
+            }
+            if (continentData.empty())
+            {
+                throw "No CONTINENTS line in file.";
+            }
+            if (playerData.empty())
+            {
+                throw "No PLAYERS line in file.";
+            }
+        }
+        catch (const char *msg)
+        {
+            std::cerr << msg << std::endl;
+            exit(1);
+        }
+
         // if MapLoader doesn't have mapdata, add it
         if (!players)
         {
@@ -197,6 +232,60 @@ Map MapLoader::generateMap(const std::string &fileName)
             continents = new std::vector<std::string>(continentData);
         }
 
+        // validate nodes
+        for (int i = 0; i < nodes.size(); i++)
+        {
+            validateMapData(nodes.at(i));
+        }
+
         return Map(nodes, start, regionData, continentData, playerData);
+    }
+}
+
+void MapLoader::validateMapData(const Node &n)
+{
+    try
+    {
+        // validate region name
+        if (!(find(regions->begin(), regions->end(), n.region) != regions->end()))
+        {
+            throw "Invalid region name in map file: " + n.region;
+        }
+
+        // validate continent name
+        if (!(find(continents->begin(), continents->end(), n.continent) != continents->end()))
+        {
+            throw "Invalid continent name in map file: " + n.continent;
+        }
+
+        // validate region owner's name
+        if (!(find(players->begin(), players->end(), n.owner) != players->end()))
+        {
+            throw "Invalid region owner name in map file: " + n.owner;
+        }
+
+        // validate region names in graph edges
+        for (int i = 0; i < n.connectedTo.size(); i++)
+        {
+            if (!(find(regions->begin(), regions->end(), n.connectedTo.at(i).first) != regions->end()))
+            {
+                throw "Invalid region name in region connections in map file: " + n.connectedTo.at(i).first;
+            }
+        }
+
+        // validate player names in armies
+        auto armyIter = n.armies.begin();
+        for (armyIter; armyIter != n.armies.end(); armyIter++)
+        {
+            if (!(find(players->begin(), players->end(), armyIter->first) != players->end()))
+            {
+                throw "Invalid player name for army in map file: " + armyIter->first;
+            }
+        }
+    }
+    catch (const char *msg)
+    {
+        std::cerr << msg << std::endl;
+        exit(1);
     }
 }
