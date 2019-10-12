@@ -1,7 +1,10 @@
 #include <iostream>
+#include <fstream>
+#include "MapLoader.h"
 #include "Map.h"
 
-int main() {
+int main()
+{
     std::vector<std::string> regions = {"region1", "region2"};
     std::vector<std::string> continents = {"continent1"};
     std::vector<std::string> players = {"mike"};
@@ -48,8 +51,10 @@ int main() {
     // nodeVector.at(0).connectedTo = std::vector<std::pair<std::string, bool>>();
     // Map m5(nodeVector, "region1", regions, continents, players);
 
-    // Example of map with invalid starting region    
+    // Example of map with invalid starting region
     // Map m6(nodeVector, "invalid region name", regions, continents, players);
+
+    MapLoader::generateMap("assets/map1.map");
 
     return 0;
 }

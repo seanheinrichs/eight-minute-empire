@@ -1,11 +1,9 @@
-players("red", "blue", "green").
-continents("north", "south").
-regions("seoul", "ilsan", "pyongyang", "jeju").
-start("seoul").
-region("seoul","south", ["ilsan"], ["jeju]).
-region("ilsan", "south", ["pyongyang", "seoul"], []).
-region("pyongyang", "north", ["ilsan"], []).
-region("jeju", "south", [], ["seoul"]).
-player("red", "pyongyang", 10, 1, "seoul", 2, 0, "jeju", 0, 0).
-player("green", "pyongyang", 1, 1, "seoul", 1, 1, "jeju", 1, 1).
-player("blue", "pyongyang", 0, 0, "seoul", 0, 0, "jeju", 5, 1).
+COMMENT|This is an example of a valid map
+COMMENT| Note that the nesting of delimiters is consistent: | / ,
+REGIONS|Canada;USA,UK
+CONTINENTS|North America;Europe
+START|Canada
+PLAYERS|mike;jia;sean
+NODE|Canada;North America;mike;mike,10,false/jia,7,true/sean,2,false;USA,false
+NODE|USA;North America;jia;mike,2,true/jia,4,true/sean,3,true;Canada,false/UK,true
+NODE|UK;Europe;sean;mike,0,false/jia,2,false/sean,15,true;USA,true
