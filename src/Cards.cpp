@@ -109,14 +109,78 @@ std::ostream &operator<<(std::ostream &os, const Deck &deck) {
     return os;
 }
 
-Hand::Hand() {}
 
-Hand::~Hand() {
+Deck::Hand::Hand() {
+    shuffledCards.emplace_back(cards01);
+    shuffledCards.emplace_back(cards02);
+    shuffledCards.emplace_back(cards03);
+    shuffledCards.emplace_back(cards04);
+    shuffledCards.emplace_back(cards05);
+    shuffledCards.emplace_back(cards06);
+    shuffledCards.emplace_back(cards07);
+    shuffledCards.emplace_back(cards08);
+    shuffledCards.emplace_back(cards09);
+    shuffledCards.emplace_back(cards10);
+    shuffledCards.emplace_back(cards11);
+    shuffledCards.emplace_back(cards12);
+    shuffledCards.emplace_back(cards13);
+    shuffledCards.emplace_back(cards14);
+    shuffledCards.emplace_back(cards15);
+    shuffledCards.emplace_back(cards16);
+    shuffledCards.emplace_back(cards17);
+    shuffledCards.emplace_back(cards18);
+    shuffledCards.emplace_back(cards19);
+    shuffledCards.emplace_back(cards20);
+    shuffledCards.emplace_back(cards21);
+    shuffledCards.emplace_back(cards22);
+    shuffledCards.emplace_back(cards23);
+    shuffledCards.emplace_back(cards24);
+    shuffledCards.emplace_back(cards25);
+    shuffledCards.emplace_back(cards26);
+    shuffledCards.emplace_back(cards27);
+    shuffledCards.emplace_back(cards28);
+    shuffledCards.emplace_back(cards29);
+    shuffledCards.emplace_back(cards30);
+    shuffledCards.emplace_back(cards31);
+    shuffledCards.emplace_back(cards32);
+    shuffledCards.emplace_back(cards33);
+    shuffledCards.emplace_back(cards34);
+    shuffledCards.emplace_back(cards35);
+    shuffledCards.emplace_back(cards36);
+    shuffledCards.emplace_back(cards37);
+    shuffledCards.emplace_back(cards38);
+    shuffledCards.emplace_back(cards39);
+    shuffledCards.emplace_back(cards40);
+    shuffledCards.emplace_back(cards41);
+    shuffledCards.emplace_back(cards42);
+
+    std::random_shuffle(shuffledCards.begin(), shuffledCards.end(), myrandom);
+
+    for (auto i=0; i<6; i++) {
+        hand.emplace_back(shuffledCards.back());
+        shuffledCards.pop_back();
+    }
+    for (auto it = hand.begin(); it != hand.end(); ++it){
+        cout << ' ' << *it << endl;
+    }
+}
+
+Deck::Hand::~Hand() {
 
 }
 
-void Hand::exchange() {
-
+int *Deck::Hand::getCost() const {
+    return cost;
 }
 
+void Deck::Hand::setCost(int *cost) {
+    Hand::cost = cost;
+}
 
+int *Deck::Hand::getPosition() const {
+    return position;
+}
+
+void Deck::Hand::setPosition(int *position) {
+    Hand::position = position;
+}
