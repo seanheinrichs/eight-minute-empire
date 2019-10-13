@@ -5,6 +5,7 @@
 #include <vector>
 #include "BiddingFacility.h"
 #include "Map.h"
+#include "Cards.h"
 
 // Forward Declaration
 class BiddingFacility;
@@ -12,7 +13,6 @@ class BiddingFacility;
 class Player {
 
 private:
-    // TODO: Add Player Hand of Game Cards - Requires Part 4 to be complete
     int* coins;
     int* armies;
     int* cities;
@@ -20,6 +20,7 @@ private:
     std::string* name;
     std::vector<std::string>* regions;          // TODO: Figure out why we need this
     std::vector<std::string>* countries;        // TODO: Figure out why we need this
+    std::vector<Deck>* gameHand;
     BiddingFacility* biddingFacility;
 
 public:
