@@ -1,6 +1,8 @@
 #include "MapDriver.h"
 #include "MapLoaderDriver.h"
 #include "CardsDriver.h"
+#include "PlayerDriver.h"
+#include "BiddingFacilityDriver.h"
 
 int main()
 {
@@ -34,6 +36,12 @@ int main()
 
     ///// CardsDriver Examples /////
     cardsDriverExamples();
+
+    ///// PlayerDriver Examples /////
+    PlayerDriver();
+
+    ///// BiddingFacility Examples /////
+    BiddingFacilityDriver();
 
     return 0;
 }

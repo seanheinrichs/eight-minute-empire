@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Player.h"
+#include "BiddingFacilityDriver.h"
 
-int BiddingFacilityDriver(int argc, char *argv[]) {
+void BiddingFacilityDriver() {
 
     // Local variables for testing
     int numOfPlayers;

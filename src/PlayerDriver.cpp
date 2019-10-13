@@ -1,7 +1,8 @@
 #include <iostream>
 #include "Player.h"
+#include "PlayerDriver.h"
 
-int PlayerDriver(int argc, char *argv[]) {
+void PlayerDriver() {
 
     // Local variables for testing purposes
     int numOfPlayers;
@@ -47,5 +48,5 @@ int PlayerDriver(int argc, char *argv[]) {
     // Player::destroyArmy()
     testPlayer->destroyArmy();
 
-    return 0;
+    delete testPlayer;
 }

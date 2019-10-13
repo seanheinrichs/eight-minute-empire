@@ -182,15 +182,17 @@ int *Deck::Hand::getPosition() const {
     return position;
 }
 
-void Deck::Hand::setPosition(int *position) {
-    Hand::position = position;
+void Deck::Hand::setPosition(int position) {
+    *Hand::position = position;
 }
 
 void Deck::Hand::exchange() {
+    int position;
+
     cout << "Which card do you want to buy? Please enter an integer from 1 to 6: " << endl;
-    cin >> *position;
+    cin >> position;
     int index;
-    index = *position-1;
+    index = position-1;
     cost = reinterpret_cast<int *>(posArray[index]);
     cout << "The card which shows: " << hand.at(index) << " and costs " << posArray[index] << " dollars." << endl;
 

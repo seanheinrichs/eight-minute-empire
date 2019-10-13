@@ -56,7 +56,7 @@ public:
 
         int *getPosition() const;
 
-        void setPosition(int *position);
+        void setPosition(int position);
 
     private:
         std::vector<Cards> shuffledCards;
