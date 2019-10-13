@@ -7,4 +7,4 @@ START|Canada
 COMMENT| Nodes MUST come last in the map file
 NODE|Canada;North America;mike;mike,10,false/jia,7,true/sean,2,false;USA,false
 NODE|USA;North America;jia;mike,2,true/jia,4,true/sean,3,true;Canada,false/UK,true
-NODE|UK;Europe;sean;mike,0,false/jia,2,false/sean,15,true;USA,true
+NODE|UK;Europe;sean;mike,0,false/jia,2,false/sean,15,invalid;USA,true

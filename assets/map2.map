@@ -3,7 +3,7 @@ COMMENT| Note that the nesting of delimiters is consistent: | ; / ,
 REGIONS|Canada;USA;UK
 CONTINENTS|North America;Europe;Asia
 PLAYERS|mike;jia;sean
-START|Canada
+START|Kazakhstan
 COMMENT| Nodes MUST come last in the map file
 NODE|Canada;North America;mike;mike,10,false/jia,7,true/sean,2,false;USA,false
 NODE|USA;North America;jia;mike,2,true/jia,4,true/sean,3,true;Canada,false/UK,true

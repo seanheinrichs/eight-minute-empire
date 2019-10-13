@@ -1,10 +1,9 @@
-
+#include "CardsDriver.h"
 #include "Cards.h"
 #include <iostream>
 
-
-int main(int argc, char *argv[]){
-
+void cardsDriverExamples()
+{
     //test Hand and exchange()
     Deck::Hand hand1;
     hand1.exchange();

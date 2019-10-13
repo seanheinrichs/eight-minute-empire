@@ -1,0 +1,7 @@
+REGIONS|China;Korea;Japan
+CONTINENTS|Asia
+PLAYERS|Xi;Moon;Abe
+START|China
+NODE|China;Asia;Xi;Xi,10,true/Moon,0,false/Abe,0,false;Korea,false/Japan,true
+NODE|Korea;Asia;Moon;Xi,0,false/Moon,10,true/Abe,0,false;China,false/Japan,true
+NODE|Japan;Asia;Abe;Xi,0,false/Moon,0,false/Abe,10,true;China,true/Japan,true
