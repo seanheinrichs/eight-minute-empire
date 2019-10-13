@@ -1,5 +1,6 @@
 #include "MapDriver.h"
 #include "MapLoaderDriver.h"
+#include "CardsDriver.h"
 
 int main()
 {
@@ -30,6 +31,9 @@ int main()
     // void noPlayersInFileExample();
     // void invalidConnectionInFileExample();
     // void missingDelitimerInFileExample();
+
+    ///// CardsDriver Examples /////
+    cardsDriverExamples();
 
     return 0;
 }
