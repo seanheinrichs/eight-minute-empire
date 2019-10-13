@@ -211,34 +211,38 @@ Map MapLoader::generateMap(const std::string &fileName)
             {
                 throw "No PLAYERS line in file.";
             }
+
+            // if MapLoader doesn't have mapdata, add it
+            if (!players)
+            {
+                players = new std::vector<std::string>(playerData);
+            }
+            if (!regions)
+            {
+                regions = new std::vector<std::string>(regionData);
+            }
+            if (!continents)
+            {
+                continents = new std::vector<std::string>(continentData);
+            }
+
+            // validate nodes
+            for (int i = 0; i < nodes.size(); i++)
+            {
+                validateMapData(nodes.at(i));
+            }
+
+            return Map(nodes, start, regionData, continentData, playerData);
         }
         catch (const char *msg)
         {
             std::cerr << msg << std::endl;
             exit(1);
         }
-
-        // if MapLoader doesn't have mapdata, add it
-        if (!players)
-        {
-            players = new std::vector<std::string>(playerData);
-        }
-        if (!regions)
-        {
-            regions = new std::vector<std::string>(regionData);
-        }
-        if (!continents)
-        {
-            continents = new std::vector<std::string>(continentData);
-        }
-
-        // validate nodes
-        for (int i = 0; i < nodes.size(); i++)
-        {
-            validateMapData(nodes.at(i));
-        }
-
-        return Map(nodes, start, regionData, continentData, playerData);
+    }
+    else
+    {
+        throw "File not found: " + fileName;
     }
 }
 
