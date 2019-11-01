@@ -73,10 +73,7 @@ Map::Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std:
             {
                 throw "Invalid continent name.";
             }
-            else if (ownerError)
-            {
-                throw "Invalid owner name.";
-            }
+
             nodeIter++;
         }
         regionIter = regions.begin();

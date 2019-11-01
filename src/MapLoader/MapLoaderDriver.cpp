@@ -39,3 +39,9 @@ void graphNotConnectedInFileExample() {
     MapLoader loader;
     loader.generateMap("assets/map7.map");
 }
+
+void mapWithNoPlayersExample() {
+    MapLoader loader;
+    Map m = loader.generateMap("assets/map8.map");
+    m.printNodes();
+}
