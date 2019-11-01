@@ -155,10 +155,12 @@ Map MapLoader::generateMap(const std::string &fileName)
 
     if (inputFile.is_open())
     {
+        // process map file line by line
         while (getline(inputFile, line))
         {
             rawData = split(line, '|');
-
+            
+            // get list of continents
             if (rawData.front() == "REGIONS")
             {
                 rawData = split(rawData.at(1), ';');
@@ -167,6 +169,8 @@ Map MapLoader::generateMap(const std::string &fileName)
                     regionData.emplace_back(rawData.at(i));
                 }
             }
+
+            // get list of continents
             else if (rawData.front() == "CONTINENTS")
             {
                 rawData = split(rawData.at(1), ';');
@@ -175,6 +179,8 @@ Map MapLoader::generateMap(const std::string &fileName)
                     continentData.emplace_back(rawData.at(i));
                 }
             }
+
+            // get list of players
             else if (rawData.front() == "PLAYERS")
             {
                 rawData = split(rawData.at(1), ';');
@@ -183,10 +189,14 @@ Map MapLoader::generateMap(const std::string &fileName)
                     playerData.emplace_back(rawData.at(i));
                 }
             }
+
+            // get starting region name
             else if (rawData.front() == "START")
             {
                 start = rawData.at(1);
             }
+
+            // get new node
             else if (rawData.front() == "NODE")
             {
                 rawData = split(rawData.at(1), ';');
@@ -232,6 +242,11 @@ Map MapLoader::generateMap(const std::string &fileName)
                 validateMapData(nodes.at(i));
             }
 
+            // validate that there are no orphaned regions
+            if (!validateGraph(nodes, start)) {
+                throw "Graph not fully connected.";
+            }
+
             return Map(nodes, start, regionData, continentData, playerData);
         }
         catch (const char *msg)
@@ -242,7 +257,7 @@ Map MapLoader::generateMap(const std::string &fileName)
     }
     else
     {
-        throw "File not found: " + fileName;
+        throw "File not found.";
     }
 }
 
@@ -253,19 +268,19 @@ void MapLoader::validateMapData(const Node &n)
         // validate region name
         if (!(find(regions->begin(), regions->end(), n.region) != regions->end()))
         {
-            throw "Invalid region name in map file: " + n.region;
+            throw "Invalid region name in map file.";
         }
 
         // validate continent name
         if (!(find(continents->begin(), continents->end(), n.continent) != continents->end()))
         {
-            throw "Invalid continent name in map file: " + n.continent;
+            throw "Invalid continent name in map file.";
         }
 
         // validate region owner's name
         if (!(find(players->begin(), players->end(), n.owner) != players->end()))
         {
-            throw "Invalid region owner name in map file: " + n.owner;
+            throw "Invalid region owner name in map file";
         }
 
         // validate region names in graph edges
@@ -273,7 +288,7 @@ void MapLoader::validateMapData(const Node &n)
         {
             if (!(find(regions->begin(), regions->end(), n.connectedTo.at(i).first) != regions->end()))
             {
-                throw "Invalid region name in region connections in map file: " + n.connectedTo.at(i).first;
+                throw "Invalid region name in region connections in map file.";
             }
         }
 
@@ -283,7 +298,7 @@ void MapLoader::validateMapData(const Node &n)
         {
             if (!(find(players->begin(), players->end(), armyIter->first) != players->end()))
             {
-                throw "Invalid player name for army in map file: " + armyIter->first;
+                throw "Invalid player name for army in map file.";
             }
         }
     }
@@ -292,4 +307,63 @@ void MapLoader::validateMapData(const Node &n)
         std::cerr << msg << std::endl;
         exit(1);
     }
+}
+
+bool MapLoader::validateGraph(std::vector<Node> nodes, std::string startName) 
+{ 
+    // visited will be mutated by recursive calls of walkGraph
+    std::vector<std::string> visited{};
+    // initialize start node
+    Node start{};
+
+    // get the starting node
+    for (int i = 0; i < nodes.size(); i++) 
+    {
+        if (nodes[i].region == startName) 
+        {
+            start = nodes[i];
+            break;
+        }
+    }
+    // walk graph to build vector visited
+    walkGraph(start, nodes, visited);
+
+    // the number of visited regions should equal total number of regions
+    return nodes.size() == visited.size();
+}
+
+void MapLoader::walkGraph(Node node, std::vector<Node> nodes, std::vector<std::string> &visited)
+{
+    // mark region as visited
+    visited.emplace_back(node.region);
+    
+    // attempt to visit all connected regions
+    for (int i=0; i < node.connectedTo.size(); i++) {
+
+        // only visit regions that are not in visited
+        if (!vectorContains(visited, node.connectedTo[i].first)) 
+        {
+            // find the connected region's Node struct
+            for (int j=0; j < nodes.size(); j++) {
+                if (nodes[j].region == node.connectedTo[i].first) 
+                {
+                    // walk node
+                    walkGraph(nodes[j], nodes, visited);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+bool MapLoader::vectorContains(std::vector<std::string> inputVector, std::string value) 
+{
+    for (int i=0; i < inputVector.size(); i++) 
+    {
+        if (inputVector[i] == value) 
+        {
+            return true;
+        }
+    }
+    return false;
 }

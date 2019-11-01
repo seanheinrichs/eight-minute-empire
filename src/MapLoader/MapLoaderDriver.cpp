@@ -34,3 +34,8 @@ void missingDelitimerInFileExample()
     MapLoader loader;
     loader.generateMap("assets/map5.map");
 }
+
+void graphNotConnectedInFileExample() {
+    MapLoader loader;
+    loader.generateMap("assets/map7.map");
+}
