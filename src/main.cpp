@@ -1,8 +1,8 @@
-#include "MapDriver.h"
-#include "MapLoaderDriver.h"
-#include "CardsDriver.h"
-#include "PlayerDriver.h"
-#include "BiddingFacilityDriver.h"
+#include "Map/MapDriver.h"
+#include "MapLoader/MapLoaderDriver.h"
+#include "Cards/CardsDriver.h"
+#include "Player/PlayerDriver.h"
+#include "BiddingFacility/BiddingFacilityDriver.h"
 
 int main()
 {

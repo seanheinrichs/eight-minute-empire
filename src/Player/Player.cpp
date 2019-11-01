@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
 #include "Player.h"
-#include "Map.h"
-#include "BiddingFacility.h"
+#include "../Map/Map.h"
+#include "../BiddingFacility/BiddingFacility.h"
 
 //Constructors
 

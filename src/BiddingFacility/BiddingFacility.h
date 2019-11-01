@@ -1,7 +1,7 @@
 #ifndef EIGHT_MINUTE_EMPIRE_BIDDINGFACILITY_H
 #define EIGHT_MINUTE_EMPIRE_BIDDINGFACILITY_H
 
-#include "Player.h"
+#include "../Player/Player.h"
 #include <vector>
 
 // Forward Declaration

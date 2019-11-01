@@ -34,4 +34,10 @@
 # Directories
 .vscode
 .idea
-bin
+
+# CMake Files
+CMakeCache.txt
+CMakeFiles
+cmake_install.cmake
+Makefile
+eight_minute_empire
