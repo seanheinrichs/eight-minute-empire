@@ -73,7 +73,6 @@ Map::Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std:
             {
                 throw "Invalid continent name.";
             }
-
             nodeIter++;
         }
         regionIter = regions.begin();
@@ -198,14 +197,32 @@ int Map::getNodeIndex(std::string regionName)
     }
 }
 
-bool Map::addArmy(std::string regionName, std::string playerName)
-{
+bool Map::addArmy(std::string regionName, std::string playerName) {
+
     int nodeIndex = getNodeIndex(regionName);
-    if (nodeIndex == -1)
-    {
+
+    // Returns -1 if regionName is not found in the Node vector (shouldn't happen due to validation in Player method)
+    if (nodeIndex == -1) {
         return false;
     }
 
+    std::cout << nodeIndex << " " << playerName << std::endl;
+
     nodes->at(nodeIndex).armies[playerName].first++;
+
+    return true;
+}
+
+bool Map::addCity(std::string regionName, std::string playerName) {
+
+    int nodeIndex = getNodeIndex(regionName);
+
+    // Returns -1 if regionName is not found in the Node vector (shouldn't happen due to validation in Player method)
+    if (nodeIndex == -1) {
+        return false;
+    }
+
+    nodes->at(nodeIndex).armies[playerName].second = true;
+
     return true;
 }

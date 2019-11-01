@@ -33,11 +33,11 @@ public:
 
     // Gameplay Methods
     bool payCoin(int cost);
-    bool placeNewArmies(int totalArmies, std::string regionName, Map gameMap);
-    void moveOverWater(int totalMoves);     // TODO: Fully implement in assignment 2
-    void moveOverLand(int totalMoves);      // TODO: Fully implement in assignment 2
-    void buildCity();                       // TODO: Fully implement in assignment 2
-    void destroyArmy();                     // TODO: Fully implement in assignment 2
+    bool placeNewArmies(int totalArmies, Map &gameMap);
+    bool moveOverWater(int totalMoves);     // TODO: Fully implement in assignment 2
+    bool moveOverLand(int totalMoves);      // TODO: Fully implement in assignment 2
+    bool buildCity(Map &gameMap);
+    bool destroyArmy();                     // TODO: Fully implement in assignment 2
 
     // Accessors
     int* getCoins() const;
@@ -56,3 +56,4 @@ public:
 };
 
 #endif
+
