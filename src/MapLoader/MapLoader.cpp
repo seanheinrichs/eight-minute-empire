@@ -242,7 +242,7 @@ Map MapLoader::generateMap(const std::string &fileName)
     }
     else
     {
-        throw "File not found: " + fileName;
+        throw "File not found.";
     }
 }
 
@@ -253,19 +253,19 @@ void MapLoader::validateMapData(const Node &n)
         // validate region name
         if (!(find(regions->begin(), regions->end(), n.region) != regions->end()))
         {
-            throw "Invalid region name in map file: " + n.region;
+            throw "Invalid region name in map file.";
         }
 
         // validate continent name
         if (!(find(continents->begin(), continents->end(), n.continent) != continents->end()))
         {
-            throw "Invalid continent name in map file: " + n.continent;
+            throw "Invalid continent name in map file.";
         }
 
         // validate region owner's name
         if (!(find(players->begin(), players->end(), n.owner) != players->end()))
         {
-            throw "Invalid region owner name in map file: " + n.owner;
+            throw "Invalid region owner name in map file";
         }
 
         // validate region names in graph edges
@@ -273,7 +273,7 @@ void MapLoader::validateMapData(const Node &n)
         {
             if (!(find(regions->begin(), regions->end(), n.connectedTo.at(i).first) != regions->end()))
             {
-                throw "Invalid region name in region connections in map file: " + n.connectedTo.at(i).first;
+                throw "Invalid region name in region connections in map file.";
             }
         }
 
@@ -283,7 +283,7 @@ void MapLoader::validateMapData(const Node &n)
         {
             if (!(find(players->begin(), players->end(), armyIter->first) != players->end()))
             {
-                throw "Invalid player name for army in map file: " + armyIter->first;
+                throw "Invalid player name for army in map file.";
             }
         }
     }
