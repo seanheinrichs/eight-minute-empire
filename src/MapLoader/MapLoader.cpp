@@ -155,10 +155,12 @@ Map MapLoader::generateMap(const std::string &fileName)
 
     if (inputFile.is_open())
     {
+        // process map file line by line
         while (getline(inputFile, line))
         {
             rawData = split(line, '|');
-
+            
+            // get list of continents
             if (rawData.front() == "REGIONS")
             {
                 rawData = split(rawData.at(1), ';');
@@ -167,6 +169,8 @@ Map MapLoader::generateMap(const std::string &fileName)
                     regionData.emplace_back(rawData.at(i));
                 }
             }
+
+            // get list of continents
             else if (rawData.front() == "CONTINENTS")
             {
                 rawData = split(rawData.at(1), ';');
@@ -175,6 +179,8 @@ Map MapLoader::generateMap(const std::string &fileName)
                     continentData.emplace_back(rawData.at(i));
                 }
             }
+
+            // get list of players
             else if (rawData.front() == "PLAYERS")
             {
                 rawData = split(rawData.at(1), ';');
@@ -183,10 +189,14 @@ Map MapLoader::generateMap(const std::string &fileName)
                     playerData.emplace_back(rawData.at(i));
                 }
             }
+
+            // get starting region name
             else if (rawData.front() == "START")
             {
                 start = rawData.at(1);
             }
+
+            // get new node
             else if (rawData.front() == "NODE")
             {
                 rawData = split(rawData.at(1), ';');
@@ -292,4 +302,29 @@ void MapLoader::validateMapData(const Node &n)
         std::cerr << msg << std::endl;
         exit(1);
     }
+}
+
+bool MapLoader::validateGraph(std::vector<Node> nodes, std::string startName) 
+{ 
+    // visited will be mutated by recursive calls of walkGraph
+    std::vector<std::string> visited{};
+    // initialize start node
+    Node start{};
+
+    // get the starting node
+    for (int i = 0; i < nodes.size(); i++) {
+        if (nodes[i].region == startName) {
+            start = nodes[i];
+            break;
+        }
+    }
+    // walk graph to build vector visited
+    MapLoader::walkGraph(start, nodes, visited);
+
+    return nodes.size() == visited.size();
+}
+
+void MapLoader::walkGraph(Node node, std::vector<Node> nodes, std::vector<std::string> &visited)
+{
+
 }

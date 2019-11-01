@@ -15,8 +15,15 @@ private:
     Node generateNode(const std::vector<std::string> inputVector);
     // validates node to ensure there is consistency
     void validateMapData(const Node &n);
+    // verify that graph if fully connected
+    bool validateGraph(std::vector<Node> nodes, std::string start);
+    
+    // HELPER FUNCTIONS
     // split string into vector of strings
     std::vector<std::string> split(const std::string &input, char delimiter);
+    // walk a graph
+    void walkGraph(Node node, std::vector<Node> nodes, std::vector<std::string> &visited);
+
 
 public:
     MapLoader();
