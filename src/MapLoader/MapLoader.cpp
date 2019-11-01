@@ -217,10 +217,6 @@ Map MapLoader::generateMap(const std::string &fileName)
             {
                 throw "No CONTINENTS line in file.";
             }
-            if (playerData.empty())
-            {
-                throw "No PLAYERS line in file.";
-            }
 
             // if MapLoader doesn't have mapdata, add it
             if (!players)
@@ -275,12 +271,6 @@ void MapLoader::validateMapData(const Node &n)
         if (!(find(continents->begin(), continents->end(), n.continent) != continents->end()))
         {
             throw "Invalid continent name in map file.";
-        }
-
-        // validate region owner's name
-        if (!(find(players->begin(), players->end(), n.owner) != players->end()))
-        {
-            throw "Invalid region owner name in map file";
         }
 
         // validate region names in graph edges
