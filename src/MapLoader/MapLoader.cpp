@@ -312,19 +312,53 @@ bool MapLoader::validateGraph(std::vector<Node> nodes, std::string startName)
     Node start{};
 
     // get the starting node
-    for (int i = 0; i < nodes.size(); i++) {
-        if (nodes[i].region == startName) {
+    for (int i = 0; i < nodes.size(); i++) 
+    {
+        if (nodes[i].region == startName) 
+        {
             start = nodes[i];
             break;
         }
     }
     // walk graph to build vector visited
-    MapLoader::walkGraph(start, nodes, visited);
+    walkGraph(start, nodes, visited);
 
+    // the number of visited regions should equal total number of regions
     return nodes.size() == visited.size();
 }
 
 void MapLoader::walkGraph(Node node, std::vector<Node> nodes, std::vector<std::string> &visited)
 {
+    // mark region as visited
+    visited.emplace_back(node.region);
+    
+    // attempt to visit all connected regions
+    for (int i=0; i < node.connectedTo.size(); i++) {
 
+        // only visit regions that are not in visited
+        if (!vectorContains(visited, node.connectedTo[i].first)) 
+        {
+            // find the connected region's Node struct
+            for (int j=0; j < nodes.size(); j++) {
+                if (nodes[j].region == node.connectedTo[i].first) 
+                {
+                    // walk node
+                    walkGraph(nodes[j], nodes, visited);
+                    break;
+                }
+            }
+        }
+    }
+}
+
+bool MapLoader::vectorContains(std::vector<std::string> inputVector, std::string value) 
+{
+    for (int i=0; i < inputVector.size(); i++) 
+    {
+        if (inputVector[i] == value) 
+        {
+            return true;
+        }
+    }
+    return false;
 }

@@ -23,6 +23,8 @@ private:
     std::vector<std::string> split(const std::string &input, char delimiter);
     // walk a graph
     void walkGraph(Node node, std::vector<Node> nodes, std::vector<std::string> &visited);
+    // check if vector contains string
+    bool vectorContains(std::vector<std::string> inputVector, std::string value);
 
 
 public:
