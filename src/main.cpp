@@ -10,7 +10,7 @@ int main()
     ///// MapDriver Examples /////
 
     // valid map creation
-    validMapExample();
+    // validMapExample();
 
     // rejection of invalid map data
     // uncomment sections below to cause program to fail
@@ -24,7 +24,7 @@ int main()
     ///// MapLoaderDriver Examples /////
 
     // valid file read and map creation example
-    validMapFileExamples();
+    // validMapFileExamples();
 
     // rejection of invalid map file
     // uncomment sections below to cause program to fail
@@ -33,15 +33,16 @@ int main()
     // void noPlayersInFileExample();
     // void invalidConnectionInFileExample();
     // void missingDelitimerInFileExample();
+    graphNotConnectedInFileExample();
 
     ///// CardsDriver Examples /////
-    cardsDriverExamples();
+    // cardsDriverExamples();
 
     ///// PlayerDriver Examples /////
-    PlayerDriver();
+    // PlayerDriver();
 
     ///// BiddingFacility Examples /////
-    BiddingFacilityDriver();
+    // BiddingFacilityDriver();
 
     return 0;
 }

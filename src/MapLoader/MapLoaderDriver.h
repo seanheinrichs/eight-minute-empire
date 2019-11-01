@@ -16,3 +16,6 @@ void invalidConnectionInFileExample();
 
 // Example of malformed map file: Not enough delimiters to make Node
 void missingDelitimerInFileExample();
+
+// Example of graph that is not fully connected
+void graphNotConnectedInFileExample();

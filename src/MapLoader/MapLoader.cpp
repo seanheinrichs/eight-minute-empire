@@ -242,6 +242,11 @@ Map MapLoader::generateMap(const std::string &fileName)
                 validateMapData(nodes.at(i));
             }
 
+            // validate that there are no orphaned regions
+            if (!validateGraph(nodes, start)) {
+                throw "Graph not fully connected.";
+            }
+
             return Map(nodes, start, regionData, continentData, playerData);
         }
         catch (const char *msg)
