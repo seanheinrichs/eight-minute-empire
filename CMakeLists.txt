@@ -31,4 +31,8 @@ add_executable(eight_minute_empire
     src/Player/Player.h
     src/Player/PlayerDriver.cpp
     src/Player/PlayerDriver.h
+    src/GameState/GameState.cpp
+    src/GameState/GameState.h
+    src/GameState/GameStateDriver.cpp
+    src/GameState/GameStateDriver.h
     src/main.cpp)
