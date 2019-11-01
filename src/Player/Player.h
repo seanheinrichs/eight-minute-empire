@@ -3,9 +3,9 @@
 
 #include <string>
 #include <vector>
-#include "BiddingFacility.h"
-#include "Map.h"
-#include "Cards.h"
+#include "../BiddingFacility/BiddingFacility.h"
+#include "../Map/Map.h"
+#include "../Cards/Cards.h"
 
 // Forward Declaration
 class BiddingFacility;

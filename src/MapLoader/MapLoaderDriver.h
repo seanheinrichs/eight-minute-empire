@@ -1,6 +1,6 @@
 #pragma once
 #include "MapLoader.h"
-#include "Map.h"
+#include "../Map/Map.h"
 
 // print two maps
 void validMapFileExamples();
