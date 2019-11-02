@@ -20,7 +20,7 @@ private:
   std::string *name;
   std::vector<std::string> *regions;   // TODO: Figure out why we need this
   std::vector<std::string> *countries; // TODO: Figure out why we need this
-  // std::vector<Cards> *gameHand;
+  std::vector<Cards> *gameHand;
   BiddingFacility *biddingFacility;
 
 public:
@@ -45,8 +45,7 @@ public:
   int *getCities() const;
   int *getDateOfBirth() const;
   std::string *getName() const;
-  void getGameHand() const;
-  // std::vector<Cards> *getGameHand() const;
+  std::vector<Cards> *getGameHand() const;
   BiddingFacility *getBiddingFacility() const;
 
   // Mutators

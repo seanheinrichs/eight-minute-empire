@@ -132,8 +132,7 @@ int *Player::getDateOfBirth() const { return dateOfBirth; }
 
 std::string *Player::getName() const { return name; }
 
-void Player::getGameHand() const {}
-// std::vector<Cards> *Player::getGameHand() const { return gameHand; }
+std::vector<Cards> *Player::getGameHand() const { return gameHand; }
 
 BiddingFacility *Player::getBiddingFacility() const { return biddingFacility; }
 
@@ -152,5 +151,5 @@ void Player::setDateOfBirth(int dateOfBirth) {
 void Player::setName(std::string name) { *Player::name = name; }
 
 void Player::addCards(Cards card) {
-  // gameHand->emplace_back(Cards(card.getGood(), card.getAction()));
+  gameHand->emplace_back(Cards(card.getGood(), card.getAction()));
 }

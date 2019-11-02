@@ -32,7 +32,7 @@ GameState::GameState() {
   deck = new Deck::Hand();
 
   // generate players
-  players = new std::vector<Player>();
+  players = new std::vector<Player *>();
   int playerCount;
   std::cout << "How many people are playing? ";
   std::cin >> playerCount;
@@ -49,7 +49,7 @@ GameState::GameState() {
     std::cout << "How old are you, in years? ";
     std::cin >> age;
 
-    players->emplace_back(Player(name, playerCount, age));
+    players->emplace_back(new Player(name, playerCount, age));
   }
 }
 
