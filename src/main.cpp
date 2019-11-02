@@ -13,7 +13,7 @@ int main()
     // validMapExample();
 
     // valid map with no players
-    mapWithNoPlayersExample();
+//    mapWithNoPlayersExample();
 
     // rejection of invalid map data
     // uncomment sections below to cause program to fail
@@ -39,7 +39,7 @@ int main()
     // graphNotConnectedInFileExample();
 
     ///// CardsDriver Examples /////
-    // cardsDriverExamples();
+     cardsDriverExamples();
 
     ///// PlayerDriver Examples /////
     // PlayerDriver();

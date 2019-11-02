@@ -187,16 +187,18 @@ void Deck::Hand::setPosition(int position) {
 }
 
 void Deck::Hand::exchange() {
-    int position;
-
+    int input, index;
     cout << "Which card do you want to buy? Please enter an integer from 1 to 6: " << endl;
-    cin >> position;
-    int index;
-    index = position-1;
-    cost = reinterpret_cast<int *>(posArray[index]);
+    cin >> input;
+    while (input >6 || input < 1){
+        cout << "Invalid input : " << input << ".  Please enter an integer from 1 to 6: " << endl;
+        cin >> input;
+    }
+    index = input -1 ;
     cout << "The card which shows: " << hand.at(index) << " and costs " << posArray[index] << " dollars." << endl;
-
+//    setCost(posArray[index]);
     cout << "Would you like to buy this card ? " << endl;
+    cout << "You are going to pay " << posArray[index] << " for this card." << endl;
     //TODO: call PayCoin() here
 
     playerHand1.emplace_back(hand.at(index));
