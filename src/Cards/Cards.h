@@ -54,7 +54,7 @@ public:
   public:
     Hand();
 
-    virtual ~Hand();
+    ~Hand();
 
     int *getCost();
 
