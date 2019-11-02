@@ -13,6 +13,7 @@ using namespace std;
 
 using std::string;
 
+// Individual cards
 class Cards {
 public:
     Cards();
@@ -36,6 +37,7 @@ private:
     string action;
 };
 
+// Wrapper class for hand
 class Deck {
 
 public:
@@ -44,6 +46,10 @@ public:
     virtual ~Deck();
     void draw();
 
+    // Class to represent the following:
+    // 1) Cards on the table availabe to be drawn
+    // 2) Player hands
+    // 3) Deck of shuffled cards
     class Hand {
     public:
         Hand();
@@ -59,8 +65,11 @@ public:
         void setPosition(int position);
 
     private:
+        // Deck of shuffled cards
         std::vector<Cards> shuffledCards;
+        // Cards available to be drawn
         std::vector<Cards> hand;
+        // Player's hand of cards
         std::vector<Cards> playerHand1;
 
     public:
