@@ -19,3 +19,6 @@ void missingDelitimerInFileExample();
 
 // Example of graph that is not fully connected
 void graphNotConnectedInFileExample();
+
+// Example of a valid map with no players
+void mapWithNoPlayersExample();

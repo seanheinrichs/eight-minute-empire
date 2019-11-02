@@ -14,7 +14,6 @@ GameState::GameState() {
       std::string fileLocation;
       std::cout << "Enter map file location: ";
       std::cin >> fileLocation;
-      std::cout << std::endl;
 
       // load map
       MapLoader loader;

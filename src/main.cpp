@@ -13,6 +13,9 @@ int main() {
   // valid map creation
   // validMapExample();
 
+  // valid map with no players
+  // mapWithNoPlayersExample();
+
   // rejection of invalid map data
   // uncomment sections below to cause program to fail
 
@@ -34,7 +37,7 @@ int main() {
   // void noPlayersInFileExample();
   // void invalidConnectionInFileExample();
   // void missingDelitimerInFileExample();
-  //   graphNotConnectedInFileExample();
+  // graphNotConnectedInFileExample();
 
   ///// CardsDriver Examples /////
   // cardsDriverExamples();
@@ -47,5 +50,6 @@ int main() {
 
   //// Game Start Example ////
   gameStateDriver();
+
   return 0;
 }
