@@ -76,7 +76,7 @@ public:
     };
 };
 
-static std::vector<Cards> deck;
+static std::vector<Cards>* deck;
 
 const Cards* cards01 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
 const Cards* cards02 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
