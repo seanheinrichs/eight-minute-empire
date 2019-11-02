@@ -4,13 +4,11 @@
 
 void cardsDriverExamples()
 {
-    //test Hand and exchange()
-    Deck::Hand hand1;
-    hand1.exchange();
-
-    //test Deck and draw() Hand include all functions of Deck, so Deck or draw() are redundancies should be removed
+    //test Deck and draw() exchange
+    std::cout<< "======== Test Deck, topBoard, hand, draw( ) exchange( )"<< endl;
     Deck deck1;
-    deck1.draw();
-    deck1.draw();
-    deck1.draw();
+    std::vector<Cards*> topBoard = deck1.topBoardGenetor(deck1);
+    std::vector<Cards*> hand;
+    deck1.exchange(hand, topBoard, deck1);
+
 }
