@@ -6,20 +6,20 @@
 
 //Constructors
 
-Player::Player(std::string name, int dateOfBirth) {
+Player::Player(std::string name, int age) {
     Player::cities = new int(3);
     Player::armies = new int(14);
     Player::coins = new int(14);
     Player::name = new std::string(name);
-    Player::dateOfBirth = new int(dateOfBirth);
+    Player::age = new int(age);
     Player::biddingFacility = new BiddingFacility();
 }
 
-Player::Player(std::string name, int numOfPlayers, int dateOfBirth) {
+Player::Player(std::string name, int numOfPlayers, int age) {
     Player::cities = new int(3);
     Player::armies = new int(14);
     Player::name = new std::string(name);
-    Player::dateOfBirth = new int(dateOfBirth);
+    Player::age = new int(age);
     Player::biddingFacility = new BiddingFacility();
 
     // Amount of coins available to Players is determined by # of Players
@@ -45,7 +45,7 @@ Player::~Player() {
     delete this->coins;
     delete this->armies;
     delete this->cities;
-    delete this->dateOfBirth;
+    delete this->age;
     delete this->name;
     delete this->biddingFacility;
 };
@@ -59,26 +59,25 @@ bool Player::payCoin(int cost) {
         return false;
     }
     else {
-        this->setCoins(*coins - cost);
+        setCoins(*coins - cost);
         std::cout << "Successful Purchase, you have " << *coins << " amount of coins remaining" << std::endl;
         return true;
     }
 }
 
-// TODO: Main should be calling this one army at a time.
-bool Player::placeNewArmies(int totalArmies, Map &gameBoard) {
-
-    // Loval Variables
-    std::string regionName;
-    int spendableArmies;
-
-    // If user has no available armies, end turn
+bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
+{
+    // if player has no available armies, end turn
     if (*armies == 0) {
         std:: cout << "Sorry, you have no more available armies to place." << endl;
         return false;
     }
 
-    // If user doesn't have enough armies to fulfill the value on card, place remaining armies
+    int spendableArmies;
+    std::string regionName;
+    std::vector<std::string> placementRegions;
+
+    // if player doesn't have enough armies to fulfill the value on card, place remaining armies
     if (totalArmies > *armies) {
         spendableArmies = *armies;
     }
@@ -86,15 +85,32 @@ bool Player::placeNewArmies(int totalArmies, Map &gameBoard) {
         spendableArmies = totalArmies;
     }
 
+    // inform player where they can place units (ie. starting area and where they have cities)
     std::cout << "You have " << spendableArmies << " armies to place on the map." << endl;
     std::cout << "Here are the areas in which you may place an army: " << endl;
-    // TODO: Create method to retrieve areas in which a player can place a unit (only start or cities)
+    placementRegions = gameBoard.getArmyPlacementRegions(*name);
+    for (int i = 0; i < placementRegions.size(); i++) {
+        std::cout << "- " << placementRegions.at(i) << endl;
+    }
 
-    // Place a single unit on each iteration of the loop
+    // place a single unit on each iteration of the loop
     for (int i = 0; i < spendableArmies; i++) {
+        bool invalidInput = true;
         std::cout << "Where would you like to place your army? " << endl;
-        // TODO: Validate regionName to ensure its one of the available locations
-        std::cin >> regionName;
+
+        // accept and validate user input
+        do {
+            std::cin >> regionName;
+            for (int i = 0; i < placementRegions.size(); i++) {
+                if (placementRegions.at(i) == regionName) {
+                    invalidInput = false;
+                    break;
+                }
+            }
+            if (invalidInput) {
+                std::cout << "ERROR: Invalid region. Please enter a region from the list. " << endl;
+            }
+        } while (invalidInput);
 
         (*armies)--;
         gameBoard.addArmy(regionName, *name);
@@ -148,8 +164,8 @@ int* Player::getCities() const {
     return cities;
 }
 
-int *Player::getDateOfBirth() const {
-    return dateOfBirth;
+int *Player::getAge() const {
+    return age;
 }
 
 std::string *Player::getName() const {
@@ -174,8 +190,8 @@ void Player::setCities(int cities) {
     *Player::cities = cities;
 }
 
-void Player::setDateOfBirth(int dateOfBirth) {
-    *Player::dateOfBirth = dateOfBirth;
+void Player::setAge(int age) {
+    *Player::age = age;
 }
 
 void Player::setName(std::string name) {

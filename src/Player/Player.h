@@ -16,7 +16,7 @@ private:
     int* coins;
     int* armies;
     int* cities;
-    int* dateOfBirth;
+    int* age;
     std::string* name;
     std::vector<std::string>* regions;          // TODO: Figure out why we need this
     std::vector<std::string>* countries;        // TODO: Figure out why we need this
@@ -25,8 +25,8 @@ private:
 
 public:
     // Constructors
-    Player(std::string name, int dateOfBirth);
-    Player(std::string name, int numOfPlayers, int dateOfBirth);
+    Player(std::string name, int age);
+    Player(std::string name, int numOfPlayers, int age);
 
     // Deconstructor
     ~Player();
@@ -43,7 +43,7 @@ public:
     int* getCoins() const;
     int* getArmies() const;
     int* getCities() const;
-    int* getDateOfBirth() const;
+    int* getAge() const;
     std::string* getName() const;
     BiddingFacility* getBiddingFacility() const;
 
@@ -51,7 +51,7 @@ public:
     void setCoins(int coins);
     void setArmies(int armies);
     void setCities(int cities);
-    void setDateOfBirth(int dateOfBirth);
+    void setAge(int age);
     void setName(std::string name);
 };
 

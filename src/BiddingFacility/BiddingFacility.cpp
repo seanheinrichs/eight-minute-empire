@@ -42,7 +42,7 @@ int BiddingFacility::biddingPhase(std::vector<Player*> players, int numberOfPlay
         /* If bids are tied, the younger player becomes the higher bidder
            If they are the same age the "first" bidder is the higher bidder*/
         if (highestBid == *(players[i + 1]->getBiddingFacility()->getBid())
-        && *(players[highestBidder]->getDateOfBirth()) > *(players[i+1]->getDateOfBirth())) {
+        && *(players[highestBidder]->getAge()) > *(players[i+1]->getAge())) {
             highestBidder = i + 1;
         }
     }

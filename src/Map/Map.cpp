@@ -197,17 +197,27 @@ int Map::getNodeIndex(std::string regionName)
     }
 }
 
-bool Map::addArmy(std::string regionName, std::string playerName) {
+std::vector<std::string> Map::getArmyPlacementRegions(std::string playerName)
+{
+    std::vector<std::string> regionNames = {*start};
 
-    int nodeIndex = getNodeIndex(regionName);
-
-    // Returns -1 if regionName is not found in the Node vector (shouldn't happen due to validation in Player method)
-    if (nodeIndex == -1) {
-        return false;
+    auto nodeIter = nodes->begin();
+    while (nodeIter != nodes->end())
+    {
+        // if player has a city, add it to the list (don't add starting region twice)
+        if (nodeIter->armies[playerName].second == true && nodeIter->region != *start)
+        {
+            regionNames.push_back(nodeIter->region);
+        }
+        nodeIter++;
     }
 
-    std::cout << nodeIndex << " " << playerName << std::endl;
+    return regionNames;
+}
 
+bool Map::addArmy(std::string regionName, std::string playerName)
+{
+    int nodeIndex = getNodeIndex(regionName);
     nodes->at(nodeIndex).armies[playerName].first++;
 
     return true;
@@ -216,11 +226,6 @@ bool Map::addArmy(std::string regionName, std::string playerName) {
 bool Map::addCity(std::string regionName, std::string playerName) {
 
     int nodeIndex = getNodeIndex(regionName);
-
-    // Returns -1 if regionName is not found in the Node vector (shouldn't happen due to validation in Player method)
-    if (nodeIndex == -1) {
-        return false;
-    }
 
     nodes->at(nodeIndex).armies[playerName].second = true;
 

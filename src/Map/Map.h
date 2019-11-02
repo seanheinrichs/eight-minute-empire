@@ -51,4 +51,6 @@ public:
     bool addCity(std::string regionName, std::string playerName);
     // destroy one army, return true on sucess
     bool destroyArmy(std::string regionName, std::string playerName);
+    // determine possible regions to place army, return vector of regions
+    std::vector<std::string> getArmyPlacementRegions(std::string playerName);
 };
