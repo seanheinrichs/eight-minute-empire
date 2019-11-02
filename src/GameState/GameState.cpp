@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "Player.h"
 #include <utility>
 
 GameState::GameState() {
@@ -42,14 +43,12 @@ GameState::GameState() {
   for (int i = 0; i < playerCount; i++) {
     std::cout << "What is your name? ";
     std::cin >> name;
-    std::cout << std::endl;
 
     std::cout << "How old are you, in years? ";
     std::cin >> age;
-    std::cout << std::endl;
 
-    players->insert(
-        std::pair<std::string, Player>(name, Player(name, playerCount, age)));
+    players->emplace_back(Player(name, playerCount, age));
+    std::cout << "Inserted!" << std::endl;
   }
 }
 

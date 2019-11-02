@@ -17,7 +17,7 @@ public:
   Deck::Hand *deck;
 
   // players
-  std::map<std::string, Player> *players;
+  std::vector<Player> *players;
 
   GameState();
   ~GameState();
