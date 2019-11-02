@@ -1,8 +1,9 @@
-#include "Map/MapDriver.h"
-#include "MapLoader/MapLoaderDriver.h"
-#include "Cards/CardsDriver.h"
-#include "Player/PlayerDriver.h"
-#include "BiddingFacility/BiddingFacilityDriver.h"
+#include "Map/Map.h"
+#include "MapLoader/MapLoader.h"
+#include "Cards/Cards.h"
+#include "Player/Player.h"
+#include "BiddingFacility/BiddingFacility.h"
+#include "PlayerMethodsDriver.h"
 
 int main()
 {
@@ -13,7 +14,7 @@ int main()
     // validMapExample();
 
     // valid map with no players
-    mapWithNoPlayersExample();
+    // mapWithNoPlayersExample();
 
     // rejection of invalid map data
     // uncomment sections below to cause program to fail
@@ -46,6 +47,8 @@ int main()
 
     ///// BiddingFacility Examples /////
     // BiddingFacilityDriver();
+    
+    PlayerMethodsDriver();
 
     return 0;
 }
