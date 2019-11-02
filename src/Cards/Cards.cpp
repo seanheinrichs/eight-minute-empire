@@ -4,36 +4,50 @@
 #include <algorithm>
 #include <iostream>
 
-Cards::Cards() {
+Cards::Cards() {}
+
+Cards::Cards(int numOfGood, string good, string action) {
+    Cards::numOfGood = new int(numOfGood);
+    this->good = new string(good);
+    this->action = new string(action);
+}
+
+Cards::~Cards() {
     this->good = nullptr;
     this->action = nullptr;
 }
 
-Cards::~Cards() {
-}
-
-Cards::Cards(const string &good, const string &action) : good(good), action(action) {}
-
-const string &Cards::getGood() const {
+string *Cards::getGood() const {
     return good;
 }
 
-void Cards::setGood(const string &good) {
-    Cards::good = good;
+void Cards::setGood(string good) {
+    Cards::good = new string(good);
 }
 
-const string &Cards::getAction() const {
-    return action;
+string *Cards::getAction() const {
+    return this->action;
 }
 
-void Cards::setAction(const string &action) {
-    Cards::action = action;
+void Cards::setAction(string action) {
+    Cards::action = new string(action);
+}
+
+int *Cards::getNumOfGood() const {
+    return this->numOfGood;
+}
+
+void Cards::setNumOfGood(int numOfGood) {
+    Cards::numOfGood = new int(numOfGood);
 }
 
 ostream &operator<<(ostream &os, const Cards &cards) {
-    os << "good: " << cards.good << " action: " << cards.action;
+    os <<"numOfGood: " << *cards.getNumOfGood() <<"good: " << *cards.getGood() << " action: " << *cards.getAction();
     return os;
 }
+// random generator function:
+int seed1 (int i) { return std::rand() % i;}
+int seed2 (int i) { return std::rand()%i;}
 
 Deck::Deck() {
     deck.push_back(cards01);
@@ -78,15 +92,12 @@ Deck::Deck() {
     deck.push_back(cards40);
     deck.push_back(cards41);
     deck.push_back(cards42);
-
 }
 
 Deck::~Deck() {
 }
 
-// random generator function:
-int seed1 (int i) { return std::rand() % i;}
-int seed2 (int i) { return std::rand()%i;}
+
 void Deck::draw() {
 //    std::srand ( unsigned ( std::time(0) ) ); // another way to generate a Random seed
     std::random_shuffle(deck.begin(), deck.end(), seed1);

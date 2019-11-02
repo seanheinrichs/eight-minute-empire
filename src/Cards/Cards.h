@@ -17,23 +17,28 @@ class Cards {
 public:
     Cards();
 
-    Cards(const string &good, const string &action);
+    Cards(int numOfGood, string good, string action);
 
     virtual ~Cards();
 
-    const string &getGood() const;
+    string *getGood() const;
 
-    void setGood(const string &good);
+    void setGood(string good);
 
-    const string &getAction() const;
+    string *getAction() const;
 
-    void setAction(const string &action);
+    void setAction(string action);
+
+    int *getNumOfGood() const;
+
+    void setNumOfGood(int numOfGood);
 
     friend ostream &operator<<(ostream &os, const Cards &cards);
 
 private:
-    string good;
-    string action;
+    int* numOfGood;
+    string* good;
+    string* action;
 };
 
 class Deck {
@@ -73,47 +78,47 @@ public:
 
 static std::vector<Cards> deck;
 
-const Cards cards01 = Cards("Wild", "MOVE_OVER_WATER 2");
-const Cards cards02 = Cards("Wild", "MOVE_OVER_WATER 2");
-const Cards cards03 = Cards("Wild", "PLACE_NEW_ARMIES_ON_BOARD 2");
-const Cards cards04 = Cards("Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
-const Cards cards05 = Cards("Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
-const Cards cards06 = Cards("Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
-const Cards cards07 = Cards("Crystal", "PLACE_NEW_ARMIES_ON_BOARD 1");
-const Cards cards08 = Cards("Crystal", "MOVE_OVER_LAND 2");
-const Cards cards09 = Cards("Rock", "MOVE_OVER_LAND 2");
-const Cards cards10 = Cards("Rock", "MOVE_OVER_WATER 2");
-const Cards cards11 = Cards("Rock", "MOVE_OVER_WATER 2");
-const Cards cards12 = Cards("Rock", "MOVE_OVER_WATER 3");
-const Cards cards13 = Cards("Rock", "PLACE_NEW_ARMIES_ON_BOARD 3");
-const Cards cards14 = Cards("Rock", "PLACE_NEW_ARMIES_ON_BOARD 3");
-const Cards cards15 = Cards("Rock", "PLACE_NEW_ARMIES_ON_BOARD 2 OR BUILD_A_CITY");
-const Cards cards16 = Cards("Carrot", "BUILD_A_CITY");
-const Cards cards17 = Cards("Carrot", "DESTROY_ARMY 1 AND PLACE_NEW_ARMIES_ON_BOARD 1");
-const Cards cards18 = Cards("Carrot", "PLACE_NEW_ARMIES_ON_BOARD 3");
-const Cards cards19 = Cards("Carrot", "MOVE_OVER_LAND 4");
-const Cards cards20 = Cards("Carrot", "MOVE_OVER_LAND 4");
-const Cards cards21 = Cards("Carrot","PLACE_NEW_ARMIES_ON_BOARD 4 OR MOVE_OVER_LAND 2");
-const Cards cards22 = Cards("Carrot", "MOVE_OVER_LAND 5");
-const Cards cards23 = Cards("Carrot", "BUILD_A_CITY");
-const Cards cards24 = Cards("Carrot", "MOVE_OVER_WATER 3");
-const Cards cards25 = Cards("Carrot 2", "PLACE_NEW_ARMIES_ON_BOARD 3");
-const Cards cards26 = Cards("Tree", "MOVE_OVER_LAND 5");
-const Cards cards27 = Cards("Tree", "MOVE_OVER_LAND 6");
-const Cards cards28 = Cards("Tree", "PLACE_NEW_ARMIES_ON_BOARD 2 OR MOVE_OVER_LAND 3");
-const Cards cards29 = Cards("Tree", "DESTROY_ARMY 1 OR BUILD_A_CITY");
-const Cards cards30 = Cards("Tree", "PLACE_NEW_ARMIES_ON_BOARD 3");
-const Cards cards31 = Cards("Tree", "MOVE_OVER_WATER 4");
-const Cards cards32 = Cards("Tree", "MOVE_OVER_WATER 3");
-const Cards cards33 = Cards("Tree", "BUILD_A_CITY");
-const Cards cards34 = Cards("Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3");
-const Cards cards35 = Cards("Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3");
-const Cards cards36 = Cards("Anvil", "MOVE_OVER_WATER 3");
-const Cards cards37 = Cards("Anvil", "BUILD_A_CITY");
-const Cards cards38 = Cards("Anvil 2", "MOVE_OVER_LAND 4");
-const Cards cards39 = Cards("Anvil", "MOVE_OVER_LAND 5");
-const Cards cards40 = Cards("Anvil", "MOVE_OVER_LAND 4");
-const Cards cards41 = Cards("Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_LAND 4");
-const Cards cards42 = Cards("Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_LAND 3");
+const Cards* cards01 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
+const Cards* cards02 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
+const Cards* cards03 = new Cards(1,"Wild", "PLACE_NEW_ARMIES_ON_BOARD 2");
+const Cards* cards04 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
+const Cards* cards05 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
+const Cards* cards06 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
+const Cards* cards07 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 1");
+const Cards* cards08 = new Cards(1,"Crystal", "MOVE_OVER_LAND 2");
+const Cards* cards09 = new Cards(1,"Rock", "MOVE_OVER_LAND 2");
+const Cards* cards10 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
+const Cards* cards11 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
+const Cards* cards12 = new Cards(1, "Rock", "MOVE_OVER_WATER 3");
+const Cards* cards13 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 3");
+const Cards* cards14 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 3");
+const Cards* cards15 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 2 OR BUILD_A_CITY");
+const Cards* cards16 = new Cards(1,"Carrot", "BUILD_A_CITY");
+const Cards* cards17 = new Cards(1,"Carrot", "DESTROY_ARMY 1 AND PLACE_NEW_ARMIES_ON_BOARD 1");
+const Cards* cards18 = new Cards(1,"Carrot", "PLACE_NEW_ARMIES_ON_BOARD 3");
+const Cards* cards19 = new Cards(1,"Carrot", "MOVE_OVER_LAND 4");
+const Cards* cards20 = new Cards(1,"Carrot", "MOVE_OVER_LAND 4");
+const Cards* cards21 = new Cards(1,"Carrot","PLACE_NEW_ARMIES_ON_BOARD 4 OR MOVE_OVER_LAND 2");
+const Cards* cards22 = new Cards(1,"Carrot", "MOVE_OVER_LAND 5");
+const Cards* cards23 = new Cards(1,"Carrot", "BUILD_A_CITY");
+const Cards* cards24 = new Cards(1,"Carrot", "MOVE_OVER_WATER 3");
+const Cards* cards25 = new Cards(2,"Carrot", "PLACE_NEW_ARMIES_ON_BOARD 3");
+const Cards* cards26 = new Cards(1,"Tree", "MOVE_OVER_LAND 5");
+const Cards* cards27 = new Cards(1,"Tree", "MOVE_OVER_LAND 6");
+const Cards* cards28 = new Cards(1,"Tree", "PLACE_NEW_ARMIES_ON_BOARD 2 OR MOVE_OVER_LAND 3");
+const Cards* cards29 = new Cards(1,"Tree", "DESTROY_ARMY 1 OR BUILD_A_CITY");
+const Cards* cards30 = new Cards(1,"Tree", "PLACE_NEW_ARMIES_ON_BOARD 3");
+const Cards* cards31 = new Cards(1,"Tree", "MOVE_OVER_WATER 4");
+const Cards* cards32 = new Cards(1,"Tree", "MOVE_OVER_WATER 3");
+const Cards* cards33 = new Cards(1,"Tree", "BUILD_A_CITY");
+const Cards* cards34 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3");
+const Cards* cards35 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3");
+const Cards* cards36 = new Cards(1,"Anvil", "MOVE_OVER_WATER 3");
+const Cards* cards37 = new Cards(1,"Anvil", "BUILD_A_CITY");
+const Cards* cards38 = new Cards(2,"Anvil", "MOVE_OVER_LAND 4");
+const Cards* cards39 = new Cards(1,"Anvil", "MOVE_OVER_LAND 5");
+const Cards* cards40 = new Cards(1,"Anvil", "MOVE_OVER_LAND 4");
+const Cards* cards41 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_LAND 4");
+const Cards* cards42 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_LAND 3");
 
 #endif //EIGHT_MINUTE_EMPIRE_CARDS_H
