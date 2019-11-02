@@ -43,14 +43,22 @@ public:
     // print details of each node
     void printNodes();
 
-    // add one army, return true on success
-    bool addArmy(std::string regionName, std::string playerName);
-    // move one army, return true on success
-    bool moveArmy(std::string origin, std::string destination, std::string playerName, int totalMoves, bool isWaterMove);
-    // add city, return true on scucess
-    bool addCity(std::string regionName, std::string playerName);
-    // destroy one army, return true on sucess
-    bool destroyArmy(std::string regionName, std::string playerName);
-    // determine possible regions to place army, return vector of regions
-    std::vector<std::string> getArmyPlacementRegions(std::string playerName);
+    // add one army
+    void addArmy(std::string regionName, std::string playerName);
+    // move one army
+    void moveArmy(std::string origin, std::string destination, std::string playerName);
+    // add city
+    void addCity(std::string regionName, std::string playerName);
+    // destroy one army
+    void destroyArmy(std::string regionName, std::string playerName);
+    // determine all regions with armies, return vector of regions
+    std::vector<std::string> getRegionsWithArmies(std::string playerName);
+    // determine all regions in which cities can be built, return vector of regions
+    std::vector<std::string> getRegionsToAddCities(std::string playerName);
+    // determine all regions in which armies can be added, return vector of regions
+    std::vector<std::string> getRegionsToAddArmies(std::string playerName);
+    // determine all regions connected by land, return vector of regions
+    std::vector<std::string> getRegionsConnectedByLand(std::string regionName);
+    // determine all regions connected by land and water, return vector of regions
+    std::vector<std::string> getRegionsConnectedByLandAndWater(std::string regionName);
 };

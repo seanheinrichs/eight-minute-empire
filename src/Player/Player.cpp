@@ -67,9 +67,9 @@ bool Player::payCoin(int cost) {
 
 bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
 {
-    // if player has no available armies, end turn
+    // check to see if player has available armies to place
     if (*armies == 0) {
-        std:: cout << "Sorry, you have no more available armies to place." << endl;
+        std:: cout << "Sorry, " << *name << " you have no more available armies." << endl;
         return false;
     }
 
@@ -86,68 +86,161 @@ bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
     }
 
     // inform player where they can place units (ie. starting area and where they have cities)
-    std::cout << "You have " << spendableArmies << " armies to place on the map." << endl;
+    if (spendableArmies == 1) {
+        std::cout << *name << ", you have " << spendableArmies << " army to place on the map." << endl;
+    }
+    else {
+        std::cout << *name << ", you have " << spendableArmies << " armies to place on the map." << endl;
+    }
     std::cout << "Here are the areas in which you may place an army: " << endl;
-    placementRegions = gameBoard.getArmyPlacementRegions(*name);
+    placementRegions = gameBoard.getRegionsToAddArmies(*name);
     for (int i = 0; i < placementRegions.size(); i++) {
         std::cout << "- " << placementRegions.at(i) << endl;
     }
 
-    // place a single unit on each iteration of the loop
+    // place new armies
     for (int i = 0; i < spendableArmies; i++) {
-        bool invalidInput = true;
         std::cout << "Where would you like to place your army? " << endl;
-
-        // accept and validate user input
-        do {
-            std::cin >> regionName;
-            for (int i = 0; i < placementRegions.size(); i++) {
-                if (placementRegions.at(i) == regionName) {
-                    invalidInput = false;
-                    break;
-                }
-            }
-            if (invalidInput) {
-                std::cout << "ERROR: Invalid region. Please enter a region from the list. " << endl;
-            }
-        } while (invalidInput);
-
+        regionName = validateRegion(placementRegions);
         (*armies)--;
         gameBoard.addArmy(regionName, *name);
+        std::cout << "Successfully added an army to " << regionName << "." << endl << endl;
     }
 
     return true;
 }
 
-// TODO: Assignment 2
-bool Player::moveOverWater(int totalMoves) {
-    std::cout << "This method will allow the player to move " << totalMoves << " armies across water." << std::endl;
-    return true;
+void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
+{
+    for (int i = 0; i < totalMoves; i++) {
+        std::string origin;
+        std::string destination;
+        std::vector<std::string> regionsWithArmies;
+        std::vector<std::string> connections;
+
+        // display regions where player currently has armies
+        std::cout << *name << ", you have armies in the following locations: " << endl;
+        regionsWithArmies = gameBoard.getRegionsWithArmies(*name);
+        for (int i = 0; i < regionsWithArmies.size(); i++) {
+            std::cout << "- " << regionsWithArmies.at(i) << endl;
+        }
+
+        // player selects a region to move an army from
+        std::cout << "Please select a region in which to move an army from: ";
+        origin = validateRegion(regionsWithArmies);
+
+        // display connected regions
+        std::cout << "The follow regions are connected to " << origin << " by land: " << endl;
+        if (waterMove) {
+            connections = gameBoard.getRegionsConnectedByLandAndWater(origin);
+        }
+        else {
+            connections = gameBoard.getRegionsConnectedByLand(origin);
+        }
+        for (int i = 0; i < connections.size(); i++) {
+            std::cout << "- " << connections.at(i) << endl;
+        }
+
+        // player selects a region to move an army to
+        std::cout << "Please select a region in which to move an army to: ";
+        destination = validateRegion(connections);
+
+        // move army
+        gameBoard.moveArmy(origin, destination, *name);
+        std::cout << "Sucessfully moved 1 troop from " << origin << " to " << destination << "." << endl << endl;
+    }
 }
 
-// TODO: Assignment 2
-bool Player::moveOverLand(int totalMoves) {
-    std::cout << "This method will allow the player to move " << totalMoves << " armies across land." << std::endl;
-    return true;
-}
-
-bool Player::buildCity(Map &gameBoard) {
+bool Player::buildCity(Map &gameBoard)
+{
+    // check to see if player has available cities to place
+    if (*cities == 0) {
+        std:: cout << "Sorry, " << *name << "you have no more available cities." << endl;
+        return false;
+    }
 
     std::string regionName;
+    std::vector<std::string> placementRegions;
 
-    std::cout << "Here are the areas in which you may place a city: " << std::endl;
-    // TODO: Create method to retrieve areas in which a player can place a unit (only start or cities)
-    std::cin >> regionName;
+    // inform player where they can place a city
+    std::cout << *name << ", here are the regions in which you may place a city: " << std::endl;
+    placementRegions = gameBoard.getRegionsToAddCities(*name);
+    for (int i = 0; i < placementRegions.size(); i++) {
+        std::cout << "- " << placementRegions.at(i) << endl;
+    }
 
+    // place new city
+    std::cout << "Where would you like to place your city? " << endl;
+    regionName = validateRegion(placementRegions);
+    (*cities)--;
     gameBoard.addCity(regionName, *name);
+    std::cout << "Successfully added a city to " << regionName << "." << endl << endl;
 
     return true;
 }
 
-// TODO: Assignment 2
-bool Player::destroyArmy() {
-    std::cout << "This method will allow the player to destroy other player's armies." << std::endl;
-    return true;
+// TODO: Every turn should output the current state of the game
+void Player::destroyArmy(Map &gameBoard, std::vector<Player*> allPlayers)
+{
+    std::string playerName;
+    std::string regionName;
+    std::vector<std::string> regionsWithEnemies;
+    bool invalidPlayerName = false;
+
+    // select another player whose army will be destroyed
+    std::cout << *name << ", please select a player to destroy one of their armies: ";
+    do {
+        std::cin >> playerName;
+        for (int i = 0; i < allPlayers.size(); i++) {
+            if (playerName == *name || playerName != *allPlayers.at(i)->getName()) {
+                invalidPlayerName = true;
+            }
+            else {
+                invalidPlayerName = false;
+                break;
+            }
+        }
+        if (invalidPlayerName) {
+            std::cout << "ERROR: Invalid player name provided. Please select another player: ";
+        }
+    } while (invalidPlayerName);
+
+    // inform player where the armies from the targeted player are
+    std::cout << *name << ", here are the regions in which you may place a city: " << std::endl;
+    regionsWithEnemies = gameBoard.getRegionsWithArmies(playerName);
+    for (int i = 0; i < regionsWithEnemies.size(); i++) {
+        std::cout << "- " << regionsWithEnemies.at(i) << endl;
+    }
+
+    // select a region to destroy a unit
+    std::cout << "Which region would you like to remove an army from: ";
+    regionName = validateRegion(regionsWithEnemies);
+    gameBoard.destroyArmy(regionName, playerName);
+    std::cout << "Successfully removed one of " << playerName <<"'s armies from " << regionName << "." << endl << endl;
+}
+
+// Utility Methods
+
+std::string Player::validateRegion(std::vector<std::string> placementRegions)
+{
+    bool invalidInput = true;
+    std::string regionName;
+
+    // accept and validate user input
+    do {
+        std::cin >> regionName;
+        for (int i = 0; i < placementRegions.size(); i++) {
+            if (placementRegions.at(i) == regionName) {
+                invalidInput = false;
+                break;
+            }
+        }
+        if (invalidInput) {
+            std::cout << "ERROR: Invalid region. Please enter a region from the list. " << endl;
+        }
+    } while (invalidInput);
+
+    return regionName;
 }
 
 // Accessors
@@ -164,15 +257,15 @@ int* Player::getCities() const {
     return cities;
 }
 
-int *Player::getAge() const {
+int* Player::getAge() const {
     return age;
 }
 
-std::string *Player::getName() const {
+std::string* Player::getName() const {
     return name;
 }
 
-BiddingFacility *Player::getBiddingFacility() const {
+BiddingFacility* Player::getBiddingFacility() const {
     return biddingFacility;
 }
 

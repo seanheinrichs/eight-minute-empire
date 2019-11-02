@@ -23,6 +23,9 @@ private:
     std::vector<Deck>* gameHand;
     BiddingFacility* biddingFacility;
 
+    // Utility Methods
+    std::string validateRegion(std::vector<std::string> placementRegions);
+
 public:
     // Constructors
     Player(std::string name, int age);
@@ -33,11 +36,10 @@ public:
 
     // Gameplay Methods
     bool payCoin(int cost);
-    bool placeNewArmies(int totalArmies, Map &gameMap);
-    bool moveOverWater(int totalMoves);     // TODO: Fully implement in assignment 2
-    bool moveOverLand(int totalMoves);      // TODO: Fully implement in assignment 2
-    bool buildCity(Map &gameMap);
-    bool destroyArmy();                     // TODO: Fully implement in assignment 2
+    bool placeNewArmies(int totalArmies, Map &gameBoard);
+    void moveArmies(int totalMoves, Map &gameBoard, bool waterMove);
+    bool buildCity(Map &gameBoard);
+    void destroyArmy(Map &gameBoard, std::vector<Player*> allPlayers);
 
     // Accessors
     int* getCoins() const;
