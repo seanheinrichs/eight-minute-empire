@@ -13,6 +13,7 @@ Player::Player(std::string name, int dateOfBirth) {
   Player::name = new std::string(name);
   Player::dateOfBirth = new int(dateOfBirth);
   Player::biddingFacility = new BiddingFacility();
+  Player::gameHand = new std::vector<Cards>;
 }
 
 Player::Player(std::string name, int numOfPlayers, int dateOfBirth) {
@@ -21,6 +22,7 @@ Player::Player(std::string name, int numOfPlayers, int dateOfBirth) {
   Player::name = new std::string(name);
   Player::dateOfBirth = new int(dateOfBirth);
   Player::biddingFacility = new BiddingFacility();
+  Player::gameHand = new std::vector<Cards>;
 
   // Amount of coins available to Players is determined by # of Players
   switch (numOfPlayers) {

@@ -64,6 +64,10 @@ public:
 
     void setPosition(int position);
 
+    int getHandSize();
+
+    int getDeckSize();
+
   private:
     // Deck of shuffled cards
     std::vector<Cards> shuffledCards;

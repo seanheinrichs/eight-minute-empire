@@ -189,3 +189,6 @@ void Deck::Hand::exchange() {
   cout << "Top Board cards series size is " << hand.size() << endl;
   cout << "Player 1 's hand has " << playerHand1.back() << endl;
 }
+
+int Deck::Hand::getHandSize() { return hand.size(); }
+int Deck::Hand::getDeckSize() { return shuffledCards.size(); }
