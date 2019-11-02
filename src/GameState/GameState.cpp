@@ -1,37 +1,36 @@
-#include <iostream>
+#pragma once
 #include "GameState.h"
 
-GameState::GameState()
-{
-    // generate map
-    std::string fileLocation;
-    std::cout << "Enter map file location: ";
-    std::cin >> fileLocation;
-    std::cout << std::endl;
+GameState::GameState() {
+  // generate map
+  std::string fileLocation;
+  std::cout << "Enter map file location: ";
+  std::cin >> fileLocation;
+  std::cout << std::endl;
 
-    MapLoader loader;
-    map = new Map(loader.generateMap(fileLocation));
+  // load map
+  MapLoader loader;
+  map = new Map(loader.generateMap(fileLocation));
 
-    // generate deck of cards
-    deck = new Deck();
+  // generate deck of cards
+  deck = new Deck::Hand();
 
-    // generate players
+  // draw buyable cards
+
+  // generate players
 }
-GameState::~GameState()
-{
-    if (map)
-    {
-        delete map;
-        map = NULL;
-    }
-    if (players)
-    {
-        delete players;
-        players = NULL;
-    }
-    if (deck)
-    {
-        delete deck;
-        deck = NULL;
-    }
+
+GameState::~GameState() {
+  if (map) {
+    delete map;
+    map = NULL;
+  }
+  if (players) {
+    delete players;
+    players = NULL;
+  }
+  if (deck) {
+    delete deck;
+    deck = NULL;
+  }
 }
