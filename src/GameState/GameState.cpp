@@ -3,15 +3,30 @@
 #include <utility>
 
 GameState::GameState() {
-  // generate map
-  std::string fileLocation;
-  std::cout << "Enter map file location: ";
-  std::cin >> fileLocation;
-  std::cout << std::endl;
 
-  // load map
-  MapLoader loader;
-  map = new Map(loader.generateMap(fileLocation));
+  // generate map
+  bool validMap = false;
+
+  // will run until a valid map is provided
+  while (!validMap) {
+    try {
+      // get file location
+      std::string fileLocation;
+      std::cout << "Enter map file location: ";
+      std::cin >> fileLocation;
+      std::cout << std::endl;
+
+      // load map
+      MapLoader loader;
+      map = new Map(loader.generateMap(fileLocation));
+      validMap = true;
+    }
+
+    catch (const char *msg) {
+      std::cout << "Error: Invalid map file. ";
+      std::cout << msg << std::endl;
+    }
+  }
 
   // generate deck of cards
   deck = new Deck::Hand();
