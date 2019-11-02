@@ -130,7 +130,7 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
         origin = validateRegion(regionsWithArmies);
 
         // display connected regions
-        std::cout << "The follow regions are connected to " << origin << " by land: " << endl;
+        std::cout << "The follow regions are connected to " << origin << ": " << endl;
         if (waterMove) {
             connections = gameBoard.getRegionsConnectedByLandAndWater(origin);
         }
