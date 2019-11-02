@@ -16,34 +16,36 @@ private:
     int* coins;
     int* armies;
     int* cities;
-    int* dateOfBirth;
+    int* age;
     std::string* name;
     std::vector<std::string>* regions;          // TODO: Figure out why we need this
     std::vector<std::string>* countries;        // TODO: Figure out why we need this
     std::vector<Deck>* gameHand;
     BiddingFacility* biddingFacility;
 
+    // Utility Methods
+    std::string validateRegion(std::vector<std::string> placementRegions);
+
 public:
     // Constructors
-    Player(std::string name, int dateOfBirth);
-    Player(std::string name, int numOfPlayers, int dateOfBirth);
+    Player(std::string name, int age);
+    Player(std::string name, int numOfPlayers, int age);
 
     // Deconstructor
     ~Player();
 
     // Gameplay Methods
     bool payCoin(int cost);
-    bool placeNewArmies(int totalArmies, std::string regionName, Map gameMap);
-    void moveOverWater(int totalMoves);     // TODO: Fully implement in assignment 2
-    void moveOverLand(int totalMoves);      // TODO: Fully implement in assignment 2
-    void buildCity();                       // TODO: Fully implement in assignment 2
-    void destroyArmy();                     // TODO: Fully implement in assignment 2
+    bool placeNewArmies(int totalArmies, Map &gameBoard);
+    void moveArmies(int totalMoves, Map &gameBoard, bool waterMove);
+    bool buildCity(Map &gameBoard);
+    void destroyArmy(Map &gameBoard, std::vector<Player*> allPlayers);
 
     // Accessors
     int* getCoins() const;
     int* getArmies() const;
     int* getCities() const;
-    int* getDateOfBirth() const;
+    int* getAge() const;
     std::string* getName() const;
     BiddingFacility* getBiddingFacility() const;
 
@@ -51,8 +53,9 @@ public:
     void setCoins(int coins);
     void setArmies(int armies);
     void setCities(int cities);
-    void setDateOfBirth(int dateOfBirth);
+    void setAge(int age);
     void setName(std::string name);
 };
 
 #endif
+
