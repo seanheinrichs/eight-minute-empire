@@ -1,3 +1,9 @@
+#include "BiddingFacility/BiddingFacilityDriver.h"
+#include "Cards/CardsDriver.h"
+#include "GameState/GameStateDriver.h"
+#include "Map/MapDriver.h"
+#include "MapLoader/MapLoaderDriver.h"
+#include "Player/PlayerDriver.h"
 #include "Map/Map.h"
 #include "MapLoader/MapLoader.h"
 #include "Cards/Cards.h"
@@ -7,7 +13,8 @@
 
 int main()
 {
-    std::cout << "Please see main.cpp and uncomment functions to show Map and map file rejections\n\n";
+    std::cout << "Please see main.cpp and uncomment functions to show Map and "
+                 "map file rejections\n\n";
     ///// MapDriver Examples /////
 
     // valid map creation
@@ -18,6 +25,8 @@ int main()
 
     // rejection of invalid map data
     // uncomment sections below to cause program to fail
+    // valid map with no players
+    // mapWithNoPlayersExample();
 
     // invalidRegionMapExample();
     // invalidContinentMapExample();
@@ -47,8 +56,14 @@ int main()
 
     ///// BiddingFacility Examples /////
     // BiddingFacilityDriver();
-    
-    PlayerMethodsDriver();
+
+    //// Game Start Example ////
+    gameStateDriver();
+
+    //// BiddingFacility Examples ////
+    // BiddingFacilityDriver();
+
+    // PlayerMethodsDriver();
 
     return 0;
 }
