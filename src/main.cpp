@@ -4,52 +4,66 @@
 #include "Map/MapDriver.h"
 #include "MapLoader/MapLoaderDriver.h"
 #include "Player/PlayerDriver.h"
+#include "Map/Map.h"
+#include "MapLoader/MapLoader.h"
+#include "Cards/Cards.h"
+#include "Player/Player.h"
+#include "BiddingFacility/BiddingFacility.h"
+#include "PlayerMethodsDriver.h"
 
-int main() {
-  std::cout << "Please see main.cpp and uncomment functions to show Map and "
-               "map file rejections\n\n";
-  ///// MapDriver Examples /////
+int main()
+{
+    std::cout << "Please see main.cpp and uncomment functions to show Map and "
+                 "map file rejections\n\n";
+    ///// MapDriver Examples /////
 
-  // valid map creation
-  // validMapExample();
+    // valid map creation
+    // validMapExample();
 
-  // valid map with no players
-  // mapWithNoPlayersExample();
+    // valid map with no players
+    // mapWithNoPlayersExample();
 
-  // rejection of invalid map data
-  // uncomment sections below to cause program to fail
+    // rejection of invalid map data
+    // uncomment sections below to cause program to fail
+    // valid map with no players
+    // mapWithNoPlayersExample();
 
-  // invalidRegionMapExample();
-  // invalidContinentMapExample();
-  // invalidOwnerMapExample();
-  // invalidConnectionsMapExample();
-  // invalidStartMapExample();
+    // invalidRegionMapExample();
+    // invalidContinentMapExample();
+    // invalidOwnerMapExample();
+    // invalidConnectionsMapExample();
+    // invalidStartMapExample();
 
-  ///// MapLoaderDriver Examples /////
+    ///// MapLoaderDriver Examples /////
 
-  // valid file read and map creation example
-  // validMapFileExamples();
+    // valid file read and map creation example
+    // validMapFileExamples();
 
-  // rejection of invalid map file
-  // uncomment sections below to cause program to fail
+    // rejection of invalid map file
+    // uncomment sections below to cause program to fail
 
-  // void invalidContinentFileExample();
-  // void noPlayersInFileExample();
-  // void invalidConnectionInFileExample();
-  // void missingDelitimerInFileExample();
-  // graphNotConnectedInFileExample();
+    // void invalidContinentFileExample();
+    // void noPlayersInFileExample();
+    // void invalidConnectionInFileExample();
+    // void missingDelitimerInFileExample();
+    // graphNotConnectedInFileExample();
 
-  ///// CardsDriver Examples /////
-  // cardsDriverExamples();
+    ///// CardsDriver Examples /////
+    // cardsDriverExamples();
 
-  ///// PlayerDriver Examples /////
-  // PlayerDriver();
+    ///// PlayerDriver Examples /////
+    // PlayerDriver();
 
-  ///// BiddingFacility Examples /////
-  // BiddingFacilityDriver();
+    ///// BiddingFacility Examples /////
+    // BiddingFacilityDriver();
 
-  //// Game Start Example ////
-  gameStateDriver();
+    //// Game Start Example ////
+    gameStateDriver();
 
-  return 0;
+    //// BiddingFacility Examples ////
+    // BiddingFacilityDriver();
+
+    // PlayerMethodsDriver();
+
+    return 0;
 }
