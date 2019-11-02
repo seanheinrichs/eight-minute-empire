@@ -42,12 +42,38 @@ Player::Player(std::string name, int numOfPlayers, int dateOfBirth) {
 // Deconstructor
 
 Player::~Player() {
-  delete this->coins;
-  delete this->armies;
-  delete this->cities;
-  delete this->dateOfBirth;
-  delete this->name;
-  delete this->biddingFacility;
+  if (coins) {
+    delete coins;
+    coins = NULL;
+  }
+  if (armies) {
+    delete armies;
+    armies = NULL;
+  }
+  if (cities) {
+    delete cities;
+    cities = NULL;
+  }
+  if (dateOfBirth) {
+    delete dateOfBirth;
+    dateOfBirth = NULL;
+  }
+  if (name) {
+    delete name;
+    name = NULL;
+  }
+  if (biddingFacility) {
+    delete biddingFacility;
+    biddingFacility = NULL;
+  }
+  if (regions) {
+    delete regions;
+    regions = NULL;
+  }
+  if (countries) {
+    delete countries;
+    countries = NULL;
+  }
 };
 
 // Gameplay Methods
@@ -106,7 +132,8 @@ int *Player::getDateOfBirth() const { return dateOfBirth; }
 
 std::string *Player::getName() const { return name; }
 
-std::vector<Cards> *Player::getGameHand() const { return gameHand; }
+void Player::getGameHand() const {}
+// std::vector<Cards> *Player::getGameHand() const { return gameHand; }
 
 BiddingFacility *Player::getBiddingFacility() const { return biddingFacility; }
 
@@ -125,5 +152,5 @@ void Player::setDateOfBirth(int dateOfBirth) {
 void Player::setName(std::string name) { *Player::name = name; }
 
 void Player::addCards(Cards card) {
-  gameHand->emplace_back(Cards(card.getGood(), card.getAction()));
+  // gameHand->emplace_back(Cards(card.getGood(), card.getAction()));
 }
