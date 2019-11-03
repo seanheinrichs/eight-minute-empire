@@ -100,7 +100,7 @@ bool Player::payCoin(int cost)
   else
   {
     setCoins(*coins - cost);
-    std::cout << "Successful Purchase, you have " << *coins << " amount of coins remaining" << std::endl;
+    std::cout << "Successful purchase " << *name << ", you have " << *coins << " coins remaining in your pile." << endl << endl;
     return true;
   }
 }
@@ -236,7 +236,6 @@ bool Player::buildCity(Map &gameBoard)
   return true;
 }
 
-// TODO: Every turn should output the current state of the game
 void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
 {
   std::string playerName;
@@ -281,6 +280,23 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
   gameBoard.destroyArmy(regionName, playerName);
   std::cout << "Successfully removed one of " << playerName << "'s armies from " << regionName << "." << endl
             << endl;
+}
+
+bool Player::ignore()
+{
+    bool invalidAnswer = true;
+    string answer;
+    std::cout << "Would you like to use the action listed on the card (y/n)? ";
+    do {
+        cin >> answer;
+        if (answer == "y" || answer == "n") {
+            invalidAnswer = false;
+        }
+        else {
+            std::cout << "Invalid answer. Please response with \'y\' or \'n\': ";
+        }
+    } while (invalidAnswer);
+    return (answer == "y");
 }
 
 // Utility Methods

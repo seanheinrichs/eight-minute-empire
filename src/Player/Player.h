@@ -41,6 +41,7 @@ public:
   void moveArmies(int totalMoves, Map &gameBoard, bool waterMove);
   bool buildCity(Map &gameBoard);
   void destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers);
+  bool ignore();
 
   // Accessors
   int getCoins() const;

@@ -11,63 +11,19 @@
 #include "BiddingFacility/BiddingFacility.h"
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
+#include "MainLoop/MainLoop.h"
 
 int main()
 {
-    std::cout << "Please see main.cpp and uncomment functions to show Map and "
-                 "map file rejections\n\n";
-    ///// MapDriver Examples /////
+    //// Assignment 2 Drivers ////
 
-    // valid map creation
-    // validMapExample();
-
-    // valid map with no players
-    // mapWithNoPlayersExample();
-
-    // rejection of invalid map data
-    // uncomment sections below to cause program to fail
-    // valid map with no players
-    // mapWithNoPlayersExample();
-
-    // invalidRegionMapExample();
-    // invalidContinentMapExample();
-    // invalidOwnerMapExample();
-    // invalidConnectionsMapExample();
-    // invalidStartMapExample();
-
-    ///// MapLoaderDriver Examples /////
-
-    // valid file read and map creation example
-    // validMapFileExamples();
-
-    // rejection of invalid map file
-    // uncomment sections below to cause program to fail
-
-    // void invalidContinentFileExample();
-    // void noPlayersInFileExample();
-    // void invalidConnectionInFileExample();
-    // void missingDelitimerInFileExample();
-    // graphNotConnectedInFileExample();
-
-    ///// CardsDriver Examples /////
-    // cardsDriverExamples();
-
-    ///// PlayerDriver Examples /////
-    // PlayerDriver();
-
-    ///// BiddingFacility Examples /////
-    // BiddingFacilityDriver();
-
-    //// Game Start Example ////
     // gameStateDriver();
 
-    //// BiddingFacility Examples ////
-    // BiddingFacilityDriver();
+    mainLoopDriver();
+
+    // gameStartupExample();
 
     // PlayerMethodsDriver();
-
-    // Startup Phase Example
-    gameStartupExample();
 
     return 0;
 }
