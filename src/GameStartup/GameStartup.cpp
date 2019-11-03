@@ -57,7 +57,7 @@ void addNeutralArmies(GameState &state)
       // validate region name
       for (int j = 0; j < regionNames.size(); j++)
       {
-        if (regionNames.at(i) == neutralRegion)
+        if (regionNames.at(j) == neutralRegion)
         {
           validName = true;
           break;
@@ -67,7 +67,7 @@ void addNeutralArmies(GameState &state)
       // inform user of error
       if (!validName)
       {
-        std::cout << "Invalid region name. Please try again.";
+        std::cout << "Invalid region name. Please try again.\n";
       }
     }
 
@@ -75,5 +75,5 @@ void addNeutralArmies(GameState &state)
     state.map->addArmy(neutralRegion, "neutral");
   }
 
-  std::cout << "Neutral armies added, we're almost ready to play!";
+  std::cout << "Neutral armies added, we're almost ready to play!\n";
 }
