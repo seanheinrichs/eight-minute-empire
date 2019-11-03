@@ -43,11 +43,11 @@ public:
   void destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers);
 
   // Accessors
-  int *getCoins() const;
-  int *getArmies() const;
-  int *getCities() const;
-  int *getAge() const;
-  std::string *getName() const;
+  int getCoins() const;
+  int getArmies() const;
+  int getCities() const;
+  int getAge() const;
+  std::string getName() const;
   BiddingFacility *getBiddingFacility() const;
   std::vector<Cards> *getGameHand() const;
 

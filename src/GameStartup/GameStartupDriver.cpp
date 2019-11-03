@@ -19,15 +19,15 @@ void gameStartupExample()
   std::cout << "The startup phase is completed. Here's the map:\n";
   state1.map->printNodes();
 
-  std::cout << "And here is the first player and their index in the vector of players: " << *(state1.players->at(firstPlayerIndex)->getName()) << ", " << firstPlayerIndex << std::endl;
+  std::cout << "And here is the first player and their index in the vector of players: " << state1.players->at(firstPlayerIndex)->getName() << ", " << firstPlayerIndex << std::endl;
 
   std::cout << "Here are the details for each player:\n";
   for (int i = 0; i < state1.players->size(); i++)
   {
-    std::cout << "Name: " << *(state1.players->at(i)->getName()) << std::endl;
-    std::cout << "Age: " << *(state1.players->at(i)->getAge()) << std::endl;
-    std::cout << "Armies: " << *(state1.players->at(i)->getArmies()) << std::endl;
-    std::cout << "Cities: " << *(state1.players->at(i)->getCities()) << std::endl;
-    std::cout << "Coins: " << *(state1.players->at(i)->getCoins()) << "\n\n";
+    std::cout << "Name: " << state1.players->at(i)->getName() << std::endl;
+    std::cout << "Age: " << state1.players->at(i)->getAge() << std::endl;
+    std::cout << "Armies: " << state1.players->at(i)->getArmies() << std::endl;
+    std::cout << "Cities: " << state1.players->at(i)->getCities() << std::endl;
+    std::cout << "Coins: " << state1.players->at(i)->getCoins() << "\n\n";
   }
 }

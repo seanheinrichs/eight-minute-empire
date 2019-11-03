@@ -25,9 +25,9 @@ void addArmiesToStart(GameState &state)
   // set army count to 11
   for (int i = 0; i < state.players->size(); i++)
   {
-    state.map->addArmy(*(state.map->getStart()), *(state.players->at(i)->getName()));
-    state.map->addArmy(*(state.map->getStart()), *(state.players->at(i)->getName()));
-    state.map->addArmy(*(state.map->getStart()), *(state.players->at(i)->getName()));
+    state.map->addArmy(*(state.map->getStart()), state.players->at(i)->getName());
+    state.map->addArmy(*(state.map->getStart()), state.players->at(i)->getName());
+    state.map->addArmy(*(state.map->getStart()), state.players->at(i)->getName());
     state.players->at(i)->setArmies(11);
   }
 }
@@ -51,7 +51,7 @@ void addNeutralArmies(GameState &state)
     while (!validName)
     {
       // use i % 2 to alternate between 0 and 1
-      std::cout << *(state.players->at(i % 2)->getName()) << ", where do you want to place the army? ";
+      std::cout << state.players->at(i % 2)->getName() << ", where do you want to place the army? ";
       std::cin >> neutralRegion;
 
       // validate region name
