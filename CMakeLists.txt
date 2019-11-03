@@ -9,6 +9,8 @@ include_directories(src/Cards)
 include_directories(src/Map)
 include_directories(src/MapLoader)
 include_directories(src/Player)
+include_directories(src/GameState)
+include_directories(src/GameStartup)
 
 add_executable(eight_minute_empire
     src/BiddingFacility/BiddingFacility.cpp

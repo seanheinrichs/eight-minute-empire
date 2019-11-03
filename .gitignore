@@ -35,6 +35,7 @@
 .vscode
 .idea
 .cmake-build-debug
+build
 
 # CMake Files
 CMakeCache.txt
