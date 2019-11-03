@@ -328,14 +328,32 @@ void Map::updateOwner(int index)
     // string for top player
     std::string ownerName = "";
     // string for top score
-    std::string ownerScore = 0;
+    int ownerScore = 0;
     // bool for tie
     bool isTie = false;
 
     // loop over al player armies
     while (iter != nodes->at(index).armies.end())
     {
-        // do stuff
+        // calculate score for armies
+        int score = iter->second.first;
+
+        // add a point for a cities
+        if (iter->second.second)
+        {
+            score++;
+        }
+
+        if (score == ownerScore)
+        {
+            isTie = true;
+        }
+        else if (score > ownerScore)
+        {
+            ownerName = iter->first;
+            ownerScore = score;
+            isTie = false;
+        }
     }
 
     // if it's a tie, no owner
@@ -348,4 +366,6 @@ void Map::updateOwner(int index)
     {
         nodes->at(index).owner = ownerName;
     }
+
+    nodes->at(index).owner = ownerName;
 }
