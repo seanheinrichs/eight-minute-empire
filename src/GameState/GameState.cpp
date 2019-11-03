@@ -29,7 +29,7 @@ GameState::GameState() {
   }
 
   // generate deck of cards
-  deck = new Deck::Hand();
+  deck = new Deck();
 
   // generate players
   players = new std::vector<Player *>();

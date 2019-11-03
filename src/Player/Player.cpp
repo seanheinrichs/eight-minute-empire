@@ -341,5 +341,5 @@ void Player::setName(std::string name) { *Player::name = name; }
 
 void Player::addCards(Cards card)
 {
-  gameHand->emplace_back(Cards(card.getGood(), card.getAction()));
+  gameHand->emplace_back(Cards(*card.getNumOfGood(), *card.getGood(), *card.getAction()));
 }
