@@ -79,6 +79,7 @@ int main()
     m.addArmy("UK", "mike"); // mike owner
     m.addArmy("UK", "sean"); // no owner
     m.addArmy("UK", "sean"); // sean owner
+    m.addCity("UK", "mike"); // no owner
     m.printNodes();
     return 0;
 }

@@ -351,7 +351,6 @@ void Map::updateOwner(int index)
 
         if (score == ownerScore)
         {
-            std::cout << "TIE\n";
             isTie = true;
         }
         else if (score > ownerScore)
