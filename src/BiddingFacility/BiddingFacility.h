@@ -23,7 +23,7 @@ public:
     static int biddingPhase(std::vector<Player*> players, int numberOfPlayers);
 
     // Accessors
-    int *getBid() const;
+    int getBid() const;
 
     // Mutators
     void setBid(int bid);
