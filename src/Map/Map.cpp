@@ -73,7 +73,6 @@ Map::Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std:
             {
                 throw "Invalid continent name.";
             }
-
             nodeIter++;
         }
         regionIter = regions.begin();
@@ -198,14 +197,108 @@ int Map::getNodeIndex(std::string regionName)
     }
 }
 
-bool Map::addArmy(std::string regionName, std::string playerName)
+std::vector<std::string> Map::getRegionsToAddArmies(std::string playerName)
 {
-    int nodeIndex = getNodeIndex(regionName);
-    if (nodeIndex == -1)
+    std::vector<std::string> regionNames = {*start};
+
+    auto nodeIter = nodes->begin();
+    while (nodeIter != nodes->end())
     {
-        return false;
+        // if player has a city on a region, add it to the list (don't add starting region twice)
+        if (nodeIter->armies[playerName].second == true && nodeIter->region != *start)
+        {
+            regionNames.push_back(nodeIter->region);
+        }
+        nodeIter++;
     }
 
+    return regionNames;
+}
+
+std::vector<std::string> Map::getRegionsToAddCities(std::string playerName)
+{
+    std::vector<std::string> regionNames;
+
+    auto nodeIter = nodes->begin();
+    while (nodeIter != nodes->end())
+    {
+        // if player has an army on a region, add it to the list (unless they already have a city there)
+        if (nodeIter->armies[playerName].first > 0 && nodeIter->armies[playerName].second != true)
+        {
+            regionNames.push_back(nodeIter->region);
+        }
+        nodeIter++;
+    }
+
+    return regionNames;
+}
+
+std::vector<std::string> Map::getRegionsWithArmies(std::string playerName)
+{
+    std::vector<std::string> regionNames;
+
+    auto nodeIter = nodes->begin();
+    while (nodeIter != nodes->end())
+    {
+        // if player has an army on a region, add it to the list
+        if (nodeIter->armies[playerName].first > 0)
+        {
+            regionNames.push_back(nodeIter->region);
+        }
+        nodeIter++;
+    }
+
+    return regionNames;
+}
+
+std::vector<std::string> Map::getRegionsConnectedByLand(std::string regionName)
+{
+    std::vector<std::string> regionNames;
+    int nodeIndex = getNodeIndex(regionName);
+
+    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++) {
+        if (!nodes->at(nodeIndex).connectedTo.at(i).second)
+        regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
+    }
+
+    return regionNames;
+}
+
+std::vector<std::string> Map::getRegionsConnectedByLandAndWater(std::string regionName)
+{
+    std::vector<std::string> regionNames;
+    int nodeIndex = getNodeIndex(regionName);
+
+    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++) {
+            regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
+    }
+
+    return regionNames;
+}
+
+void Map::addArmy(std::string regionName, std::string playerName)
+{
+    int nodeIndex = getNodeIndex(regionName);
     nodes->at(nodeIndex).armies[playerName].first++;
-    return true;
+}
+
+void Map::addCity(std::string regionName, std::string playerName)
+{
+    int nodeIndex = getNodeIndex(regionName);
+    nodes->at(nodeIndex).armies[playerName].second = true;
+}
+
+void Map::destroyArmy(std::string regionName, std::string playerName)
+{
+    int nodeIndex = getNodeIndex(regionName);
+    nodes->at(nodeIndex).armies[playerName].first--;
+}
+
+void Map::moveArmy(std::string origin, std::string destination, std::string playerName)
+{
+    int nodeIndex = getNodeIndex(origin);
+    nodes->at(nodeIndex).armies[playerName].first--;
+
+    nodeIndex = getNodeIndex(destination);
+    nodes->at(nodeIndex).armies[playerName].first++;
 }
