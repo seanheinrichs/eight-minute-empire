@@ -9,6 +9,8 @@ include_directories(src/Cards)
 include_directories(src/Map)
 include_directories(src/MapLoader)
 include_directories(src/Player)
+include_directories(src/GameState)
+include_directories(src/GameStartup)
 
 add_executable(eight_minute_empire
     src/BiddingFacility/BiddingFacility.cpp
@@ -29,6 +31,8 @@ add_executable(eight_minute_empire
     src/GameState/GameState.h
     src/GameState/GameStateDriver.cpp
     src/GameState/GameStateDriver.h
-        src/Player/PlayerMethodsDriver.cpp
-        src/Player/PlayerMethodsDriver.h
+    src/GameStartup/GameStartup.cpp
+    src/GameStartup/GameStartup.h
+    src/GameStartup/GameStartupDriver.cpp
+    src/GameStartup/GameStartupDriver.h
     src/main.cpp)

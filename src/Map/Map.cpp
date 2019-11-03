@@ -197,6 +197,21 @@ int Map::getNodeIndex(std::string regionName)
     }
 }
 
+std::string *Map::getStart() const
+{
+    return start;
+}
+
+std::vector<std::string> Map::getRegionNames()
+{
+    std::vector<std::string> output;
+    for (int i = 0; i < nodes->size(); i++)
+    {
+        output.emplace_back(nodes->at(i).region);
+    }
+    return output;
+}
+
 std::vector<std::string> Map::getRegionsToAddArmies(std::string playerName)
 {
     std::vector<std::string> regionNames = {*start};
@@ -256,9 +271,10 @@ std::vector<std::string> Map::getRegionsConnectedByLand(std::string regionName)
     std::vector<std::string> regionNames;
     int nodeIndex = getNodeIndex(regionName);
 
-    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++) {
+    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++)
+    {
         if (!nodes->at(nodeIndex).connectedTo.at(i).second)
-        regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
+            regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
     }
 
     return regionNames;
@@ -269,8 +285,9 @@ std::vector<std::string> Map::getRegionsConnectedByLandAndWater(std::string regi
     std::vector<std::string> regionNames;
     int nodeIndex = getNodeIndex(regionName);
 
-    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++) {
-            regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
+    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++)
+    {
+        regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
     }
 
     return regionNames;
