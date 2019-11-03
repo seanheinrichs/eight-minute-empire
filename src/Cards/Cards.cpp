@@ -1,8 +1,7 @@
 
-#include "Cards.h"
-#include <ctime>
-#include <algorithm>
 #include <iostream>
+#include <algorithm>
+#include "Cards.h"
 
 Cards::Cards() {
     this->numOfGood = nullptr;
@@ -10,20 +9,19 @@ Cards::Cards() {
     this->action = nullptr;
 }
 
-Cards::Cards(int numOfGood, string good, string action) {
-    Cards::numOfGood = new int(numOfGood);
-    this->good = new string(good);
-    this->action = new string(action);
+ostream &operator<<(ostream &os, const Cards &cards) {
+    os <<"numOfGood: " << *cards.getNumOfGood() <<" good: " << *cards.getGood() << " action: " << *cards.getAction();
+    return os;
 }
 
 Cards::~Cards() {
-    delete numOfGood;
-    this->numOfGood = nullptr;
     delete good;
     this->good = nullptr;
     delete action;
     this->action = nullptr;
 }
+
+
 
 string *Cards::getGood() const {
     return good;
@@ -41,17 +39,18 @@ void Cards::setAction(string action) {
     Cards::action = new string(action);
 }
 
+Cards::Cards(int numOfGood, string good, string action) {
+    Cards::numOfGood = new int(numOfGood);
+    this->good = new string(good);
+    this->action = new string(action);
+}
+
 int *Cards::getNumOfGood() const {
     return this->numOfGood;
 }
 
 void Cards::setNumOfGood(int numOfGood) {
     Cards::numOfGood = new int(numOfGood);
-}
-
-ostream &operator<<(ostream &os, const Cards &cards) {
-    os <<"numOfGood: " << *cards.getNumOfGood() <<"good: " << *cards.getGood() << " action: " << *cards.getAction();
-    return os;
 }
 
 Cards* cards01 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
@@ -142,7 +141,7 @@ Deck::Deck() {
     deck.push_back(cards40);
     deck.push_back(cards41);
     deck.push_back(cards42);
-//    std::cout<<"Deck is good" << endl;
+    std::cout<<"Deck is good" << endl;
 }
 
 Deck::~Deck() {
@@ -166,49 +165,84 @@ Cards* Deck::draw() {
 //    Check if the cards set shrinks after draw out one card and
 //    shuffles before each draw in order to simulate the random draw a card:
     std::cout << "deck size: " << deck.size() << endl;
-//    std::cout << "next card: " << *deck.back() << endl;
-//    std::cout << "draw( ) works" << endl;
+    std::cout << "next card: " << *deck.back() << endl;
+    std::cout << "draw( ) works" << endl;
     return card;
 }
 
-std::vector<Cards*> Deck::topBoardGenetor(Deck deck) {
+std::vector<Cards*> Deck::topBoardGenetor(Deck &deck) {
+    auto tb = new std::vector<Cards*>();
     for (auto i = 0; i < 6; i++) {
-        topBoard.emplace_back(deck.draw());
+        tb->emplace_back(deck.draw());
     }
-    std::cout << "TopBoard size: " << topBoard.size() << endl;
-
+    std::cout << "TopBoard size: " << tb->size() << endl;
+//    displayTopBoard(topBoard);
     int j = 0;
-    for (auto it = topBoard.begin(); it != topBoard.end(); ++it)
+    for (auto it = tb->begin(); it != tb->end(); ++it)
         cout << "Position " << ++j << " " << **it << endl;
-//    std::cout << "topBoardGenetor(Deck deck) works" << endl;
-    return topBoard;
+    std::cout << "topBoardGenetor(Deck deck) works" << endl;
+    return *tb;
 }
 
-// could use or remove in the future
-std::vector<Cards*> Deck::handGenetor(Cards* card) {
+void Deck::displayTopBoard(std::vector<Cards*> &topBoard) {
+    int j = 0;
+    int index =  0;
+    for (auto it = topBoard.begin(); it != topBoard.end(); ++it)
+        cout << "Position " << ++j << " Card costs "<< posArray[index++] << " dollars and shows " << **it << endl;
+    std::cout << "displayTopBoard( topBoard ) works" << endl;
+}
+
+void Deck::updateTopBoard(int &position, std::vector<Cards*> &topBoard, Deck &deck) {
+    int index = position - 1;
+    topBoard.erase(topBoard.begin()+index);
+    cout << "Top Board cards series size is " << topBoard.size() << endl ;
+    topBoard.emplace_back(deck.draw());
+    cout << "Top Board cards series size is " << topBoard.size() << endl ;
+    std::cout << "updateTopBoard( topBoard ) works" << endl;
+    displayTopBoard(topBoard);
+    std::cout << "----------------------"<<endl;
+//    auto tb = new std::vector<Cards*>();
+//    for (auto it = topBoard.begin(); it != topBoard.end(); ++it){
+//        tb->emplace_back(it);
+//    }
+//    return *tb;
+}
+
+std::vector<Cards*> Deck::handGenetor(Cards* &card) {
     std::vector<Cards*> hand;
     hand.emplace_back(card);
     return hand;
 }
 
-std::vector<Cards*> Deck::exchange(std::vector<Cards*> hand, std::vector<Cards*> topBoard, Deck deck) {
-    int input, index;
-    cout << "Which card do you want to buy? Please enter an integer from 1 to 6: " << endl;
-    cin >> input;
-    while (input > 6 || input < 1) {
-        cout << "Invalid input: " << input << ". Please enter an integer from 1 to 6: " << endl;
-        cin >> input;
+void Deck::displayHand(std::vector<Cards*> &hand) {
+    for (auto it = hand.begin(); it != hand.end(); ++it) {
+        std::cout << ' ' << **it << endl;
     }
-    index = input - 1;
-    cout << "The card which shows: " << topBoard.at(index) << " and costs " << posArray[index] << " dollars." << endl;
+}
+
+void Deck::exchange(std::vector<Cards*> &hand, std::vector<Cards*> &topBoard, Deck &deck) {
+    cout<< "--------before exchange--------------" <<endl;
+    displayTopBoard(topBoard);
+    cout<< "----------------------" <<endl;
+    int position, index;
+    cout << "Which card do you want to buy? Please enter an integer from 1 to 6: " << endl;
+    cin >> position;
+    while (position > 6 || position < 1) {
+        cout << "Invalid input: " << position << ". Please enter an integer from 1 to 6: " << endl;
+        cin >> position;
+    }
+    index = position - 1;
+    cout << "The card which shows: " << *topBoard.at(index) << " and costs " << posArray[index] << " dollars." << endl;
     cout << "Would you like to buy this card ? " << endl;
     //TODO: call PayCoin() here
-    hand.emplace_back(topBoard.at(index));
+    hand.push_back(topBoard.at(index));
     topBoard.erase(topBoard.begin()+index);
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
-    topBoard.emplace_back(deck.draw());
+    topBoard.push_back(deck.draw());
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
-    cout << "Player 1 's hand has " << *hand.back() << endl;
-//    cout << "Deck::exchange(hand, topboard, deck) works"  << endl;
-    return hand;
+    cout << "Player's hand added a card shows " << *hand.back() << endl;
+    cout << "Deck::exchange(hand, topboard, deck) works"  << endl;
+    cout<< "-----after-----------------" <<endl;
+    displayTopBoard(topBoard);
+    cout<< "----------------------" <<endl;
 }
