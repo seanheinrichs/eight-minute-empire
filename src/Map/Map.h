@@ -44,7 +44,7 @@ public:
     // print details of each node
     void printNodes();
 
-    // get name of starting city
+    // get name of starting region
     std::string *getStart() const;
 
     // add one army
