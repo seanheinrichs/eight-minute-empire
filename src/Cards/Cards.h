@@ -11,15 +11,12 @@
 #include <iostream>
 using namespace std;
 
-using std::string;
 
 class Cards {
 public:
     Cards();
 
     Cards(int numOfGood, string good, string action);
-
-    virtual ~Cards();
 
     string *getGood() const;
 
@@ -29,18 +26,19 @@ public:
 
     void setAction(string action);
 
+    virtual ~Cards();
+
+    friend ostream &operator<<(ostream &os, const Cards &cards);
+
     int *getNumOfGood() const;
 
     void setNumOfGood(int numOfGood);
-
-    friend ostream &operator<<(ostream &os, const Cards &cards);
 
 private:
     int* numOfGood;
     string* good;
     string* action;
 };
-
 class Deck {
 private:
 
@@ -49,14 +47,20 @@ public:
 
     virtual ~Deck();
     Cards* draw();
-    std::vector<Cards*> topBoard;
-    std::vector<Cards*> topBoardGenetor(Deck deck);
-    std::vector<Cards*> handGenetor(Cards* card);
+//    std::vector<Cards*> topBoard;
+    std::vector<Cards*> topBoardGenetor(Deck &deck);
+    void displayTopBoard(std::vector<Cards*> &topBoard);
+    void updateTopBoard(int &position, std::vector<Cards*> &topBoard, Deck &deck);
+    std::vector<Cards*> handGenetor(Cards* &card);
+    void displayHand(std::vector<Cards*> &hand);
+    void exchange(std::vector<Cards*> &hand,  std::vector<Cards*> &topBoard, Deck &deck);
     int* cost;
     int* position;
     int posArray[6] = {0, 1, 1, 2, 2, 3};
-    std::vector<Cards*> exchange(std::vector<Cards*> hand, std::vector<Cards*> topBoard, Deck deck);
+
+
+
 };
 static std::vector<Cards*> deck;
-
+//static std::vector<Cards*> topBoard;
 #endif //EIGHT_MINUTE_EMPIRE_CARDS_H
