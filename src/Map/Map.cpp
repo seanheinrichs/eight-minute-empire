@@ -297,25 +297,79 @@ void Map::addArmy(std::string regionName, std::string playerName)
 {
     int nodeIndex = getNodeIndex(regionName);
     nodes->at(nodeIndex).armies[playerName].first++;
+    updateOwner(nodeIndex);
 }
 
 void Map::addCity(std::string regionName, std::string playerName)
 {
     int nodeIndex = getNodeIndex(regionName);
     nodes->at(nodeIndex).armies[playerName].second = true;
+    updateOwner(nodeIndex);
 }
 
 void Map::destroyArmy(std::string regionName, std::string playerName)
 {
     int nodeIndex = getNodeIndex(regionName);
     nodes->at(nodeIndex).armies[playerName].first--;
+    updateOwner(nodeIndex);
 }
 
 void Map::moveArmy(std::string origin, std::string destination, std::string playerName)
 {
     int nodeIndex = getNodeIndex(origin);
     nodes->at(nodeIndex).armies[playerName].first--;
+    updateOwner(nodeIndex);
 
     nodeIndex = getNodeIndex(destination);
     nodes->at(nodeIndex).armies[playerName].first++;
+    updateOwner(nodeIndex);
+}
+
+void Map::updateOwner(int index)
+{
+    // Iterator of armies
+    auto iter = nodes->at(index).armies.begin();
+
+    // string for top player
+    std::string ownerName = "";
+    // string for top score
+    int ownerScore = 0;
+    // bool for tie
+    bool isTie = false;
+
+    // loop over al player armies
+    while (iter != nodes->at(index).armies.end())
+    {
+        // calculate score for armies
+        int score = iter->second.first;
+
+        // add a point for a cities
+        if (iter->second.second)
+        {
+            score++;
+        }
+
+        if (score == ownerScore)
+        {
+            isTie = true;
+        }
+        else if (score > ownerScore)
+        {
+            ownerName = iter->first;
+            ownerScore = score;
+            isTie = false;
+        }
+        iter++;
+    }
+
+    // if it's a tie, no owner
+    if (isTie)
+    {
+        nodes->at(index).owner = "";
+    }
+    // set owner if no tie
+    else
+    {
+        nodes->at(index).owner = ownerName;
+    }
 }
