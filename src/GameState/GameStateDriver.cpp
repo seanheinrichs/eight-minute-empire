@@ -9,9 +9,9 @@ void gameStateDriver()
   GameState state = GameState();
 
   // print card information
-  std::cout << state.deck->getHandSize();
+//  std::cout << state.deck->getHandSize();
   std::cout << " cards have been drawn.\n";
-  std::cout << state.deck->getDeckSize();
+//  std::cout << state.deck->getDeckSize();
   std::cout << " cards remain in the deck.\n";
 
   // print player information
