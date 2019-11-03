@@ -319,3 +319,33 @@ void Map::moveArmy(std::string origin, std::string destination, std::string play
     nodeIndex = getNodeIndex(destination);
     nodes->at(nodeIndex).armies[playerName].first++;
 }
+
+void Map::updateOwner(int index)
+{
+    // Iterator of
+    auto iter = nodes->at(index).armies.begin();
+
+    // string for top player
+    std::string ownerName = "";
+    // string for top score
+    std::string ownerScore = 0;
+    // bool for tie
+    bool isTie = false;
+
+    // loop over al player armies
+    while (iter != nodes->at(index).armies.end())
+    {
+        // do stuff
+    }
+
+    // if it's a tie, no owner
+    if (isTie)
+    {
+        nodes->at(index).owner = "";
+    }
+    // set owner if no tie
+    else
+    {
+        nodes->at(index).owner = ownerName;
+    }
+}
