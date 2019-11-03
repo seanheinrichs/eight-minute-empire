@@ -12,6 +12,10 @@
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
 
+// test zone, please remove
+#include "Map.h"
+#include "MapLoader.h"
+
 int main()
 {
     std::cout << "Please see main.cpp and uncomment functions to show Map and "
@@ -67,7 +71,14 @@ int main()
     // PlayerMethodsDriver();
 
     // Startup Phase Example
-    gameStartupExample();
+    // gameStartupExample();
 
+    MapLoader loader;
+    Map m = loader.generateMap("assets/map8.map"); // map with no armies
+
+    m.addArmy("UK", "mike"); // mike owner
+    m.addArmy("UK", "sean"); // no owner
+    m.addArmy("UK", "sean"); // sean owner
+    m.printNodes();
     return 0;
 }
