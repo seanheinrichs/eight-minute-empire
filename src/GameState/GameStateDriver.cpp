@@ -17,9 +17,9 @@ void gameStateDriver()
   // print player information
   for (int i = 0; i < state.players->size(); i++)
   {
-    std::cout << *(state.players->at(i)->getName()) << " has ";
+    std::cout << state.players->at(i)->getName() << " has ";
     std::cout << state.players->at(i)->getGameHand()->size()
               << " cards and has a bid of ";
-    std::cout << *(state.players->at(i)->getBiddingFacility()->getBid()) << ".\n";
+    std::cout << state.players->at(i)->getBiddingFacility()->getBid() << ".\n";
   }
 }

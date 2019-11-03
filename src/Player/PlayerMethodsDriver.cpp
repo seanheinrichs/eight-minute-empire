@@ -14,9 +14,9 @@ void PlayerMethodsDriver() {
     std::vector<std::string> regions = {"region1", "region2", "region3"};
     std::vector<std::string> continents = {"continent1"};
     std::vector<std::string> players = {
-            *playerVector.at(0)->getName(),
-            *playerVector.at(1)->getName(),
-            *playerVector.at(2)->getName()
+            playerVector.at(0)->getName(),
+            playerVector.at(1)->getName(),
+            playerVector.at(2)->getName()
     };
 
     Node n1{};
@@ -25,9 +25,9 @@ void PlayerMethodsDriver() {
     n1.region = "region1";
     n1.continent = "continent1";
     //n1.owner = *playerVector.at(0)->getName();
-    n1.armies.insert(make_pair(*playerVector.at(0)->getName(), std::pair<int, bool>(3, false)));
-    n1.armies.insert(make_pair(*playerVector.at(1)->getName(), std::pair<int, bool>(3, false)));
-    n1.armies.insert(make_pair(*playerVector.at(2)->getName(), std::pair<int, bool>(3, false)));
+    n1.armies.insert(make_pair(playerVector.at(0)->getName(), std::pair<int, bool>(3, false)));
+    n1.armies.insert(make_pair(playerVector.at(1)->getName(), std::pair<int, bool>(3, false)));
+    n1.armies.insert(make_pair(playerVector.at(2)->getName(), std::pair<int, bool>(3, false)));
     n1.connectedTo.emplace_back(std::pair<std::string, bool>("region2", false));
     n1.connectedTo.emplace_back(std::pair<std::string, bool>("region3", true));
 
