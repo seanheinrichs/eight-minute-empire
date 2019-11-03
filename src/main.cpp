@@ -10,6 +10,7 @@
 #include "Player/Player.h"
 #include "BiddingFacility/BiddingFacility.h"
 #include "PlayerMethodsDriver.h"
+#include "GameStartupDriver.h"
 
 int main()
 {
@@ -58,12 +59,15 @@ int main()
     // BiddingFacilityDriver();
 
     //// Game Start Example ////
-    gameStateDriver();
+    // gameStateDriver();
 
     //// BiddingFacility Examples ////
     // BiddingFacilityDriver();
 
     // PlayerMethodsDriver();
+
+    // Startup Phase Example
+    gameStartupExample();
 
     return 0;
 }

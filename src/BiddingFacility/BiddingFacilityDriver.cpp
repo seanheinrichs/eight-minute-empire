@@ -27,6 +27,6 @@ void BiddingFacilityDriver() {
 
     // Determine the first Player within the bidding phase
     firstPlayer = BiddingFacility::biddingPhase(players, numOfPlayers);
-    std::cout << "First Player is " << *(players[firstPlayer]->getName());
+    std::cout << "First Player is " << players[firstPlayer]->getName();
 
 }

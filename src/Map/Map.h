@@ -3,9 +3,10 @@
 #include <vector>
 #include <map>
 
-struct Node {
+struct Node
+{
     // region name
-    std::string region ="";
+    std::string region = "";
 
     // continent name
     std::string continent = "";
@@ -34,6 +35,9 @@ private:
     // find a node's index
     int getNodeIndex(std::string regionName);
 
+    // recalculate the owner of a node
+    void updateOwner(int index);
+
 public:
     // constructors and destructors
     Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players);
@@ -43,6 +47,9 @@ public:
     // print details of each node
     void printNodes();
 
+    // get name of starting region
+    std::string *getStart() const;
+
     // add one army
     void addArmy(std::string regionName, std::string playerName);
     // move one army
@@ -51,6 +58,8 @@ public:
     void addCity(std::string regionName, std::string playerName);
     // destroy one army
     void destroyArmy(std::string regionName, std::string playerName);
+    // return all region names
+    std::vector<std::string> getRegionNames();
     // determine all regions with armies, return vector of regions
     std::vector<std::string> getRegionsWithArmies(std::string playerName);
     // determine all regions in which cities can be built, return vector of regions

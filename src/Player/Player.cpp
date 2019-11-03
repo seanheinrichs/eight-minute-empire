@@ -48,49 +48,40 @@ Player::Player(std::string name, int numOfPlayers, int age)
 
 Player::~Player()
 {
-  if (coins)
-  {
+  if (coins) {
     delete coins;
     coins = NULL;
   }
 
-  if (armies)
-  {
+  if (armies) {
     delete armies;
     armies = NULL;
   }
-  if (cities)
-  {
+  if (cities) {
     delete cities;
     cities = NULL;
   }
-  if (age)
-  {
+  if (age) {
     delete age;
     age = NULL;
   }
-  if (name)
-  {
+  if (name) {
     delete name;
     name = NULL;
   }
-  if (regions)
-  {
+  if (regions) {
     delete regions;
     regions = NULL;
   }
-  if (countries)
-  {
+  if (countries) {
     delete countries;
     countries = NULL;
   }
-  if (gameHand)
-  {
+  if (gameHand) {
     delete gameHand;
     gameHand = NULL;
   }
-  if (biddingFacility)
-  {
+  if (biddingFacility) {
     delete biddingFacility;
     biddingFacility = NULL;
   }
@@ -156,7 +147,7 @@ bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
   // place new armies
   for (int i = 0; i < spendableArmies; i++)
   {
-    std::cout << "Where would you like to place your army? " << endl;
+    std::cout << "Select a region in which you like to place an army: ";
     regionName = validateRegion(placementRegions);
     (*armies)--;
     gameBoard.addArmy(regionName, *name);
@@ -189,7 +180,7 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
     origin = validateRegion(regionsWithArmies);
 
     // display connected regions
-    std::cout << "The follow regions are connected to " << origin << ": " << endl;
+    std::cout << "The following regions are connected to " << origin << ": " << endl;
     if (waterMove)
     {
       connections = gameBoard.getRegionsConnectedByLandAndWater(origin);
@@ -235,7 +226,7 @@ bool Player::buildCity(Map &gameBoard)
   }
 
   // place new city
-  std::cout << "Where would you like to place your city? " << endl;
+  std::cout << "Please select a region to place a city: ";
   regionName = validateRegion(placementRegions);
   (*cities)--;
   gameBoard.addCity(regionName, *name);
@@ -260,7 +251,7 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
     std::cin >> playerName;
     for (int i = 0; i < allPlayers.size(); i++)
     {
-      if (playerName == *name || playerName != *allPlayers.at(i)->getName())
+      if (playerName == *name || playerName != allPlayers.at(i)->getName())
       {
         invalidPlayerName = true;
       }
@@ -277,7 +268,7 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
   } while (invalidPlayerName);
 
   // inform player where the armies from the targeted player are
-  std::cout << *name << ", here are the regions in which you may place a city: " << std::endl;
+  std::cout << *name << ", here are the regions where " << playerName << "has armies." << std::endl;
   regionsWithEnemies = gameBoard.getRegionsWithArmies(playerName);
   for (int i = 0; i < regionsWithEnemies.size(); i++)
   {
@@ -285,7 +276,7 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
   }
 
   // select a region to destroy a unit
-  std::cout << "Which region would you like to remove an army from: ";
+  std::cout << "Please select a region to remove an army from: ";
   regionName = validateRegion(regionsWithEnemies);
   gameBoard.destroyArmy(regionName, playerName);
   std::cout << "Successfully removed one of " << playerName << "'s armies from " << regionName << "." << endl
@@ -322,31 +313,19 @@ std::string Player::validateRegion(std::vector<std::string> placementRegions)
 
 // Accessors
 
-int *Player::getCoins() const { return coins; }
+int Player::getCoins() const { return *coins; }
 
-int *Player::getArmies() const { return armies; }
+int Player::getArmies() const { return *armies; }
 
-int *Player::getCities() const { return cities; }
+int Player::getCities() const { return *cities; }
 
-int *Player::getAge() const
-{
-  return age;
-}
+int Player::getAge() const { return *age; }
 
-std::string *Player::getName() const
-{
-  return name;
-}
+std::string Player::getName() const { return *name; }
 
-BiddingFacility *Player::getBiddingFacility() const
-{
-  return biddingFacility;
-}
+BiddingFacility *Player::getBiddingFacility() const { return biddingFacility; }
 
-std::vector<Cards> *Player::getGameHand() const
-{
-  return gameHand;
-}
+std::vector<Cards> *Player::getGameHand() const { return gameHand; }
 
 // Mutators
 
@@ -356,10 +335,7 @@ void Player::setArmies(int armies) { *Player::armies = armies; }
 
 void Player::setCities(int cities) { *Player::cities = cities; }
 
-void Player::setAge(int age)
-{
-  *Player::age = age;
-}
+void Player::setAge(int age) { *Player::age = age; }
 
 void Player::setName(std::string name) { *Player::name = name; }
 

@@ -197,6 +197,21 @@ int Map::getNodeIndex(std::string regionName)
     }
 }
 
+std::string *Map::getStart() const
+{
+    return start;
+}
+
+std::vector<std::string> Map::getRegionNames()
+{
+    std::vector<std::string> output;
+    for (int i = 0; i < nodes->size(); i++)
+    {
+        output.emplace_back(nodes->at(i).region);
+    }
+    return output;
+}
+
 std::vector<std::string> Map::getRegionsToAddArmies(std::string playerName)
 {
     std::vector<std::string> regionNames = {*start};
@@ -256,9 +271,10 @@ std::vector<std::string> Map::getRegionsConnectedByLand(std::string regionName)
     std::vector<std::string> regionNames;
     int nodeIndex = getNodeIndex(regionName);
 
-    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++) {
+    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++)
+    {
         if (!nodes->at(nodeIndex).connectedTo.at(i).second)
-        regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
+            regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
     }
 
     return regionNames;
@@ -269,8 +285,9 @@ std::vector<std::string> Map::getRegionsConnectedByLandAndWater(std::string regi
     std::vector<std::string> regionNames;
     int nodeIndex = getNodeIndex(regionName);
 
-    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++) {
-            regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
+    for (int i = 0; i < nodes->at(nodeIndex).connectedTo.size(); i++)
+    {
+        regionNames.push_back(nodes->at(nodeIndex).connectedTo.at(i).first);
     }
 
     return regionNames;
@@ -280,25 +297,79 @@ void Map::addArmy(std::string regionName, std::string playerName)
 {
     int nodeIndex = getNodeIndex(regionName);
     nodes->at(nodeIndex).armies[playerName].first++;
+    updateOwner(nodeIndex);
 }
 
 void Map::addCity(std::string regionName, std::string playerName)
 {
     int nodeIndex = getNodeIndex(regionName);
     nodes->at(nodeIndex).armies[playerName].second = true;
+    updateOwner(nodeIndex);
 }
 
 void Map::destroyArmy(std::string regionName, std::string playerName)
 {
     int nodeIndex = getNodeIndex(regionName);
     nodes->at(nodeIndex).armies[playerName].first--;
+    updateOwner(nodeIndex);
 }
 
 void Map::moveArmy(std::string origin, std::string destination, std::string playerName)
 {
     int nodeIndex = getNodeIndex(origin);
     nodes->at(nodeIndex).armies[playerName].first--;
+    updateOwner(nodeIndex);
 
     nodeIndex = getNodeIndex(destination);
     nodes->at(nodeIndex).armies[playerName].first++;
+    updateOwner(nodeIndex);
+}
+
+void Map::updateOwner(int index)
+{
+    // Iterator of armies
+    auto iter = nodes->at(index).armies.begin();
+
+    // string for top player
+    std::string ownerName = "";
+    // string for top score
+    int ownerScore = 0;
+    // bool for tie
+    bool isTie = false;
+
+    // loop over al player armies
+    while (iter != nodes->at(index).armies.end())
+    {
+        // calculate score for armies
+        int score = iter->second.first;
+
+        // add a point for a cities
+        if (iter->second.second)
+        {
+            score++;
+        }
+
+        if (score == ownerScore)
+        {
+            isTie = true;
+        }
+        else if (score > ownerScore)
+        {
+            ownerName = iter->first;
+            ownerScore = score;
+            isTie = false;
+        }
+        iter++;
+    }
+
+    // if it's a tie, no owner
+    if (isTie)
+    {
+        nodes->at(index).owner = "";
+    }
+    // set owner if no tie
+    else
+    {
+        nodes->at(index).owner = ownerName;
+    }
 }
