@@ -10,6 +10,7 @@ void gameStartupExample()
   std::cout << "At the same time 6 cards are drawn.\n";
   std::cout << "In the two game states below, the cards are shuffled different.\n";
   std::cout << "They are drawn from the top of shuffled deck and are therefore different.\n";
+  std::cout << "==== MAKE SURE TO LOAD THE FOLLOWING EMPTY MAP: assets/map8.map ====\n";
   GameState state1 = GameState();
   GameState state2 = GameState();
 
