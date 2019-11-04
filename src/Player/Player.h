@@ -2,12 +2,12 @@
 #define EIGHT_MINUTE_EMPIRE_PLAYER_H
 
 #include "../BiddingFacility/BiddingFacility.h"
-#include "../Cards/Cards.h"
 #include "../Map/Map.h"
 #include <string>
 #include <vector>
 
 // Forward Declaration
+class Cards;
 class BiddingFacility;
 
 class Player
@@ -19,9 +19,7 @@ private:
   int *cities;
   int *age;
   std::string *name;
-  std::vector<std::string> *regions;   // TODO: Figure out why we need this
-  std::vector<std::string> *countries; // TODO: Figure out why we need this
-  std::vector<Cards> *gameHand;
+  std::vector<Cards*> *gameHand;
   BiddingFacility *biddingFacility;
 
   // Utility Methods
@@ -43,8 +41,8 @@ public:
   bool buildCity(Map &gameBoard);
   void destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers);
   bool ignore();
-  void andOrAction(std::string action, Map &gameBoard, std::vector<Player *> allPlayers);
-  void takeAction(std::string action, Map &gameBoard, std::vector<Player *> allPlayers);
+  void andOrAction(std::string action, Map &gameBoard, std::vector<Player *> &allPlayers);
+  void takeAction(std::string action, Map &gameBoard, std::vector<Player *> &allPlayers);
 
   // Accessors
   int getCoins() const;
@@ -53,7 +51,7 @@ public:
   int getAge() const;
   std::string getName() const;
   BiddingFacility *getBiddingFacility() const;
-  std::vector<Cards> *getGameHand() const;
+  std::vector<Cards*> *getGameHand() const;
 
   // Mutators
   void setCoins(int coins);
@@ -61,7 +59,7 @@ public:
   void setCities(int cities);
   void setAge(int age);
   void setName(std::string name);
-  void addCards(Cards card);
+  //void addCards(Cards card);
 };
 
 #endif

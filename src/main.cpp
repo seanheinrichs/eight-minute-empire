@@ -12,19 +12,22 @@
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
 #include "MainLoop/MainLoop.h"
-#include <algorithm>
 
 int main()
 {
     //// Assignment 2 Drivers ////
 
+    // Part 1)
     // gameStateDriver();
 
-    // mainLoopDriver();
-
+    // Part 2)
     // gameStartupExample();
 
-    playerMethodsDriver();
+    // Part 3)
+    // mainLoopDriver();
+
+    // Part 4)
+    // playerMethodsDriver();
 
     return 0;
 }

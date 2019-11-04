@@ -22,8 +22,6 @@ Cards::~Cards() {
     this->action = nullptr;
 }
 
-
-
 string *Cards::getGood() const {
     return good;
 }
@@ -177,10 +175,7 @@ std::vector<Cards*> Deck::topBoardGenetor(Deck &deck) {
         tb->emplace_back(deck.draw());
     }
     std::cout << "TopBoard size: " << tb->size() << endl;
-//    displayTopBoard(topBoard);
-    int j = 0;
-    for (auto it = tb->begin(); it != tb->end(); ++it)
-        cout << "Position " << ++j << " " << **it << endl;
+    // displayTopBoard(*tb);
     std::cout << "topBoardGenetor(Deck deck) works" << endl;
     return *tb;
 }
@@ -189,7 +184,7 @@ void Deck::displayTopBoard(std::vector<Cards*> &topBoard) {
     int j = 0;
     int index =  0;
     for (auto it = topBoard.begin(); it != topBoard.end(); ++it)
-        cout << "Position " << ++j << " Card costs "<< posArray[index++] << " dollars and shows " << **it << endl;
+        cout << "Position " << ++j << " - Cost: "<< posArray[index++] << " Coins. " << **it << endl;
     std::cout << "displayTopBoard( topBoard ) works" << endl;
 }
 
@@ -221,30 +216,54 @@ void Deck::displayHand(std::vector<Cards*> &hand) {
     }
 }
 
-void Deck::exchange(std::vector<Cards*> &hand, std::vector<Cards*> &topBoard, Deck &deck) {
-    cout<< "--------before exchange--------------" <<endl;
+void Deck::exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck) {
+    bool successfullPurchase = false;
+    int cost, position, index;
+
+    // display top board before player purchases a card
+    cout<< "Top Board:" << endl;
     displayTopBoard(topBoard);
-    cout<< "----------------------" <<endl;
-    int position, index;
+
+    // allow player to purchase a card
+    cout << player.getName() << ", you have " << player.getCoins() << " coins remaining in your stash." << endl;
     cout << "Which card do you want to buy? Please enter an integer from 1 to 6: " << endl;
-    cin >> position;
-    while (position > 6 || position < 1) {
-        cout << "Invalid input: " << position << ". Please enter an integer from 1 to 6: " << endl;
+    do {
         cin >> position;
-    }
+        if (position < 1 || position > 6) {
+            cout << "Invalid input: " << position << ". Please enter an integer from 1 to 6: " << endl;
+            continue;
+        }
+        if (position == 1) {
+            cost = 0;
+        }
+        else if (position == 2 || position == 3) {
+            cost = 1;
+        }
+        else if (position == 4 || position == 5) {
+            cost = 2;
+        }
+        else if (position == 6) {
+            cost = 3;
+        }
+        successfullPurchase = player.payCoin(cost);
+    } while (!successfullPurchase);
+
+    // purchase confirmation
     index = position - 1;
-    cout << "The card which shows: " << *topBoard.at(index) << " and costs " << posArray[index] << " dollars." << endl;
-    cout << "Would you like to buy this card ? " << endl;
-    //TODO: call PayCoin() here
-    hand.push_back(topBoard.at(index));
+    cout << "The card which shows: " << *topBoard.at(index) << " and costs " << posArray[index] << " coins." << endl;
+
+    // update gamehand and update top board
+    player.getGameHand()->push_back(topBoard.at(index));
     topBoard.erase(topBoard.begin()+index);
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
     topBoard.push_back(deck.draw());
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
-    cout << "Player's hand added a card shows " << *hand.back() << endl;
+    cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
     cout << "Deck::exchange(hand, topboard, deck) works"  << endl;
-    cout<< "-----after-----------------" <<endl;
+
+    // display updated top board
+    cout << "Top Board:" << endl;
     displayTopBoard(topBoard);
-    cout<< "----------------------" <<endl;
+    cout << endl << endl;
 }
 
