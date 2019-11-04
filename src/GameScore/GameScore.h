@@ -23,15 +23,15 @@ public:
     virtual ~GameScore();
 
     // compute points of cards with the same good type
-    int* countTreePoint(int tree);
+    int* countTreePoint(int *tree);
 
-    int* countAnvilPoint(int anvil);
+    int* countAnvilPoint(int *anvil);
 
-    int* countCarrotPoint(int carrot);
+    int* countCarrotPoint(int *carrot);
 
-    int* countRockPoint(int rock);
+    int* countRockPoint(int *rock);
 
-    int* countCrystalPoint(int crystal);
+    int* countCrystalPoint(int *crystal);
 
     // first count number of the same good type
     int* numOfTree(std::vector<Cards*> &gameHand);

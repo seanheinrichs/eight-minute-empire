@@ -18,8 +18,8 @@ GameScore::GameScore(const vector<Cards *> &gameHand, const vector<Player *> &pl
                                                                                          players(players) {}
 
 
-int *GameScore::countTreePoint(int tree) {
-    switch (tree)
+int *GameScore::countTreePoint(int *tree) {
+    switch (*tree)
     {
         case 2:
             point = new int(1);
@@ -37,8 +37,8 @@ int *GameScore::countTreePoint(int tree) {
     return point;
 }
 
-int *GameScore::countAnvilPoint(int anvil) {
-    switch (anvil)
+int *GameScore::countAnvilPoint(int *anvil) {
+    switch (*anvil)
     {
         case 2:
             point = new int(1);
@@ -56,8 +56,8 @@ int *GameScore::countAnvilPoint(int anvil) {
     return point;
 }
 
-int *GameScore::countCarrotPoint(int carrot) {
-    switch (carrot)
+int *GameScore::countCarrotPoint(int *carrot) {
+    switch (*carrot)
     {
         case 3:
             point = new int(1);
@@ -75,8 +75,8 @@ int *GameScore::countCarrotPoint(int carrot) {
     return point;
 }
 
-int *GameScore::countRockPoint(int rock) {
-    switch (rock)
+int *GameScore::countRockPoint(int *rock) {
+    switch (*rock)
     {
         case 2:
             point = new int(1);
@@ -94,8 +94,8 @@ int *GameScore::countRockPoint(int rock) {
     return point;
 }
 
-int *GameScore::countCrystalPoint(int crystal) {
-    switch (crystal)
+int *GameScore::countCrystalPoint(int *crystal) {
+    switch (*crystal)
     {
         case 1:
             point = new int(1);
@@ -115,96 +115,56 @@ int *GameScore::countCrystalPoint(int crystal) {
 
 
 int *GameScore::computeGameScore(std::vector<Player *> &players, std::vector<Cards *> &gameHand) {
-    // num of good
-    int rock = 0;
-    int crystal = 0;
-    int anvil = 0;
-    int wild = 0;
-    int carrot = 0;
-    int tree = 0;
-    //TODO: Are you going to replace wild card convert with which card?
-    // num of tree
-    switch (tree)
-    {
-        case 2:
-            point = new int(1);
-            break;
-        case 4:
-            point = new int(2);
-            break;
-        case 5:
-            point = new int(3);
-            break;
-        case 6:
-            point = new int(5);
-            break;
-    }
-    switch (anvil)
-    {
-        case 2:
-            point = new int(1);
-            break;
-        case 4:
-            point = new int(2);
-            break;
-        case 6:
-            point = new int(3);
-            break;
-        case 7:
-            point = new int(5);
-            break;
-    }
-    switch (carrot)
-    {
-        case 3:
-            point = new int(1);
-            break;
-        case 5:
-            point = new int(2);
-            break;
-        case 7:
-            point = new int(3);
-            break;
-        case 8:
-            point = new int(5);
-            break;
-    }
-    switch (rock)
-    {
-        case 2:
-            point = new int(1);
-            break;
-        case 3:
-            point = new int(2);
-            break;
-        case 4:
-            point = new int(3);
-            break;
-        case 5:
-            point = new int(5);
-            break;
-    }
-    switch (crystal)
-    {
-        case 1:
-            point = new int(1);
-            break;
-        case 2:
-            point = new int(2);
-            break;
-        case 3:
-            point = new int(3);
-            break;
-        case 4:
-            point = new int(5);
-            break;
-    }
+    int* sum = new int(0);
+    int* rock = new int(0);
+    int* crystal = new int(0);
+    int* anvil = new int(0);
+    int* wild = new int(0);
+    int* carrot = new int(0);
+    int* tree = new int(0);
 
+    int* numTree = numOfTree(gameHand);
+    int* numRock = numOfRock(gameHand);
+    int* numCrystal = numOfCrystal(gameHand);
+    int* numCarrot = numOfCarrot(gameHand);
+    int* numAnvil = numOfAnvil(gameHand);
+    int* numWild = numOfWild(gameHand);
 
+    // check if player's hand has Wild cards
+    if (*numWild > 0) {
+        std::cout << "You have wild: " << *numWild << ", rock: " << numRock <<
+                  ", tree: " << numTree << ", crystal: " << numCrystal << ", carrot: " << numCarrot
+                  << ", anvil card: " << numAnvil << endl;
+        for (auto i = 0; i <= *numWild; i++) {
+            std::string input;
 
+            std::cout << "Which card would you like to exchange? Please input in lowercase (Eg. rock tree crystal carrot anvil)" << endl;
+            std::cin >> input;
+            if (input.compare("rock") == 0)
+                *numRock++;
+            else if (input.compare("tree") == 0)
+                *numTree++;
+            else if (input.compare("crystal") == 0)
+                *numCrystal++;
+            else if (input.compare("carrot") == 0)
+                *numCarrot++;
+            else if (input.compare("anvil") == 0)
+                *numAnvil++;
+            else
+                continue;
+        }
+    }
+    rock = countRockPoint(numRock);
+    crystal = countCrystalPoint(numCrystal);
+    anvil = countAnvilPoint(numAnvil);
+    carrot = countCarrotPoint(carrot);
+    tree = countTreePoint(tree);
+    *sum = *rock + *crystal + *anvil + *carrot + *tree;
 
+    // TODO: sum up regions and continents
+    
+    return sum;
 
-    return nullptr;
 }
 
 int *GameScore::numOfTree(std::vector<Cards*> &gameHand) {
