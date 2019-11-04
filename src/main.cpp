@@ -11,6 +11,8 @@
 #include "BiddingFacility/BiddingFacility.h"
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
+#include "GameScore/GameScore.h"
+#include "GameScore/GameScoreDriver.h"
 
 int main()
 {
@@ -67,7 +69,11 @@ int main()
     // PlayerMethodsDriver();
 
     // Startup Phase Example
-    gameStartupExample();
+//    gameStartupExample();
+
+    //// Game Score Example ////
+    gameScoreExample( );
+
 
     return 0;
 }

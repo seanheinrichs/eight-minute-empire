@@ -162,7 +162,7 @@ int *GameScore::computeGameScore(std::vector<Player *> &players, std::vector<Car
     *sum = *rock + *crystal + *anvil + *carrot + *tree;
 
     // TODO: sum up regions and continents
-    
+
     return sum;
 
 }
