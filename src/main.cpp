@@ -12,6 +12,8 @@
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
 #include "AfterAction/AfterActionDriver.h"
+#include "GameScore/GameScore.h"
+#include "GameScore/GameScoreDriver.h"
 
 int main()
 {
@@ -72,6 +74,11 @@ int main()
 
     //// After the Action Example ////
     afterActionExample();
+//    gameStartupExample();
+
+    //// Game Score Example ////
+    gameScoreExample( );
+
 
     return 0;
 }

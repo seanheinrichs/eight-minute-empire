@@ -43,3 +43,8 @@ add_executable(eight_minute_empire
     src/main.cpp
     src/AfterAction/AfterActionDriver.cpp
     src/AfterAction/AfterActionDriver.h)
+
+    src/GameScore/GameScore.cpp
+    src/GameScore/GameScore.h
+    src/GameScore/GameScoreDriver.cpp
+    src/GameScore/GameScoreDriver.h)
