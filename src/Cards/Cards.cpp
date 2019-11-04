@@ -216,9 +216,12 @@ std::vector<Cards*> Deck::handGenetor(Cards* &card) {
 }
 
 void Deck::displayHand(std::vector<Cards*> &hand) {
+    cout << "Player's hand have the following cards: " << endl;
+    cout << "---------------------------------------"<< endl;
     for (auto it = hand.begin(); it != hand.end(); ++it) {
         std::cout << ' ' << **it << endl;
     }
+    cout << "---------------------------------------"<< endl;
 }
 
 void Deck::exchange(std::vector<Cards*> &hand, std::vector<Cards*> &topBoard, Deck &deck) {

@@ -11,6 +11,7 @@
 #include "BiddingFacility/BiddingFacility.h"
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
+#include "AfterAction/AfterActionDriver.h"
 
 int main()
 {
@@ -67,7 +68,10 @@ int main()
     // PlayerMethodsDriver();
 
     // Startup Phase Example
-    gameStartupExample();
+//    gameStartupExample();
+
+    //// After the Action Example ////
+    afterActionExample();
 
     return 0;
 }

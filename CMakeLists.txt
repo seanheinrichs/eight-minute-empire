@@ -35,4 +35,4 @@ add_executable(eight_minute_empire
     src/GameStartup/GameStartup.h
     src/GameStartup/GameStartupDriver.cpp
     src/GameStartup/GameStartupDriver.h
-    src/main.cpp)
+    src/main.cpp src/AfterAction/AfterActionDriver.cpp src/AfterAction/AfterActionDriver.h)
