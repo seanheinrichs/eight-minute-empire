@@ -21,4 +21,6 @@ public:
 
   GameState();
   ~GameState();
+
+  int determineGameLength();
 };

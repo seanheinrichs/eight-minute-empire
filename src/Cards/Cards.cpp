@@ -22,8 +22,6 @@ Cards::~Cards() {
     this->action = nullptr;
 }
 
-
-
 string *Cards::getGood() const {
     return good;
 }
@@ -68,29 +66,29 @@ Cards* cards11 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
 Cards* cards12 = new Cards(1, "Rock", "MOVE_OVER_WATER 3");
 Cards* cards13 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 3");
 Cards* cards14 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 3");
-Cards* cards15 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 2 OR BUILD_A_CITY");
-Cards* cards16 = new Cards(1,"Carrot", "BUILD_A_CITY");
+Cards* cards15 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 2 OR BUILD_A_CITY 1");
+Cards* cards16 = new Cards(1,"Carrot", "BUILD_A_CITY 1");
 Cards* cards17 = new Cards(1,"Carrot", "DESTROY_ARMY 1 AND PLACE_NEW_ARMIES_ON_BOARD 1");
 Cards* cards18 = new Cards(1,"Carrot", "PLACE_NEW_ARMIES_ON_BOARD 3");
 Cards* cards19 = new Cards(1,"Carrot", "MOVE_OVER_LAND 4");
 Cards* cards20 = new Cards(1,"Carrot", "MOVE_OVER_LAND 4");
 Cards* cards21 = new Cards(1,"Carrot","PLACE_NEW_ARMIES_ON_BOARD 4 OR MOVE_OVER_LAND 2");
 Cards* cards22 = new Cards(1,"Carrot", "MOVE_OVER_LAND 5");
-Cards* cards23 = new Cards(1,"Carrot", "BUILD_A_CITY");
+Cards* cards23 = new Cards(1,"Carrot", "BUILD_A_CITY 1");
 Cards* cards24 = new Cards(1,"Carrot", "MOVE_OVER_WATER 3");
 Cards* cards25 = new Cards(2,"Carrot", "PLACE_NEW_ARMIES_ON_BOARD 3");
 Cards* cards26 = new Cards(1,"Tree", "MOVE_OVER_LAND 5");
 Cards* cards27 = new Cards(1,"Tree", "MOVE_OVER_LAND 6");
 Cards* cards28 = new Cards(1,"Tree", "PLACE_NEW_ARMIES_ON_BOARD 2 OR MOVE_OVER_LAND 3");
-Cards* cards29 = new Cards(1,"Tree", "DESTROY_ARMY 1 OR BUILD_A_CITY");
+Cards* cards29 = new Cards(1,"Tree", "DESTROY_ARMY 1 OR BUILD_A_CITY 1");
 Cards* cards30 = new Cards(1,"Tree", "PLACE_NEW_ARMIES_ON_BOARD 3");
 Cards* cards31 = new Cards(1,"Tree", "MOVE_OVER_WATER 4");
 Cards* cards32 = new Cards(1,"Tree", "MOVE_OVER_WATER 3");
-Cards* cards33 = new Cards(1,"Tree", "BUILD_A_CITY");
+Cards* cards33 = new Cards(1,"Tree", "BUILD_A_CITY 1");
 Cards* cards34 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3");
 Cards* cards35 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3");
 Cards* cards36 = new Cards(1,"Anvil", "MOVE_OVER_WATER 3");
-Cards* cards37 = new Cards(1,"Anvil", "BUILD_A_CITY");
+Cards* cards37 = new Cards(1,"Anvil", "BUILD_A_CITY 1");
 Cards* cards38 = new Cards(2,"Anvil", "MOVE_OVER_LAND 4");
 Cards* cards39 = new Cards(1,"Anvil", "MOVE_OVER_LAND 5");
 Cards* cards40 = new Cards(1,"Anvil", "MOVE_OVER_LAND 4");
@@ -177,10 +175,7 @@ std::vector<Cards*> Deck::topBoardGenetor(Deck &deck) {
         tb->emplace_back(deck.draw());
     }
     std::cout << "TopBoard size: " << tb->size() << endl;
-//    displayTopBoard(topBoard);
-    int j = 0;
-    for (auto it = tb->begin(); it != tb->end(); ++it)
-        cout << "Position " << ++j << " " << **it << endl;
+    // displayTopBoard(*tb);
     std::cout << "topBoardGenetor(Deck deck) works" << endl;
     return *tb;
 }
@@ -189,7 +184,7 @@ void Deck::displayTopBoard(std::vector<Cards*> &topBoard) {
     int j = 0;
     int index =  0;
     for (auto it = topBoard.begin(); it != topBoard.end(); ++it)
-        cout << "Position " << ++j << " Card costs "<< posArray[index++] << " dollars and shows " << **it << endl;
+        cout << "Position " << ++j << " - Cost: "<< posArray[index++] << " Coins. " << **it << endl;
     std::cout << "displayTopBoard( topBoard ) works" << endl;
 }
 
@@ -221,30 +216,54 @@ void Deck::displayHand(std::vector<Cards*> &hand) {
     }
 }
 
-void Deck::exchange(std::vector<Cards*> &hand, std::vector<Cards*> &topBoard, Deck &deck) {
-    cout<< "--------before exchange--------------" <<endl;
+void Deck::exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck) {
+    bool successfullPurchase = false;
+    int cost, position, index;
+
+    // display top board before player purchases a card
+    cout<< "Top Board:" << endl;
     displayTopBoard(topBoard);
-    cout<< "----------------------" <<endl;
-    int position, index;
+
+    // allow player to purchase a card
+    cout << player.getName() << ", you have " << player.getCoins() << " coins remaining in your stash." << endl;
     cout << "Which card do you want to buy? Please enter an integer from 1 to 6: " << endl;
-    cin >> position;
-    while (position > 6 || position < 1) {
-        cout << "Invalid input: " << position << ". Please enter an integer from 1 to 6: " << endl;
+    do {
         cin >> position;
-    }
+        if (position < 1 || position > 6) {
+            cout << "Invalid input: " << position << ". Please enter an integer from 1 to 6: " << endl;
+            continue;
+        }
+        if (position == 1) {
+            cost = 0;
+        }
+        else if (position == 2 || position == 3) {
+            cost = 1;
+        }
+        else if (position == 4 || position == 5) {
+            cost = 2;
+        }
+        else if (position == 6) {
+            cost = 3;
+        }
+        successfullPurchase = player.payCoin(cost);
+    } while (!successfullPurchase);
+
+    // purchase confirmation
     index = position - 1;
-    cout << "The card which shows: " << *topBoard.at(index) << " and costs " << posArray[index] << " dollars." << endl;
-    cout << "Would you like to buy this card ? " << endl;
-    //TODO: call PayCoin() here
-    hand.push_back(topBoard.at(index));
+    cout << "The card which shows: " << *topBoard.at(index) << " and costs " << posArray[index] << " coins." << endl;
+
+    // update gamehand and update top board
+    player.getGameHand()->push_back(topBoard.at(index));
     topBoard.erase(topBoard.begin()+index);
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
     topBoard.push_back(deck.draw());
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
-    cout << "Player's hand added a card shows " << *hand.back() << endl;
+    cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
     cout << "Deck::exchange(hand, topboard, deck) works"  << endl;
-    cout<< "-----after-----------------" <<endl;
+
+    // display updated top board
+    cout << "Top Board:" << endl;
     displayTopBoard(topBoard);
-    cout<< "----------------------" <<endl;
+    cout << endl << endl;
 }
 
