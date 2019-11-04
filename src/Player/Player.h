@@ -18,6 +18,7 @@ private:
   int *armies;
   int *cities;
   int *age;
+  int *points;
   std::string *name;
   std::vector<Cards*> *gameHand;
   BiddingFacility *biddingFacility;
@@ -49,6 +50,7 @@ public:
   int getArmies() const;
   int getCities() const;
   int getAge() const;
+  int getPoints() const;
   std::string getName() const;
   BiddingFacility *getBiddingFacility() const;
   std::vector<Cards*> *getGameHand() const;
@@ -59,6 +61,7 @@ public:
   void setCities(int cities);
   void setAge(int age);
   void setName(std::string name);
+  void addPoints(int additionalPoints);
 };
 
 #endif
