@@ -139,6 +139,7 @@ int *GameScore::computeGameScore(std::vector<Player *> &players, std::vector<Car
             std::string input;
 
             std::cout << "You have wild cards which can exchange to other cards if you hold at least one card of the same good type." << endl;
+            std::cout << "Please note if you input the one that actually you don't have that type of good card, your wild card will be forfeit : )" << endl;
             std::cout << "Which card would you like to exchange? Please input in lowercase (Eg. rock tree crystal carrot anvil)" << endl;
             std::cin >> input;
             if (*numRock >0  && input.compare("rock") == 0)
