@@ -11,6 +11,7 @@ Player::Player(std::string name, int age)
   Player::cities = new int(3);
   Player::armies = new int(14);
   Player::coins = new int(14);
+  Player::points = new int(0);
   Player::name = new std::string(name);
   Player::age = new int(age);
   Player::gameHand = new std::vector<Cards*>();
@@ -21,6 +22,7 @@ Player::Player(std::string name, int numOfPlayers, int age)
 {
   Player::cities = new int(3);
   Player::armies = new int(14);
+  Player::points = new int(0);
   Player::name = new std::string(name);
   Player::age = new int(age);
   Player::gameHand = new std::vector<Cards*>();
@@ -64,6 +66,10 @@ Player::~Player()
   if (age) {
     delete age;
     age = NULL;
+  }
+  if (points) {
+    delete points;
+    points = NULL;
   }
   if (name) {
     delete name;
@@ -431,6 +437,8 @@ int Player::getCities() const { return *cities; }
 
 int Player::getAge() const { return *age; }
 
+int Player::getPoints() const { return *points; }
+
 std::string Player::getName() const { return *name; }
 
 BiddingFacility *Player::getBiddingFacility() const { return biddingFacility; }
@@ -448,3 +456,5 @@ void Player::setCities(int cities) { *Player::cities = cities; }
 void Player::setAge(int age) { *Player::age = age; }
 
 void Player::setName(std::string name) { *Player::name = name; }
+
+void Player::addPoints(int additionalPoints) { *Player::points = additionalPoints; }
