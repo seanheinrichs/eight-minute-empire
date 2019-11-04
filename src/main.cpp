@@ -23,7 +23,7 @@ int main()
     // Part 2)
     // gameStartupExample();
 
-    // Part 3)
+    // Part 3 AND 5)
     // mainLoopDriver();
 
     // Part 4)
