@@ -1,5 +1,6 @@
 #pragma once
 #include <iterator>
+#include <bits/stdc++.h> 
 #include "Map.h"
 
 Map::Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players)
@@ -101,6 +102,7 @@ Map::Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std:
     nodes = new std::vector<Node>;
     *nodes = inputNodes;
     start = new std::string(startRegion);
+    this->continents = new std::vector<std::string>(continents);
 }
 
 Map::~Map()
@@ -200,6 +202,64 @@ int Map::getNodeIndex(std::string regionName)
 std::string *Map::getStart() const
 {
     return start;
+}
+std::map<std::string, std::vector<std::string>> Map::getRegionOwners() 
+{
+    std::map<std::string, std::vector<std::string>> regionOwners{};
+
+    for (int i=0; i < nodes->size(); i++) {
+        // if player is not in map, add them and the region they own
+        if (regionOwners.find(nodes->at(i).owner) == regionOwners.end()) {
+            std::vector<std::string> regions;
+            regions.emplace_back(nodes->at(i).region);
+            regionOwners.insert(std::make_pair(nodes->at(i).owner, regions));
+        }
+        // push region onto vector if owner already in map
+        else {
+            regionOwners.at(nodes->at(i).owner).emplace_back(nodes->at(i).region);
+        }
+    }
+    return regionOwners;
+}
+
+std::vector<std::pair<std::string, std::string>> Map::getContinentOwners()
+{
+    auto rawData = getRegionOwners().begin();
+    auto swapped = getRegionOwners();
+    std::vector<std::pair<std::string, std::string>> continentOwners{};
+
+    // Set up output vector of pairs fo continent and owner
+    for (int i=0; i < continents->size(); i++) {
+        continentOwners.emplace_back(std::make_pair(continents->at(i), "No owner"));
+    }
+
+    // takes regionOwners and swaps each region name with its continent name
+    while (rawData != swapped.end()) {
+        for (int j=0; j < swapped.at(rawData->first).size(); j++) {
+            swapped.at(rawData->first).at(j) = nodes->at(getNodeIndex(swapped.at(rawData->first).at(j))).continent;
+        }
+        rawData++;
+    }
+
+    for (int i=0; i < continentOwners.size(); i++) {
+        auto iter = swapped.begin();
+        std::string owner = "No owner";
+        int totalOwned = 0;
+        while (iter != swapped.end()) {
+            int count = std::count(iter->second.begin(), iter->second.end(), continentOwners.at(i).first);
+            
+            if (count > totalOwned) {
+                continentOwners.at(i).second = iter->first;
+                owner = iter->first;
+                totalOwned = count;
+            }
+            else if (count == totalOwned) {
+                continentOwners.at(i).second = "No owner";
+            }
+            iter++;
+        }
+    }
+    return continentOwners;
 }
 
 std::vector<std::string> Map::getRegionNames()
