@@ -142,7 +142,7 @@ Deck::Deck() {
     deck.push_back(cards40);
     deck.push_back(cards41);
     deck.push_back(cards42);
-    std::cout<<"Deck is good" << endl;
+    std::cout<<"Deck is good and have " << deck.size()<< " cards remained." << endl;
 }
 
 Deck::~Deck() {
@@ -158,8 +158,9 @@ Deck::~Deck() {
 
 
 Cards* Deck::draw() {
-//    std::srand ( unsigned ( std::time(0) ) ); // another way to generate a Random seed
-    std::random_shuffle(deck.begin(), deck.end(), seed1);
+    std::srand ( unsigned ( std::time(0) ) ); // another way to generate a Random seed
+    std::random_shuffle(deck.begin(), deck.end());
+//    std::random_shuffle(deck.begin(), deck.end(), seed1);
 //    Check if deck shuffled well:
 //    std::cout << "deck contains:";
 //    for (std::vector<Cards*>::iterator it=deck.begin(); it!=deck.end(); ++it)

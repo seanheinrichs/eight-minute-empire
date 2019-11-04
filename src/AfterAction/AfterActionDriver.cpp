@@ -5,6 +5,12 @@
 
 void afterActionExample() {
 
+    std::cout<< "======== Deck draw( ) shuffled well ====== "<< endl;
+    Deck deck100;
+    deck100.draw();
+    deck100.draw();
+
+
     std::cout<< "======== Test Top Board and Play pass to the next ====== "<< endl;
     Deck deck1;
     std::vector<Cards*> tb = deck1.topBoardGenetor(deck1);
