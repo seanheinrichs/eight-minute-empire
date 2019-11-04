@@ -14,6 +14,16 @@ class GameScore {
     int* point;
     std::vector<Cards*> gameHand;
     std::vector<Player*> players;
+    int* numOfRegions;
+    int* numOfContinents;
+    int* numOfCoins;
+    int* numOfArmies;
+    // Rules priotity: mostPoints ->  mostCoins -> mostArmies -> mostRegions
+    int* mostPoints;
+    int* mostCoins;
+    int* mostArmies;
+    int* mostRegions;
+
 //    std::vector<Cards*> players->getGameHand();
 public:
     GameScore();
@@ -47,6 +57,19 @@ public:
     int* numOfWild(std::vector<Cards*> &gameHand);
 
     int* computeGameScore(std::vector<Player*> &players, std::vector<Cards*> &gameHand);
+
+    void winnerGenerator ( );
+
+
+    /**
+     * so far can Player get this data?
+     * int getCoins() const;
+  int getArmies() const;
+  int getCities() const;
+  int getAge() const;
+  std::string getName() const;
+  std::vector<Cards> *getGameHand() const;
+     */
 
 };
 
