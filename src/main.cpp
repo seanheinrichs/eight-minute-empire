@@ -29,16 +29,5 @@ int main()
     // Part 4)
     // playerMethodsDriver();
 
-    MapLoader loader;
-    Map m = loader.generateMap("assets/map1.map");
-    auto r = m.getContinentOwners();
-
-    auto iter = r.begin();
-    while (iter != r.end()) {
-        std::cout << iter->first << " " << iter->second;
-        iter++;
-    }
-    
-    
     return 0;
 }
