@@ -42,6 +42,8 @@ public:
   bool buildCity(Map &gameBoard);
   void destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers);
   bool ignore();
+  void andOrAction(std::string action, Map &gameBoard, std::vector<Player *> allPlayers);
+  void takeAction(std::string action, int quantity, Map &gameBoard, std::vector<Player *> allPlayers);
 
   // Accessors
   int getCoins() const;

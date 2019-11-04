@@ -51,14 +51,15 @@ void PlayerMethodsDriver() {
 
     Map m1(nodeVector, "region1", regions, continents, players);
 
-    m1.printNodes();
 
-    playerVector.at(1)->moveArmies(2, m1, true);
-    playerVector.at(1)->buildCity(m1);
-    playerVector.at(1)->placeNewArmies(3, m1);
-    playerVector.at(2)->destroyArmy(m1, playerVector);
-    playerVector.at(0)->moveArmies(2, m1, false);
+    std::string cardText1 = "PLACE_NEW_ARMIES_ON_BOARD 3 ";
+    std::string cardText2 = "DESTROY_ARMY 1 OR BUILD_A_CITY";
+    std::string delimiter = " ";
 
+    std::string action = cardText2.substr(0, cardText1.find(delimiter));
+    int quantity = std::stoi(cardText2.substr(cardText2.find(delimiter) + 1));
+
+    playerVector.at(1)->takeAction(action, quantity, m1, playerVector);
     m1.printNodes();
 }
 

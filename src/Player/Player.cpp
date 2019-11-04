@@ -299,6 +299,57 @@ bool Player::ignore()
     return (answer == "y");
 }
 
+void Player::takeAction(std::string action, int quantity, Map &gameBoard, std::vector<Player *> allPlayers)
+{
+    if (action == "MOVE_OVER_WATER") {
+        moveArmies(quantity, gameBoard, true);
+    }
+    else if (action == "MOVE_OVER_LAND") {
+        moveArmies(quantity, gameBoard, false);
+    }
+    else if (action == "PLACE_NEW_ARMIES_ON_BOARD") {
+        placeNewArmies(quantity, gameBoard);
+    }
+    else if (action == "BUILD_A_CITY") {
+        buildCity(gameBoard);
+    }
+    else if (action == "DESTROY_ARMY") {
+        destroyArmy(gameBoard, allPlayers);
+    }
+}
+
+// only string2 can be build_a_city
+void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player *> allPlayers)
+{
+    if (action.find("OR") != std::string::npos) {
+        // split string into two halves
+        std::string orDelimiter = "OR";
+        std::string firstHalfOfString = action.substr(0, action.find(orDelimiter));
+        std::string secondHalfOfString = action.substr(action.find(orDelimiter) + 3);
+
+        // split both halves into component parts (action and quantity)
+        std::string spaceDelimiter = " ";
+        std::string firstAction = firstHalfOfString.substr(0, firstHalfOfString.find(spaceDelimiter));
+        std::string secondAction = secondHalfOfString.substr(0, secondHalfOfString.find(spaceDelimiter));
+
+        int quantity1 = std::stoi(firstAction)
+        int quantity2
+
+        std::cout << "Please choose one of the following: " << endl;
+        std::cout << "- " << firstAction;
+        std::cout << "- " << secondAction;
+
+
+
+    }
+    else {
+        std::string andDelimiter = "AND";
+
+    }
+
+
+}
+
 // Utility Methods
 
 std::string Player::validateRegion(std::vector<std::string> placementRegions)
