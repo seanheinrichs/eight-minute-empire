@@ -11,9 +11,10 @@ Player::Player(std::string name, int age)
   Player::cities = new int(3);
   Player::armies = new int(14);
   Player::coins = new int(14);
+  Player::points = new int(0);
   Player::name = new std::string(name);
   Player::age = new int(age);
-  Player::gameHand = new std::vector<Cards>();
+  Player::gameHand = new std::vector<Cards*>();
   Player::biddingFacility = new BiddingFacility();
 }
 
@@ -21,9 +22,10 @@ Player::Player(std::string name, int numOfPlayers, int age)
 {
   Player::cities = new int(3);
   Player::armies = new int(14);
+  Player::points = new int(0);
   Player::name = new std::string(name);
   Player::age = new int(age);
-  Player::gameHand = new std::vector<Cards>();
+  Player::gameHand = new std::vector<Cards*>();
   Player::biddingFacility = new BiddingFacility();
 
   // Amount of coins available to Players is determined by # of Players
@@ -65,17 +67,13 @@ Player::~Player()
     delete age;
     age = NULL;
   }
+  if (points) {
+    delete points;
+    points = NULL;
+  }
   if (name) {
     delete name;
     name = NULL;
-  }
-  if (regions) {
-    delete regions;
-    regions = NULL;
-  }
-  if (countries) {
-    delete countries;
-    countries = NULL;
   }
   if (gameHand) {
     delete gameHand;
@@ -100,7 +98,7 @@ bool Player::payCoin(int cost)
   else
   {
     setCoins(*coins - cost);
-    std::cout << "Successful Purchase, you have " << *coins << " amount of coins remaining" << std::endl;
+    std::cout << "Successful purchase " << *name << ", you have " << *coins << " coins remaining in your pile." << std::endl << std::endl;
     return true;
   }
 }
@@ -110,7 +108,7 @@ bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
   // check to see if player has available armies to place
   if (*armies == 0)
   {
-    std::cout << "Sorry, " << *name << " you have no more available armies." << endl;
+    std::cout << "Sorry, " << *name << " you have no more available armies." << std::endl;
     return false;
   }
 
@@ -131,17 +129,17 @@ bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
   // inform player where they can place units (ie. starting area and where they have cities)
   if (spendableArmies == 1)
   {
-    std::cout << *name << ", you have " << spendableArmies << " army to place on the map." << endl;
+    std::cout << *name << ", you have " << spendableArmies << " army to place on the map." << std::endl;
   }
   else
   {
-    std::cout << *name << ", you have " << spendableArmies << " armies to place on the map." << endl;
+    std::cout << *name << ", you have " << spendableArmies << " armies to place on the map." << std::endl;
   }
-  std::cout << "Here are the areas in which you may place an army: " << endl;
+  std::cout << "Here are the areas in which you may place an army: " << std::endl;
   placementRegions = gameBoard.getRegionsToAddArmies(*name);
   for (int i = 0; i < placementRegions.size(); i++)
   {
-    std::cout << "- " << placementRegions.at(i) << endl;
+    std::cout << "- " << placementRegions.at(i) << std::endl;
   }
 
   // place new armies
@@ -151,8 +149,8 @@ bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
     regionName = validateRegion(placementRegions);
     (*armies)--;
     gameBoard.addArmy(regionName, *name);
-    std::cout << "Successfully added an army to " << regionName << "." << endl
-              << endl;
+    std::cout << "Successfully added an army to " << regionName << "." << std::endl
+              << std::endl;
   }
 
   return true;
@@ -168,11 +166,11 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
     std::vector<std::string> connections;
 
     // display regions where player currently has armies
-    std::cout << *name << ", you have armies in the following locations: " << endl;
+    std::cout << *name << ", you have armies in the following locations: " << std::endl;
     regionsWithArmies = gameBoard.getRegionsWithArmies(*name);
     for (int i = 0; i < regionsWithArmies.size(); i++)
     {
-      std::cout << "- " << regionsWithArmies.at(i) << endl;
+      std::cout << "- " << regionsWithArmies.at(i) << std::endl;
     }
 
     // player selects a region to move an army from
@@ -180,7 +178,7 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
     origin = validateRegion(regionsWithArmies);
 
     // display connected regions
-    std::cout << "The following regions are connected to " << origin << ": " << endl;
+    std::cout << "The following regions are connected to " << origin << ": " << std::endl;
     if (waterMove)
     {
       connections = gameBoard.getRegionsConnectedByLandAndWater(origin);
@@ -191,7 +189,7 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
     }
     for (int i = 0; i < connections.size(); i++)
     {
-      std::cout << "- " << connections.at(i) << endl;
+      std::cout << "- " << connections.at(i) << std::endl;
     }
 
     // player selects a region to move an army to
@@ -200,8 +198,8 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
 
     // move army
     gameBoard.moveArmy(origin, destination, *name);
-    std::cout << "Sucessfully moved 1 troop from " << origin << " to " << destination << "." << endl
-              << endl;
+    std::cout << "Sucessfully moved 1 troop from " << origin << " to " << destination << "." << std::endl
+              << std::endl;
   }
 }
 
@@ -210,7 +208,7 @@ bool Player::buildCity(Map &gameBoard)
   // check to see if player has available cities to place
   if (*cities == 0)
   {
-    std::cout << "Sorry, " << *name << "you have no more available cities." << endl;
+    std::cout << "Sorry, " << *name << "you have no more available cities." << std::endl;
     return false;
   }
 
@@ -222,7 +220,7 @@ bool Player::buildCity(Map &gameBoard)
   placementRegions = gameBoard.getRegionsToAddCities(*name);
   for (int i = 0; i < placementRegions.size(); i++)
   {
-    std::cout << "- " << placementRegions.at(i) << endl;
+    std::cout << "- " << placementRegions.at(i) << std::endl;
   }
 
   // place new city
@@ -230,13 +228,12 @@ bool Player::buildCity(Map &gameBoard)
   regionName = validateRegion(placementRegions);
   (*cities)--;
   gameBoard.addCity(regionName, *name);
-  std::cout << "Successfully added a city to " << regionName << "." << endl
-            << endl;
+  std::cout << "Successfully added a city to " << regionName << "." << std::endl
+            << std::endl;
 
   return true;
 }
 
-// TODO: Every turn should output the current state of the game
 void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
 {
   std::string playerName;
@@ -268,19 +265,121 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
   } while (invalidPlayerName);
 
   // inform player where the armies from the targeted player are
-  std::cout << *name << ", here are the regions where " << playerName << "has armies." << std::endl;
+  std::cout << *name << ", here are the regions where " << playerName << " has armies." << std::endl;
   regionsWithEnemies = gameBoard.getRegionsWithArmies(playerName);
   for (int i = 0; i < regionsWithEnemies.size(); i++)
   {
-    std::cout << "- " << regionsWithEnemies.at(i) << endl;
+    std::cout << "- " << regionsWithEnemies.at(i) << std::endl;
   }
 
   // select a region to destroy a unit
   std::cout << "Please select a region to remove an army from: ";
   regionName = validateRegion(regionsWithEnemies);
   gameBoard.destroyArmy(regionName, playerName);
-  std::cout << "Successfully removed one of " << playerName << "'s armies from " << regionName << "." << endl
-            << endl;
+  std::cout << "Successfully removed one of " << playerName << "'s armies from " << regionName << "." << std::endl
+            << std::endl;
+}
+
+bool Player::ignore()
+{
+    bool invalidAnswer = true;
+    std::string answer;
+    std::cout << "Would you like to use the action listed on the card (y/n)? ";
+    do {
+        std::cin >> answer;
+        if (answer == "y" || answer == "n") {
+            invalidAnswer = false;
+        }
+        else {
+            std::cout << "Invalid answer. Please response with \'y\' or \'n\': ";
+        }
+    } while (invalidAnswer);
+    return (answer == "n");
+}
+
+void Player::takeAction(std::string action, Map &gameBoard, std::vector<Player*> &allPlayers)
+{
+    std::string playerAction = action.substr(0, action.find(" "));
+    int quantity = std::stoi(action.substr(action.find(" ") + 1));
+
+    if (playerAction == "MOVE_OVER_WATER") {
+        moveArmies(quantity, gameBoard, true);
+    }
+    else if (playerAction == "MOVE_OVER_LAND") {
+        moveArmies(quantity, gameBoard, false);
+    }
+    else if (playerAction == "PLACE_NEW_ARMIES_ON_BOARD") {
+        placeNewArmies(quantity, gameBoard);
+    }
+    else if (playerAction == "BUILD_A_CITY") {
+        buildCity(gameBoard);
+    }
+    else if (playerAction == "DESTROY_ARMY") {
+        destroyArmy(gameBoard, allPlayers);
+    }
+}
+
+void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player*> &allPlayers)
+{
+    int answer;
+
+    if (action.find("OR") != std::string::npos) {
+        // split string into two halves
+        std::string firstAction = action.substr(0, action.find("OR"));
+        std::string secondAction = action.substr(action.find("OR") + 3);
+
+        std::cout << "Here are your following choices: " << std::endl;
+        std::cout << "1 - " << firstAction << std::endl;
+        std::cout << "2 - " << secondAction << std::endl;
+        std::cout << "Please select one of the following by entering '1' or '2': ";
+
+        answer = validateActionSelection();
+
+        if (answer == 1) {
+            takeAction(firstAction, gameBoard, allPlayers);
+        }
+        else {
+            takeAction(secondAction, gameBoard, allPlayers);
+        }
+    }
+    else {
+        // split string into two halves
+        std::string firstAction = action.substr(0, action.find("AND"));
+        std::string secondAction = action.substr(action.find("AND") + 4);
+
+        std::cout << "Here are your following choices: " << std::endl;
+        std::cout << "1 - " << firstAction << std::endl;
+        std::cout << "2 - " << secondAction << std::endl;
+        std::cout << "Would you prefer to take '1' or '2' actions? : ";
+
+        // validate user selection
+        answer = validateActionSelection();
+
+        // player only wants to use one of the actions
+        if (answer == 1) {
+            std::cout << "Please select one of the above actions by entering '1' or '2': ";
+            answer = validateActionSelection();
+            if (answer == 1) {
+                takeAction(firstAction, gameBoard, allPlayers);
+            }
+            else {
+                takeAction(secondAction, gameBoard, allPlayers);
+            }
+        }
+        // player wants to use both actions
+        else {
+            std::cout << "Which action would you like to use first? Please select one of the above actions by entering '1' or '2': ";
+            answer = validateActionSelection();
+            if (answer == 1) {
+                takeAction(firstAction, gameBoard, allPlayers);
+                takeAction(secondAction, gameBoard, allPlayers);
+            }
+            else {
+                takeAction(secondAction, gameBoard, allPlayers);
+                takeAction(firstAction, gameBoard, allPlayers);
+            }
+        }
+    }
 }
 
 // Utility Methods
@@ -304,11 +403,28 @@ std::string Player::validateRegion(std::vector<std::string> placementRegions)
     }
     if (invalidInput)
     {
-      std::cout << "ERROR: Invalid region. Please enter a region from the list. " << endl;
+      std::cout << "ERROR: Invalid region. Please enter a region from the list. " << std::endl;
     }
   } while (invalidInput);
 
   return regionName;
+}
+
+int Player::validateActionSelection() {
+    int answer;
+    bool invalidAnswer = true;
+
+    do {
+        std::cin >> answer;
+        if (answer < 0 || answer > 2) {
+            std::cout << "ERROR: Please enter either a '1' or a '2': ";
+        }
+        else {
+            invalidAnswer = false;
+        }
+    } while (invalidAnswer);
+
+    return answer;
 }
 
 // Accessors
@@ -321,11 +437,13 @@ int Player::getCities() const { return *cities; }
 
 int Player::getAge() const { return *age; }
 
+int Player::getPoints() const { return *points; }
+
 std::string Player::getName() const { return *name; }
 
 BiddingFacility *Player::getBiddingFacility() const { return biddingFacility; }
 
-std::vector<Cards> *Player::getGameHand() const { return gameHand; }
+std::vector<Cards*> *Player::getGameHand() const { return gameHand; }
 
 // Mutators
 
@@ -339,7 +457,4 @@ void Player::setAge(int age) { *Player::age = age; }
 
 void Player::setName(std::string name) { *Player::name = name; }
 
-void Player::addCards(Cards card)
-{
-  gameHand->emplace_back(Cards(*card.getNumOfGood(), *card.getGood(), *card.getAction()));
-}
+void Player::addPoints(int additionalPoints) { *Player::points = additionalPoints; }

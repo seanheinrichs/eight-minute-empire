@@ -29,6 +29,10 @@ int BiddingFacility::biddingPhase(std::vector<Player*> players, int numberOfPlay
     for (int i = 0; i < numberOfPlayers; i++) {
         std::cout << "How much would you like to bid " << players[i]->getName() << "?" << std::endl;
         std::cin >> bid;
+        while (bid < 0 || bid > players[i]->getCoins()) {
+            std::cout << "Invalid Bid! Please enter a number between 0 and " << players[i]->getCoins() << ": ";
+            std::cin >> bid;
+        }
         players[i]->getBiddingFacility()->setBid(bid);
     }
 

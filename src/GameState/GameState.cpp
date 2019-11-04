@@ -34,8 +34,12 @@ GameState::GameState() {
   // generate players
   players = new std::vector<Player *>();
   int playerCount;
-  std::cout << "How many people are playing? ";
+  std::cout << "How many people are playing (2-5)? ";
   std::cin >> playerCount;
+  while (playerCount < 2 || playerCount > 5) {
+      std::cout << "Invalid player count, please select a number between 2 and 5: ";
+      std::cin >> playerCount;
+  }
   std::cout << std::endl;
 
   // get player names and ages
@@ -66,4 +70,17 @@ GameState::~GameState() {
     delete deck;
     deck = NULL;
   }
+}
+
+int GameState::determineGameLength() {
+    switch (players->size()) {
+        case (2):
+            return 13;
+        case (3):
+            return 10;
+        case (4):
+            return 8;
+        case (5):
+            return 7;
+    }
 }
