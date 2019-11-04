@@ -12,6 +12,7 @@
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
 #include "MainLoop/MainLoop.h"
+#include <algorithm>
 
 int main()
 {
@@ -19,11 +20,11 @@ int main()
 
     // gameStateDriver();
 
-    mainLoopDriver();
+    // mainLoopDriver();
 
     // gameStartupExample();
 
-    // PlayerMethodsDriver();
+    playerMethodsDriver();
 
     return 0;
 }

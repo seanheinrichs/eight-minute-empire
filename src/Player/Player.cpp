@@ -267,7 +267,7 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
   } while (invalidPlayerName);
 
   // inform player where the armies from the targeted player are
-  std::cout << *name << ", here are the regions where " << playerName << "has armies." << std::endl;
+  std::cout << *name << ", here are the regions where " << playerName << " has armies." << std::endl;
   regionsWithEnemies = gameBoard.getRegionsWithArmies(playerName);
   for (int i = 0; i < regionsWithEnemies.size(); i++)
   {
@@ -299,55 +299,89 @@ bool Player::ignore()
     return (answer == "y");
 }
 
-void Player::takeAction(std::string action, int quantity, Map &gameBoard, std::vector<Player *> allPlayers)
+void Player::takeAction(std::string action, Map &gameBoard, std::vector<Player *> allPlayers)
 {
-    if (action == "MOVE_OVER_WATER") {
+    std::string playerAction = action.substr(0, action.find(" "));
+    int quantity = std::stoi(action.substr(action.find(" ") + 1));
+
+    if (playerAction == "MOVE_OVER_WATER") {
         moveArmies(quantity, gameBoard, true);
     }
-    else if (action == "MOVE_OVER_LAND") {
+    else if (playerAction == "MOVE_OVER_LAND") {
         moveArmies(quantity, gameBoard, false);
     }
-    else if (action == "PLACE_NEW_ARMIES_ON_BOARD") {
+    else if (playerAction == "PLACE_NEW_ARMIES_ON_BOARD") {
         placeNewArmies(quantity, gameBoard);
     }
-    else if (action == "BUILD_A_CITY") {
+    else if (playerAction == "BUILD_A_CITY") {
         buildCity(gameBoard);
     }
-    else if (action == "DESTROY_ARMY") {
+    else if (playerAction == "DESTROY_ARMY") {
         destroyArmy(gameBoard, allPlayers);
     }
 }
 
-// only string2 can be build_a_city
 void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player *> allPlayers)
 {
+    int answer;
+
     if (action.find("OR") != std::string::npos) {
         // split string into two halves
-        std::string orDelimiter = "OR";
-        std::string firstHalfOfString = action.substr(0, action.find(orDelimiter));
-        std::string secondHalfOfString = action.substr(action.find(orDelimiter) + 3);
+        std::string firstAction = action.substr(0, action.find("OR"));
+        std::string secondAction = action.substr(action.find("OR") + 3);
 
-        // split both halves into component parts (action and quantity)
-        std::string spaceDelimiter = " ";
-        std::string firstAction = firstHalfOfString.substr(0, firstHalfOfString.find(spaceDelimiter));
-        std::string secondAction = secondHalfOfString.substr(0, secondHalfOfString.find(spaceDelimiter));
+        std::cout << "Here are your following choices: " << endl;
+        std::cout << "1 - " << firstAction << endl;
+        std::cout << "2 - " << secondAction << endl;
+        std::cout << "Please select one of the following by entering '1' or '2': ";
 
-        int quantity1 = std::stoi(firstAction)
-        int quantity2
+        answer = validateActionSelection();
 
-        std::cout << "Please choose one of the following: " << endl;
-        std::cout << "- " << firstAction;
-        std::cout << "- " << secondAction;
-
-
-
+        if (answer == 1) {
+            takeAction(firstAction, gameBoard, allPlayers);
+        }
+        else {
+            takeAction(secondAction, gameBoard, allPlayers);
+        }
     }
     else {
-        std::string andDelimiter = "AND";
+        // split string into two halves
+        std::string firstAction = action.substr(0, action.find("AND"));
+        std::string secondAction = action.substr(action.find("AND") + 4);
 
+        std::cout << "Here are your following choices: " << endl;
+        std::cout << "1 - " << firstAction << endl;
+        std::cout << "2 - " << secondAction << endl;
+        std::cout << "Would you prefer to take '1' or '2' actions? : ";
+
+        // validate user selection
+        answer = validateActionSelection();
+
+        // player only wants to use one of the actions
+        if (answer == 1) {
+            std::cout << "Please select one of the above actions by entering '1' or '2': ";
+            answer = validateActionSelection();
+            if (answer == 1) {
+                takeAction(firstAction, gameBoard, allPlayers);
+            }
+            else {
+                takeAction(secondAction, gameBoard, allPlayers);
+            }
+        }
+        // player wants to use both actions
+        else {
+            std::cout << "Which action would you like to use first? Please select one of the above actions by entering '1' or '2': ";
+            answer = validateActionSelection();
+            if (answer == 1) {
+                takeAction(firstAction, gameBoard, allPlayers);
+                takeAction(secondAction, gameBoard, allPlayers);
+            }
+            else {
+                takeAction(secondAction, gameBoard, allPlayers);
+                takeAction(firstAction, gameBoard, allPlayers);
+            }
+        }
     }
-
-
 }
 
 // Utility Methods
@@ -376,6 +410,23 @@ std::string Player::validateRegion(std::vector<std::string> placementRegions)
   } while (invalidInput);
 
   return regionName;
+}
+
+int Player::validateActionSelection() {
+    int answer;
+    bool invalidAnswer = true;
+
+    do {
+        cin >> answer;
+        if (answer < 0 || answer > 2) {
+            std::cout << "ERROR: Please enter either a '1' or a '2': ";
+        }
+        else {
+            invalidAnswer = false;
+        }
+    } while (invalidAnswer);
+
+    return answer;
 }
 
 // Accessors
