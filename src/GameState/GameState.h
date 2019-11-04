@@ -14,7 +14,7 @@ public:
   Map *map;
 
   // deck of cards and hand placed on table
-  Deck::Hand *deck;
+  Deck *deck;
 
   // players
   std::vector<Player *> *players;

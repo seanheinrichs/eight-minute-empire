@@ -35,6 +35,9 @@ private:
     // find a node's index
     int getNodeIndex(std::string regionName);
 
+    // recalculate the owner of a node
+    void updateOwner(int index);
+
 public:
     // constructors and destructors
     Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players);
