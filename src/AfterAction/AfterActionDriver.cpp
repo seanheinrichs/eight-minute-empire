@@ -5,10 +5,11 @@
 
 void afterActionExample() {
 
-    std::cout<< "======== Deck draw( ) shuffled well ====== "<< endl;
-    Deck deck100;
-    deck100.draw();
-    deck100.draw();
+    //// please comment out one block before run the code, otherwise surprise expected ////
+//    std::cout<< "======== Deck draw( ) shuffled well ====== "<< endl;
+//    Deck deck100;
+//    deck100.draw();
+//    deck100.draw();
 
 
     std::cout<< "======== Test Top Board and Play pass to the next ====== "<< endl;

@@ -73,7 +73,7 @@ int main()
 //    gameStartupExample();
 
     //// After the Action Example ////
-    afterActionExample();
+//    afterActionExample();
 //    gameStartupExample();
 
     //// Game Score Example ////

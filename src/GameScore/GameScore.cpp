@@ -132,23 +132,24 @@ int *GameScore::computeGameScore(std::vector<Player *> &players, std::vector<Car
 
     // check if player's hand has Wild cards
     if (*numWild > 0) {
-        std::cout << "You have wild: " << *numWild << ", rock: " << numRock <<
-                  ", tree: " << numTree << ", crystal: " << numCrystal << ", carrot: " << numCarrot
-                  << ", anvil card: " << numAnvil << endl;
-        for (auto i = 0; i <= *numWild; i++) {
+        std::cout << "You have wild: " << *numWild << ", rock: " << *numRock <<
+                  ", tree: " << *numTree << ", crystal: " << *numCrystal << ", carrot: " << *numCarrot
+                  << ", anvil card: " << *numAnvil << endl;
+        for (auto i = 0; i < *numWild; i++) {
             std::string input;
 
+            std::cout << "You have wild cards which can exchange to other cards if you hold at least one card of the same good type." << endl;
             std::cout << "Which card would you like to exchange? Please input in lowercase (Eg. rock tree crystal carrot anvil)" << endl;
             std::cin >> input;
-            if (input.compare("rock") == 0)
+            if (*numRock >0  && input.compare("rock") == 0)
                 *numRock++;
-            else if (input.compare("tree") == 0)
+            else if (*numTree > 0 && input.compare("tree") == 0)
                 *numTree++;
-            else if (input.compare("crystal") == 0)
+            else if (*numCrystal > 0 && input.compare("crystal") == 0)
                 *numCrystal++;
-            else if (input.compare("carrot") == 0)
+            else if (*numCarrot > 0 && input.compare("carrot") == 0)
                 *numCarrot++;
-            else if (input.compare("anvil") == 0)
+            else if (*numAnvil > 0 && input.compare("anvil") == 0)
                 *numAnvil++;
             else
                 continue;
