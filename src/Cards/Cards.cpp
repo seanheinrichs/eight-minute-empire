@@ -146,6 +146,14 @@ Deck::Deck() {
 }
 
 Deck::~Deck() {
+    if(cost){
+        delete cost;
+        cost = nullptr;
+    }
+    if(position){
+        delete position;
+        position = nullptr;
+    }
 }
 
 
@@ -239,10 +247,10 @@ void Deck::exchange(std::vector<Cards*> &hand, std::vector<Cards*> &topBoard, De
     cout << "The card which shows: " << *topBoard.at(index) << " and costs " << posArray[index] << " dollars." << endl;
     cout << "Would you like to buy this card ? " << endl;
     //TODO: call PayCoin() here
-    hand.push_back(topBoard.at(index));
+    hand.emplace_back(topBoard.at(index));
     topBoard.erase(topBoard.begin()+index);
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
-    topBoard.push_back(deck.draw());
+    topBoard.emplace_back(deck.draw());
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
     cout << "Player's hand added a card shows " << *hand.back() << endl;
     cout << "Deck::exchange(hand, topboard, deck) works"  << endl;
