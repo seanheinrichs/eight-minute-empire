@@ -16,10 +16,18 @@ ostream &operator<<(ostream &os, const Cards &cards) {
 }
 
 Cards::~Cards() {
-    delete good;
-    this->good = nullptr;
-    delete action;
-    this->action = nullptr;
+    if (good){
+        delete good;
+        good = nullptr;
+    }
+    if (action){
+        delete action;
+        action = nullptr;
+    }
+    if (numOfGood){
+        delete numOfGood;
+        numOfGood = nullptr;
+    }
 }
 
 
@@ -97,7 +105,7 @@ Cards* cards40 = new Cards(1,"Anvil", "MOVE_OVER_LAND 4");
 Cards* cards41 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_LAND 4");
 Cards* cards42 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_LAND 3");
 // random generator function:
-int seed1 (int i) { return std::rand() % i;}
+//int seed1 (int i) { return std::rand() % i;}
 
 Deck::Deck() {
     deck.push_back(cards01);
@@ -160,7 +168,8 @@ Deck::~Deck() {
 Cards* Deck::draw() {
     std::srand ( unsigned ( std::time(0) ) ); // another way to generate a Random seed
     std::random_shuffle(deck.begin(), deck.end());
-//    std::random_shuffle(deck.begin(), deck.end(), seed1);
+//    std::random_shuffle(deck.begin(), deck.end(), seed1); // one way to generate a Random seed
+
 //    Check if deck shuffled well:
 //    std::cout << "deck contains:";
 //    for (std::vector<Cards*>::iterator it=deck.begin(); it!=deck.end(); ++it)
