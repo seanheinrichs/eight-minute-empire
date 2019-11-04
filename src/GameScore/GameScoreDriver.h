@@ -1,0 +1,14 @@
+//
+// Created by steve on 11/3/2019.
+//
+
+#ifndef EIGHT_MINUTE_EMPIRE_GAMESCOREDRIVER_H
+#define EIGHT_MINUTE_EMPIRE_GAMESCOREDRIVER_H
+
+
+class GameScoreDriver {
+
+};
+
+
+#endif //EIGHT_MINUTE_EMPIRE_GAMESCOREDRIVER_H
