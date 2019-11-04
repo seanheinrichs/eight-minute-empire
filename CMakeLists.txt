@@ -11,6 +11,7 @@ include_directories(src/MapLoader)
 include_directories(src/Player)
 include_directories(src/GameState)
 include_directories(src/GameStartup)
+include_directories(src/AfterAction)
 
 add_executable(eight_minute_empire
     src/BiddingFacility/BiddingFacility.cpp
@@ -27,6 +28,10 @@ add_executable(eight_minute_empire
     src/Player/Player.h
     src/Player/PlayerDriver.cpp
     src/Player/PlayerDriver.h
+    src/Player/PlayerMethodsDriver.h
+    src/Player/PlayerMethodsDriver.cpp
+#    src/MainLoop/MainLoop.cpp
+#    src/MainLoop/MainLoop.h
     src/GameState/GameState.cpp
     src/GameState/GameState.h
     src/GameState/GameStateDriver.cpp
@@ -35,4 +40,6 @@ add_executable(eight_minute_empire
     src/GameStartup/GameStartup.h
     src/GameStartup/GameStartupDriver.cpp
     src/GameStartup/GameStartupDriver.h
-    src/main.cpp src/AfterAction/AfterActionDriver.cpp src/AfterAction/AfterActionDriver.h)
+    src/main.cpp
+    src/AfterAction/AfterActionDriver.cpp
+    src/AfterAction/AfterActionDriver.h)
