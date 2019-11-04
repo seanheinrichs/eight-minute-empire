@@ -448,8 +448,3 @@ void Player::setCities(int cities) { *Player::cities = cities; }
 void Player::setAge(int age) { *Player::age = age; }
 
 void Player::setName(std::string name) { *Player::name = name; }
-
-//void Player::addCards(*Cards card)
-//{
-//  gameHand->emplace_back(Cards(*card.getNumOfGood(), *card.getGood(), *card.getAction()));
-//}

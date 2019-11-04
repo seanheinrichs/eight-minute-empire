@@ -59,7 +59,6 @@ public:
   void setCities(int cities);
   void setAge(int age);
   void setName(std::string name);
-  //void addCards(Cards card);
 };
 
 #endif
