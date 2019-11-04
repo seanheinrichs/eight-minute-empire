@@ -235,67 +235,67 @@ int *GameScore::numOfWild(std::vector<Cards *> &gameHand) {
     return sum;
 }
 
-void GameScore::winnerGenerator() {
-    std::string* winner;
-    Player* p1 = new Player("JJ", 39);
-    Player* p2 = new Player("MM", 23);
-    Player* p3 = new Player("SS", 23);
-    Player* p4 = new Player("TT", 21);
-    auto Armiesp1 = p1->getArmies();
-    auto Coinp1 = p1->getCoins();
-    auto Citiesp1 = p1->getCities();
-    auto Armiesp2 = p2->getArmies();
-    auto Coinp2 = p2->getCoins();
-    auto Citiesp2 = p2->getCities();
-    auto Armiesp3 = p3->getArmies();
-    auto Coinp3 = p3->getCoins();
-    auto Citiesp3 = p3->getCities();
-    auto Armiesp4 = p4->getArmies();
-    auto Coinp4 = p4->getCoins();
-    auto Citiesp4 = p4->getCities();
-    // p1.points -> pp1
-    int *pp1, *pp2, *pp3, *pp4;
-
-
-    vector<Player*> ps {p1, p2, p3, p4};
-    int* point;
-    int* numOfRegions;
-    int* numOfContinents;
-    int* numOfCoins;
-    int* numOfArmies;
-    // Rules priotity: mostPoints ->  mostCoins -> mostArmies -> mostRegions
-    int* mostPoints;
-    int* mostCoins;
-    int* mostArmies;
-    int* mostRegions;
-
-    // logic of generate a Winner
-    if (pp1 == pp2) {
-        if (Coinp1 < Coinp2) {
-            *winner = p2->getName();
-            return;
-        } else if (Coinp1 == Coinp2) {
-            if (Armiesp1 < Armiesp2) {
-                *winner = p2->getName();
-                return;
-            } else if (Armiesp1 == Armiesp2) {
-                if ( Citiesp1 < Citiesp2 ) {
-                    *winner = p2->getName();
-                    return;
-                } else if (Citiesp1 == Citiesp2) {
-                    cout << "We have 2 winner !! Impossible !!! " << endl;
-                    return;
-                } else {
-                    *winner = p1->getName();
-                    return;
-                }
-            } else {
-                *winner = p1->getName();
-                return;
-            }
-        } else {
-            *winner = p1->getName();
-            return;
-        }
-    }
-}
+//void GameScore::winnerGenerator() {
+//    std::string* winner;
+//    Player* p1 = new Player("JJ", 39);
+//    Player* p2 = new Player("MM", 23);
+//    Player* p3 = new Player("SS", 23);
+//    Player* p4 = new Player("TT", 21);
+//    auto Armiesp1 = p1->getArmies();
+//    auto Coinp1 = p1->getCoins();
+//    auto Citiesp1 = p1->getCities();
+//    auto Armiesp2 = p2->getArmies();
+//    auto Coinp2 = p2->getCoins();
+//    auto Citiesp2 = p2->getCities();
+//    auto Armiesp3 = p3->getArmies();
+//    auto Coinp3 = p3->getCoins();
+//    auto Citiesp3 = p3->getCities();
+//    auto Armiesp4 = p4->getArmies();
+//    auto Coinp4 = p4->getCoins();
+//    auto Citiesp4 = p4->getCities();
+//    // p1.points -> pp1
+//    int *pp1, *pp2, *pp3, *pp4;
+//
+//
+//    vector<Player*> ps {p1, p2, p3, p4};
+//    int* point;
+//    int* numOfRegions;
+//    int* numOfContinents;
+//    int* numOfCoins;
+//    int* numOfArmies;
+//    // Rules priotity: mostPoints ->  mostCoins -> mostArmies -> mostRegions
+//    int* mostPoints;
+//    int* mostCoins;
+//    int* mostArmies;
+//    int* mostRegions;
+//
+//    // logic of generate a Winner
+//    if (pp1 == pp2) {
+//        if (Coinp1 < Coinp2) {
+//            *winner = p2->getName();
+//            return;
+//        } else if (Coinp1 == Coinp2) {
+//            if (Armiesp1 < Armiesp2) {
+//                *winner = p2->getName();
+//                return;
+//            } else if (Armiesp1 == Armiesp2) {
+//                if ( Citiesp1 < Citiesp2 ) {
+//                    *winner = p2->getName();
+//                    return;
+//                } else if (Citiesp1 == Citiesp2) {
+//                    cout << "We have 2 winner !! Impossible !!! " << endl;
+//                    return;
+//                } else {
+//                    *winner = p1->getName();
+//                    return;
+//                }
+//            } else {
+//                *winner = p1->getName();
+//                return;
+//            }
+//        } else {
+//            *winner = p1->getName();
+//            return;
+//        }
+//    }
+//}

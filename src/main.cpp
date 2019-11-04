@@ -33,7 +33,7 @@ int main()
     // playerMethodsDriver();
 
     //// Game Score Example ////
-//    gameScoreExample( );
+    gameScoreExample();
 
     return 0;
 }

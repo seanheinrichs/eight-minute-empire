@@ -58,7 +58,7 @@ public:
 
     int* computeGameScore(std::vector<Player*> &players, std::vector<Cards*> &gameHand);
 
-    void winnerGenerator ( );
+//    void winnerGenerator ( );
 
 
     /**
