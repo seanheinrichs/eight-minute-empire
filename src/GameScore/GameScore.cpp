@@ -235,8 +235,59 @@ int *GameScore::numOfWild(std::vector<Cards *> &gameHand) {
     return sum;
 }
 
-//void GameScore::winnerGenerator() {
-//    std::string* winner;
+void GameScore::winnerGenerator(std:: vector <Player*> playerVector) {
+    auto mostScorePlayers = new std::vector<Player *>();
+    int *max = new int(0);
+    std::string *winner;
+
+    mostScorePlayers->emplace_back(playerVector.at(0));
+    *max = playerVector.at(0)->getPoints();  // max Points
+    // 1st loop get Player vector with most Points, note the max # of players is 5 in this game
+    for (int i = 1; i < playerVector.size(); i++) {
+        // playerVector.at(0) already inside mostScore group
+        if (playerVector.at(i)->getPoints() > *max) {
+            for (int j = 0; j < mostScorePlayers->size(); j++)
+                mostScorePlayers->pop_back();
+            mostScorePlayers->emplace_back(playerVector.at(i));
+            *max = playerVector.at(i)->getPoints();
+        } else if (playerVector.at(i)->getPoints() == *max) {
+            mostScorePlayers->emplace_back(playerVector.at(i));
+        } else
+            continue;
+    }
+    if (mostScorePlayers->size() == 1) {
+        *winner = mostScorePlayers->at(0)->getName();
+        std::cout << "Winner is " << *winner << endl;
+        return;
+    } else {
+        *winner = mostScorePlayers->at(0)->getName();
+        std::cout << "Winner is " << *winner << endl;
+        return;
+    }
+}
+
+// if tie then 2nd loop get most Coins
+//        auto mostScorePlayers1 = new std:: vector <Player*>();
+//        int* max1 = new int(0);
+//        mostScorePlayers1->emplace_back(mostScorePlayers->at(0));
+//        *max = mostScorePlayers->at(0)->getCoins();  // max Coins
+//        for (int i = 0 ; i < mostScorePlayers->size(); i++) {
+//            if (mostScorePlayers->at(i)->getCoins() > *max) {
+//                for (int j = 0; j < mostScorePlayers1->size(); j++)
+//                    mostScorePlayers1->pop_back();
+//                mostScorePlayers1->emplace_back(mostScorePlayers->at(i));
+//                *max = mostScorePlayers->at(i)->getCoins();
+//            } else if (mostScorePlayers->at(i)->getCoins() == *max){
+//                mostScorePlayers1->emplace_back(mostScorePlayers->at(i));
+//            } else
+//                continue;
+//        }
+
+//    winner = mostScorePlayers1->at(0)->getName();
+//    std::cout << "Winner is "<< *winner << endl;
+
+
+
 //    Player* p1 = new Player("JJ", 39);
 //    Player* p2 = new Player("MM", 23);
 //    Player* p3 = new Player("SS", 23);

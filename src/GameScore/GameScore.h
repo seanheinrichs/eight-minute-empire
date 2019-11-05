@@ -1,6 +1,3 @@
-//
-// Created by steve on 11/3/2019.
-//
 
 #ifndef EIGHT_MINUTE_EMPIRE_GAMESCORE_H
 #define EIGHT_MINUTE_EMPIRE_GAMESCORE_H
@@ -58,7 +55,7 @@ public:
 
     int* computeGameScore(std::vector<Player*> &players, std::vector<Cards*> &gameHand);
 
-//    void winnerGenerator ( );
+    void winnerGenerator ( std:: vector <Player*> playerVector);
 
 
     /**
