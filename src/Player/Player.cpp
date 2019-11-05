@@ -457,4 +457,4 @@ void Player::setAge(int age) { *Player::age = age; }
 
 void Player::setName(std::string name) { *Player::name = name; }
 
-void Player::addPoints(int additionalPoints) { *Player::points = additionalPoints; }
+void Player::addPoints(int additionalPoints) { *Player::points += additionalPoints; }

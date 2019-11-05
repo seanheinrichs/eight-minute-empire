@@ -12,13 +12,16 @@
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
 #include "MainLoop/MainLoop.h"
+#include "AfterAction/AfterActionDriver.h"
+#include "GameScore/GameScore.h"
+#include "GameScore/GameScoreDriver.h"
 
 int main()
 {
     //// Assignment 2 Drivers ////
 
     // Part 1)
-    gameStateDriver();
+    // gameStateDriver();
 
     // Part 2)
     // gameStartupExample();
@@ -28,6 +31,9 @@ int main()
 
     // Part 4)
     // playerMethodsDriver();
+
+    // Part 5)
+    // gameScoreExample();
 
     return 0;
 }
