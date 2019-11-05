@@ -27,13 +27,13 @@ int main()
     // gameStartupExample();
 
     // Part 3 AND 5)
-     mainLoopDriver();
+//     mainLoopDriver();
 
     // Part 4)
     // playerMethodsDriver();
 
     //// Game Score Example ////
-//    gameScoreExample();
+    gameScoreExample();
 
     return 0;
 }

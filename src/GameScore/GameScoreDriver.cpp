@@ -13,9 +13,9 @@ void gameScoreExample() {
     auto regionOwners = m.getRegionOwners();
     auto continentOwners = m.getContinentOwners();
 
-    Cards* cards01 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
-    Cards* cards02 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
-    Cards* cards03 = new Cards(1,"Wild", "PLACE_NEW_ARMIES_ON_BOARD 2");
+    Cards* cards01 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
+    Cards* cards02 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
+    Cards* cards03 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 2");
     Cards* cards04 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
     Cards* cards05 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
     Cards* cards06 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
@@ -29,7 +29,7 @@ void gameScoreExample() {
     Cards* cards14 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 3");
     Cards* cards15 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 2 OR BUILD_A_CITY 1");
     Cards* cards16 = new Cards(1,"Carrot", "BUILD_A_CITY 1");
-    Cards* cards17 = new Cards(1,"Carrot", "DESTROY_ARMY 1 AND PLACE_NEW_ARMIES_ON_BOARD 1");
+    Cards* cards17 = new Cards(1,"Wild", "DESTROY_ARMY 1 AND PLACE_NEW_ARMIES_ON_BOARD 1");
     Cards* cards18 = new Cards(1,"Carrot", "PLACE_NEW_ARMIES_ON_BOARD 3");
     Cards* cards19 = new Cards(1,"Carrot", "MOVE_OVER_LAND 4");
     Cards* cards20 = new Cards(1,"Carrot", "MOVE_OVER_LAND 4");
@@ -83,6 +83,14 @@ void gameScoreExample() {
     std::cout << "mike points: " << playerVector.at(1)->getPoints() << endl;
     std::cout << "jia points: " << playerVector.at(2)->getPoints() << endl;
 
+    std::vector<Cards*> *hand1 = playerVector.at(0)->getGameHand();
+    std::vector<Cards*> *hand2 = playerVector.at(1)->getGameHand();
+    std::vector<Cards*> *hand3 = playerVector.at(2)->getGameHand();
+    GameScore gameScore;
+    cout << "=========Test GameScore( ) ===============" << endl;
+    int* sum1 = gameScore.computeGameScore(playerVector, *hand1);
+    int* sum2 = gameScore.computeGameScore(playerVector, *hand2);
+    int* sum3 = gameScore.computeGameScore(playerVector, *hand3);
 
 //    Deck deck1;
 //    std::vector<Cards*> tb = deck1.topBoardGenetor(deck1);
@@ -95,7 +103,7 @@ void gameScoreExample() {
 //    deck1.exchange(*hand, tb, deck1);
 //    deck1.displayTopBoard(tb);
 //    deck1.displayHand(*hand);
-    cout << "=========Test GameScore( ) ===============" << endl;
+//    cout << "=========Test GameScore( ) ===============" << endl;
 //    std::vector<Player*> *players = new vector<Player*> ();
 //    GameScore gameScore;
 //    int* sum = gameScore.computeGameScore(*players, *hand);

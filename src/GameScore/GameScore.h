@@ -53,20 +53,9 @@ public:
 
     int* numOfWild(std::vector<Cards*> &gameHand);
 
-    int* computeGameScore(std::vector<Player*> &players, std::vector<Cards*> &gameHand);
+    int* computeGameScore(std::vector<Player*> &players,  std::vector<Cards *> &gameHand);
 
     void winnerGenerator ( std:: vector <Player*> playerVector);
-
-
-    /**
-     * so far can Player get this data?
-     * int getCoins() const;
-  int getArmies() const;
-  int getCities() const;
-  int getAge() const;
-  std::string getName() const;
-  std::vector<Cards> *getGameHand() const;
-     */
 
 };
 
