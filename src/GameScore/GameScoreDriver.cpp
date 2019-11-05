@@ -91,7 +91,7 @@ void gameScoreExample() {
 
     playerVector.at(0)->addPoints(*sum1);
     playerVector.at(1)->addPoints(*sum2);
-    playerVector.at(2)->addPoints(10);
+    playerVector.at(2)->addPoints(*sum3);
 
     cout << "=========Test GameScore( ) ===============" << endl;
     std::cout << "sean points: " << playerVector.at(0)->getPoints() << endl;
