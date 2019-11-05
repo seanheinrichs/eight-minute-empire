@@ -85,9 +85,9 @@ void gameScoreExample() {
     std::vector<Cards*> *hand3 = playerVector.at(2)->getGameHand();
     GameScore gameScore;
 
-    int* sum1 = gameScore.computeGameScore(*hand1);
-    int* sum2 = gameScore.computeGameScore(*hand2);
-    int* sum3 = gameScore.computeGameScore(*hand3);
+    int* sum1 = gameScore.computeGameScore(playerVector.at(0),*hand1);
+    int* sum2 = gameScore.computeGameScore(playerVector.at(1),*hand2);
+    int* sum3 = gameScore.computeGameScore(playerVector.at(2),*hand3);
 
     playerVector.at(0)->addPoints(*sum1);
     playerVector.at(1)->addPoints(*sum2);
@@ -111,22 +111,22 @@ void gameScoreExample() {
 
     std::cout << endl << "winning player is: " << playerVector.at(winningPlayerIndex)->getName() << endl;
 //=============================================================================================================
-    std::cout << "sean points: " << playerVector.at(0)->getPoints() << endl;
-    std::cout << "mike points: " << playerVector.at(1)->getPoints() << endl;
-    std::cout << "jia points: " << playerVector.at(2)->getPoints() << endl;
-
-    auto hand1 = playerVector.at(0)->getGameHand();
-    std::vector<Cards*> *hand2 = playerVector.at(1)->getGameHand();
-    std::vector<Cards*> *hand3 = playerVector.at(2)->getGameHand();
-    GameScore gameScore;
-    cout << "=========Test GameScore( ) ===============" << endl;
-    int* sum1 = gameScore.computeGameScore(playerVector.at(0), *hand1);
-    int* sum2 = gameScore.computeGameScore(playerVector.at(1), *hand2);
-    int* sum3 = gameScore.computeGameScore(playerVector.at(2), *hand3);
-    cout << "Game Score for player" << playerVector.at(0)->getName() <<" is " << *sum1 << " points" << endl;
-    cout << "Game Score for player" << playerVector.at(1)->getName() <<" is " << *sum2 << " points" << endl;
-    cout << "Game Score for player" << playerVector.at(2)->getName() <<" is " << *sum3 << " points" << endl;
-    gameScore.winnerGenerator(playerVector);
+//    std::cout << "sean points: " << playerVector.at(0)->getPoints() << endl;
+//    std::cout << "mike points: " << playerVector.at(1)->getPoints() << endl;
+//    std::cout << "jia points: " << playerVector.at(2)->getPoints() << endl;
+//
+//    auto hand1 = playerVector.at(0)->getGameHand();
+//    std::vector<Cards*> *hand2 = playerVector.at(1)->getGameHand();
+//    std::vector<Cards*> *hand3 = playerVector.at(2)->getGameHand();
+//    GameScore gameScore;
+//    cout << "=========Test GameScore( ) ===============" << endl;
+//    int* sum1 = gameScore.computeGameScore(playerVector.at(0), *hand1);
+//    int* sum2 = gameScore.computeGameScore(playerVector.at(1), *hand2);
+//    int* sum3 = gameScore.computeGameScore(playerVector.at(2), *hand3);
+//    cout << "Game Score for player" << playerVector.at(0)->getName() <<" is " << *sum1 << " points" << endl;
+//    cout << "Game Score for player" << playerVector.at(1)->getName() <<" is " << *sum2 << " points" << endl;
+//    cout << "Game Score for player" << playerVector.at(2)->getName() <<" is " << *sum3 << " points" << endl;
+//    gameScore.winnerGenerator(playerVector);
 
 //    Player *ss = new Player("ss", 3, 15);
 //    Player *mm = new Player("mm", 3, 16);
