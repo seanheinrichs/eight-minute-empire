@@ -53,7 +53,7 @@ public:
 
     int* numOfWild(std::vector<Cards*> &gameHand);
 
-    int* computeGameScore(std::vector<Player*> &players,  std::vector<Cards *> &gameHand);
+    int* computeGameScore(std::vector<Cards *> &gameHand);
 
     void winnerGenerator ( std:: vector <Player*> playerVector);
 

@@ -79,18 +79,39 @@ void gameScoreExample() {
             playerVector.at(2)->addPoints(1);
         }
     }
-    std::cout << "sean points: " << playerVector.at(0)->getPoints() << endl;
-    std::cout << "mike points: " << playerVector.at(1)->getPoints() << endl;
-    std::cout << "jia points: " << playerVector.at(2)->getPoints() << endl;
 
     std::vector<Cards*> *hand1 = playerVector.at(0)->getGameHand();
     std::vector<Cards*> *hand2 = playerVector.at(1)->getGameHand();
     std::vector<Cards*> *hand3 = playerVector.at(2)->getGameHand();
     GameScore gameScore;
+
+    int* sum1 = gameScore.computeGameScore(*hand1);
+    int* sum2 = gameScore.computeGameScore(*hand2);
+    int* sum3 = gameScore.computeGameScore(*hand3);
+
+    playerVector.at(0)->addPoints(*sum1);
+    playerVector.at(1)->addPoints(*sum2);
+    playerVector.at(2)->addPoints(10);
+
     cout << "=========Test GameScore( ) ===============" << endl;
-    int* sum1 = gameScore.computeGameScore(playerVector, *hand1);
-    int* sum2 = gameScore.computeGameScore(playerVector, *hand2);
-    int* sum3 = gameScore.computeGameScore(playerVector, *hand3);
+    std::cout << "sean points: " << playerVector.at(0)->getPoints() << endl;
+    std::cout << "mike points: " << playerVector.at(1)->getPoints() << endl;
+    std::cout << "jia points: " << playerVector.at(2)->getPoints() << endl;
+
+    int winningPlayerIndex = 0;
+
+    for (int i = 0; i < playerVector.size()-1; i++) {
+        if (playerVector.at(i)->getPoints() > playerVector.at(i+1)->getPoints()) {
+            winningPlayerIndex = i;
+        }
+        else {
+            winningPlayerIndex = i + 1;
+        }
+    }
+
+    std::cout << endl << "winning player is: " << playerVector.at(winningPlayerIndex)->getName() << endl;
+
+
 
 //    Deck deck1;
 //    std::vector<Cards*> tb = deck1.topBoardGenetor(deck1);
