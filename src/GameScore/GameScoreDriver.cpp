@@ -8,7 +8,8 @@
 
 void gameScoreExample() {
     MapLoader loader;
-    Map m = loader.generateMap("assets/map1.map");
+    std::string fileLocation = "../assets/map1.map";
+    Map m = loader.generateMap(fileLocation);
     auto regionOwners = m.getRegionOwners();
     auto continentOwners = m.getContinentOwners();
 
@@ -69,6 +70,15 @@ void gameScoreExample() {
     playerVector.at(1)->addPoints(regionOwners.at("mike").size());
     playerVector.at(2)->addPoints(regionOwners.at("jia").size());
 
+    for (int i=0; i < continentOwners.size(); i++) {
+        if (continentOwners.at(i).second == "sean") {
+            playerVector.at(0)->addPoints(1);
+        } else if (continentOwners.at(i).second == "mike") {
+            playerVector.at(1)->addPoints(1);
+        } else if (continentOwners.at(i).second == "jia") {
+            playerVector.at(2)->addPoints(1);
+        }
+    }
     std::cout << "sean points: " << playerVector.at(0)->getPoints() << endl;
     std::cout << "mike points: " << playerVector.at(1)->getPoints() << endl;
     std::cout << "jia points: " << playerVector.at(2)->getPoints() << endl;

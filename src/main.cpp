@@ -21,19 +21,19 @@ int main()
     //// Assignment 2 Drivers ////
 
     // Part 1)
-    // gameStateDriver();
+//     gameStateDriver();
 
     // Part 2)
     // gameStartupExample();
 
     // Part 3 AND 5)
-//     mainLoopDriver();
+     mainLoopDriver();
 
     // Part 4)
     // playerMethodsDriver();
 
     //// Game Score Example ////
-    gameScoreExample();
+//    gameScoreExample();
 
     return 0;
 }

@@ -169,9 +169,9 @@ Cards* Deck::draw() {
 //    std::random_shuffle(deck.begin(), deck.end(), seed1); // one way to generate a Random seed
 
 //    Check if deck shuffled well:
-//    std::cout << "deck contains:";
-//    for (std::vector<Cards*>::iterator it=deck.begin(); it!=deck.end(); ++it)
-//        std::cout << ' ' << **it << endl;
+    std::cout << "deck contains:";
+    for (std::vector<Cards*>::iterator it=deck.begin(); it!=deck.end(); ++it)
+        std::cout << ' ' << **it << endl;
 
     std::cout << '\n';
 //    Cards* card = (Cards *) (deck.back());
