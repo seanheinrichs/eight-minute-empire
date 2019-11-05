@@ -18,7 +18,7 @@ int main()
     //// Assignment 2 Drivers ////
 
     // Part 1)
-    // gameStateDriver();
+    gameStateDriver();
 
     // Part 2)
     // gameStartupExample();
