@@ -16,10 +16,18 @@ ostream &operator<<(ostream &os, const Cards &cards) {
 }
 
 Cards::~Cards() {
-    delete good;
-    this->good = nullptr;
-    delete action;
-    this->action = nullptr;
+    if (good){
+        delete good;
+        good = nullptr;
+    }
+    if (action){
+        delete action;
+        action = nullptr;
+    }
+    if (numOfGood){
+        delete numOfGood;
+        numOfGood = nullptr;
+    }
 }
 
 string *Cards::getGood() const {
@@ -95,9 +103,10 @@ Cards* cards40 = new Cards(1,"Anvil", "MOVE_OVER_LAND 4");
 Cards* cards41 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_LAND 4");
 Cards* cards42 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_LAND 3");
 // random generator function:
-int seed1 (int i) { return std::rand() % i;}
+//int seed1 (int i) { return std::rand() % i;}
 
 Deck::Deck() {
+    position = new int();
     deck.push_back(cards01);
     deck.push_back(cards02);
     deck.push_back(cards03);
@@ -140,20 +149,30 @@ Deck::Deck() {
     deck.push_back(cards40);
     deck.push_back(cards41);
     deck.push_back(cards42);
-    std::cout<<"Deck is good" << endl;
+    std::cout<<"Deck is good and have " << deck.size()<< " cards remained." << endl;
 }
 
 Deck::~Deck() {
+    if(cost){
+        delete cost;
+        cost = nullptr;
+    }
+    if(position){
+        delete position;
+        position = nullptr;
+    }
 }
 
 
 Cards* Deck::draw() {
-//    std::srand ( unsigned ( std::time(0) ) ); // another way to generate a Random seed
-    std::random_shuffle(deck.begin(), deck.end(), seed1);
+    std::srand ( unsigned ( std::time(0) ) ); // another way to generate a Random seed
+    std::random_shuffle(deck.begin(), deck.end());
+//    std::random_shuffle(deck.begin(), deck.end(), seed1); // one way to generate a Random seed
+
 //    Check if deck shuffled well:
-//    std::cout << "deck contains:";
-//    for (std::vector<Cards*>::iterator it=deck.begin(); it!=deck.end(); ++it)
-//        std::cout << ' ' << **it << endl;
+    std::cout << "deck contains:";
+    for (std::vector<Cards*>::iterator it=deck.begin(); it!=deck.end(); ++it)
+        std::cout << ' ' << **it << endl;
 
     std::cout << '\n';
 //    Cards* card = (Cards *) (deck.back());
@@ -253,10 +272,10 @@ void Deck::exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck) {
     cout << "The card which shows: " << *topBoard.at(index) << " and costs " << posArray[index] << " coins." << endl;
 
     // update gamehand and update top board
-    player.getGameHand()->push_back(topBoard.at(index));
+    player.getGameHand()->emplace_back(topBoard.at(index));
     topBoard.erase(topBoard.begin()+index);
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
-    topBoard.push_back(deck.draw());
+    topBoard.emplace_back(deck.draw());
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
     cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
     cout << "Deck::exchange(hand, topboard, deck) works"  << endl;

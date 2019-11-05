@@ -31,6 +31,7 @@ private:
     std::vector<Node> *nodes;
     // starting node
     std::string *start;
+    std::vector<std::string> *continents;
 
     // find a node's index
     int getNodeIndex(std::string regionName);
@@ -49,6 +50,11 @@ public:
 
     // get name of starting region
     std::string *getStart() const;
+
+    // return pairs of regions and their owner
+    std::map<std::string, std::vector<std::string>> getRegionOwners();
+    // return pairs of regions and their owner
+    std::vector<std::pair<std::string, std::string>> getContinentOwners();
 
     // add one army
     void addArmy(std::string regionName, std::string playerName);

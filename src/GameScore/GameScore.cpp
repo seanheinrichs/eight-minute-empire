@@ -16,96 +16,96 @@ GameScore::GameScore(const vector<Cards *> &gameHand, const vector<Player *> &pl
 
 
 int *GameScore::countTreePoint(int *tree) {
-    switch (*tree)
-    {
-        case 2:
-            point = new int(1);
-            break;
-        case 4:
-            point = new int(2);
-            break;
-        case 5:
-            point = new int(3);
-            break;
-        case 6:
-            point = new int(5);
-            break;
+    if (*tree < 2) {
+        point = new int(0);
+    }
+    else if (*tree < 4) {
+        point = new int(1);
+    }
+    else if (*tree < 5) {
+        point = new int(2);
+    }
+    else if (*tree < 6) {
+        point = new int(3);
+    }
+    else {
+        point = new int(5);
     }
     return point;
 }
 
 int *GameScore::countAnvilPoint(int *anvil) {
-    switch (*anvil)
-    {
-        case 2:
-            point = new int(1);
-            break;
-        case 4:
-            point = new int(2);
-            break;
-        case 6:
-            point = new int(3);
-            break;
-        case 7:
-            point = new int(5);
-            break;
+    if (*anvil < 2) {
+        point = new int(0);
+    }
+    else if (*anvil < 4) {
+        point = new int(1);
+    }
+    else if (*anvil < 5) {
+        point = new int(2);
+    }
+    else if (*anvil < 6) {
+        point = new int(3);
+    }
+    else {
+        point = new int(5);
     }
     return point;
 }
 
 int *GameScore::countCarrotPoint(int *carrot) {
-    switch (*carrot)
-    {
-        case 3:
-            point = new int(1);
-            break;
-        case 5:
-            point = new int(2);
-            break;
-        case 7:
-            point = new int(3);
-            break;
-        case 8:
-            point = new int(5);
-            break;
+    if (*carrot < 2) {
+        point = new int(0);
+    }
+    else if (*carrot < 4) {
+        point = new int(1);
+    }
+    else if (*carrot < 5) {
+        point = new int(2);
+    }
+    else if (*carrot < 6) {
+        point = new int(3);
+    }
+    else {
+        point = new int(5);
     }
     return point;
 }
 
 int *GameScore::countRockPoint(int *rock) {
-    switch (*rock)
-    {
-        case 2:
-            point = new int(1);
-            break;
-        case 3:
-            point = new int(2);
-            break;
-        case 4:
-            point = new int(3);
-            break;
-        case 5:
-            point = new int(5);
-            break;
+    if (*rock < 2) {
+        point = new int(0);
+    }
+    else if (*rock < 4) {
+        point = new int(1);
+    }
+    else if (*rock < 5) {
+        point = new int(2);
+    }
+    else if (*rock < 6) {
+        point = new int(3);
+    }
+    else {
+        point = new int(5);
     }
     return point;
 }
 
 int *GameScore::countCrystalPoint(int *crystal) {
-    switch (*crystal)
-    {
-        case 1:
-            point = new int(1);
-            break;
-        case 2:
-            point = new int(2);
-            break;
-        case 3:
-            point = new int(3);
-            break;
-        case 4:
-            point = new int(5);
-            break;
+    if (*crystal < 1) {
+        point = new int(0);
+    }
+    else if (*crystal < 3) {
+        point = new int(1);
+    }
+    else if (*crystal < 4) {
+        point = new int(2);
+    }
+    else if (*crystal < 5) {
+        point = new int(3);
+    }
+    else {
+        point = new int(5);
     }
     return point;
 }
@@ -156,10 +156,13 @@ int *GameScore::computeGameScore(Player * &players, std::vector<Cards *> &gameHa
     rock = countRockPoint(numRock);
     crystal = countCrystalPoint(numCrystal);
     anvil = countAnvilPoint(numAnvil);
-    carrot = countCarrotPoint(carrot);
-    tree = countTreePoint(tree);
+    carrot = countCarrotPoint(numCarrot);
+    tree = countTreePoint(numTree);
+
     *sum = *rock + *crystal + *anvil + *carrot + *tree;
+
     return sum;
+
 }
 
 int *GameScore::numOfTree(std::vector<Cards*> &gameHand) {
