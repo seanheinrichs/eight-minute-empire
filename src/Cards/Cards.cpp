@@ -106,6 +106,7 @@ Cards* cards42 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_
 //int seed1 (int i) { return std::rand() % i;}
 
 Deck::Deck() {
+    position = new int();
     deck.push_back(cards01);
     deck.push_back(cards02);
     deck.push_back(cards03);
