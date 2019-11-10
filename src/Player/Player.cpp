@@ -294,6 +294,7 @@ bool Player::ignore()
             std::cout << "Invalid answer. Please response with \'y\' or \'n\': ";
         }
     } while (invalidAnswer);
+    std::cout << std::endl;
     return (answer == "n");
 }
 

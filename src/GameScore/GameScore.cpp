@@ -6,8 +6,6 @@
 
 GameScore::GameScore() {}
 
-GameScore::GameScore(const vector<Cards *> &gameHand, const vector<Player *> &players) : gameHand(gameHand), players(players) {}
-
 GameScore::~GameScore() {}
 
 void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
@@ -74,8 +72,7 @@ void GameScore::countPointsInHand(Player &player) {
     int trees = countGoods(*player.getGameHand(), "Tree");
     int wilds = countGoods(*player.getGameHand(), "Wild");
 
-    // check if player's hand has any wild cards
-
+    // display player's hand
     std::cout << player.getName() <<  ", you have the following goods: " <<endl;
     std::cout << "- Rocks: " << rocks << endl;
     std::cout << "- Crystals: " << crystals << endl;
@@ -209,8 +206,7 @@ int GameScore::countCrystalPoints(int crystal) {
     }
 }
 
-int GameScore::countGoods(std::vector<Cards*> &gameHand, std::string good) 
-{
+int GameScore::countGoods(std::vector<Cards*> &gameHand, std::string good) {
     int sum = 0;
     for (int i = 0; i < gameHand.size(); i++) {
         if (*gameHand[i]->getGood() == good) {

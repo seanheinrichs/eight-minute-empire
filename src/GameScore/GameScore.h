@@ -8,19 +8,6 @@
 
 class GameScore {
 private:
-    std::vector<Cards*> gameHand;
-    std::vector<Player*> players;
-    int* numOfRegions;
-    int* numOfContinents;
-    int* numOfCoins;
-    int* numOfArmies;
-    
-    // Rules priotity: mostPoints ->  mostCoins -> mostArmies -> mostRegions
-    int* mostPoints;
-    int* mostCoins;
-    int* mostArmies;
-    int* mostRegions;
-
     // Utility Methods
     std::string validateGood();
     int countGoods(std::vector<Cards*> &gameHand, std::string good);
@@ -34,7 +21,6 @@ private:
 public:
     // constructors
     GameScore();
-    GameScore(const vector<Cards *> &gameHand, const vector<Player *> &players);
 
     // destructor
     virtual ~GameScore();

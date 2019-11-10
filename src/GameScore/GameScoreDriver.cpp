@@ -11,7 +11,7 @@ void gameScoreExample() {
     std::string fileLocation = "assets/map1.map";
     Map m = loader.generateMap(fileLocation);
 
-    Cards* cards01 = new Cards(2,"Rock", "MOVE_OVER_WATER 2");
+    Cards* cards01 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
     Cards* cards02 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
     Cards* cards03 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 2");
     Cards* cards04 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
@@ -38,7 +38,6 @@ void gameScoreExample() {
     Player *jia = new Player("jia", 3, 17);
     std:: vector <Player*> playerVector = {jia, mike, sean};
 
-    cout << "Building Player Hands: " << endl;
     playerVector.at(0)->getGameHand()->emplace_back(cards01);
     playerVector.at(0)->getGameHand()->emplace_back(cards02);
     playerVector.at(0)->getGameHand()->emplace_back(cards03);
@@ -66,5 +65,4 @@ void gameScoreExample() {
 
     GameScore gameScore;
     gameScore.generateWinner(playerVector, m);
-
 }
