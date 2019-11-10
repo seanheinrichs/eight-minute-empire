@@ -306,7 +306,7 @@ void Player::takeAction(std::string action, Map &gameBoard, std::vector<Player*>
     if (playerAction == "MOVE_OVER_WATER") {
         moveArmies(quantity, gameBoard, true);
     }
-    else if (playerAction == "MOVE_OVER_LAND") {
+    else if (playerAction == "MOVE_OVER_GROUND") {
         moveArmies(quantity, gameBoard, false);
     }
     else if (playerAction == "PLACE_NEW_ARMIES_ON_BOARD") {
