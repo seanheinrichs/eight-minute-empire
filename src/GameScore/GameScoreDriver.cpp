@@ -8,7 +8,10 @@
 
 void gameScoreExample() {
     MapLoader loader;
-    std::string fileLocation = "assets/map1.map";
+
+    // std::string fileLocation = "../assets/map1.map"; // for CLION
+    std::string fileLocation = "assets/map1.map";       // for VSCODE
+    
     Map m = loader.generateMap(fileLocation);
 
     Cards* cards01 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");

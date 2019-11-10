@@ -19,11 +19,6 @@ private:
     int countCrystalPoints(int crystal);
 
 public:
-    // constructors
-    GameScore();
-
-    // destructor
-    virtual ~GameScore();
 
     // gameplay methods
     void generateWinner (std::vector<Player*> &players, Map &gameBoard);

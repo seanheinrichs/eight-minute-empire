@@ -4,10 +4,6 @@
 #include "GameState.h"
 #include "Map.h"
 
-GameScore::GameScore() {}
-
-GameScore::~GameScore() {}
-
 void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
     
     auto regionOwners = gameBoard.getRegionOwners();
