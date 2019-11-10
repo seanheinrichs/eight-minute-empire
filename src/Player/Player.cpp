@@ -330,8 +330,8 @@ void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player*
         std::string secondAction = action.substr(action.find("OR") + 3);
 
         std::cout << "Here are your following choices: " << std::endl;
-        std::cout << "1 - " << firstAction << std::endl;
-        std::cout << "2 - " << secondAction << std::endl;
+        std::cout << "1) " << firstAction << std::endl;
+        std::cout << "2) " << secondAction << std::endl;
         std::cout << "Please select one of the following by entering '1' or '2': ";
 
         answer = validateActionSelection();
@@ -349,8 +349,8 @@ void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player*
         std::string secondAction = action.substr(action.find("AND") + 4);
 
         std::cout << "Here are your following choices: " << std::endl;
-        std::cout << "1 - " << firstAction << std::endl;
-        std::cout << "2 - " << secondAction << std::endl;
+        std::cout << "1) " << firstAction << std::endl;
+        std::cout << "2) " << secondAction << std::endl;
         std::cout << "Would you prefer to take '1' or '2' actions? : ";
 
         // validate user selection

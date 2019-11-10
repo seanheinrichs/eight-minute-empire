@@ -29,9 +29,9 @@ void gameScoreExample() {
     Cards* cards16 = new Cards(1,"Carrot", "BUILD_A_CITY 1");
     Cards* cards17 = new Cards(1,"Wild", "DESTROY_ARMY 1 AND PLACE_NEW_ARMIES_ON_BOARD 1");
     Cards* cards18 = new Cards(1,"Carrot", "PLACE_NEW_ARMIES_ON_BOARD 3");
-    Cards* cards19 = new Cards(1,"Carrot", "MOVE_OVER_LAND 4");
-    Cards* cards20 = new Cards(1,"Carrot", "MOVE_OVER_LAND 4");
-    Cards* cards21 = new Cards(1,"Carrot","PLACE_NEW_ARMIES_ON_BOARD 4 OR MOVE_OVER_LAND 2");
+    Cards* cards19 = new Cards(1,"Carrot", "MOVE_OVER_GROUND 4");
+    Cards* cards20 = new Cards(1,"Carrot", "MOVE_OVER_GROUND 4");
+    Cards* cards21 = new Cards(1,"Carrot","PLACE_NEW_ARMIES_ON_BOARD 4 OR MOVE_OVER_GROUND 2");
 
     Player *sean = new Player("sean", 3, 15);
     Player *mike = new Player("mike", 3, 16);
