@@ -170,21 +170,21 @@ Cards* Deck::draw() {
 //    std::random_shuffle(deck.begin(), deck.end(), seed1); // one way to generate a Random seed
 
 //    Check if deck shuffled well:
-    std::cout << "deck contains:";
-    for (std::vector<Cards*>::iterator it=deck.begin(); it!=deck.end(); ++it)
-        std::cout << ' ' << **it << endl;
+//    std::cout << "deck contains:";
+//    for (std::vector<Cards*>::iterator it=deck.begin(); it!=deck.end(); ++it)
+//        std::cout << ' ' << **it << endl;
 
     std::cout << '\n';
 //    Cards* card = (Cards *) (deck.back());
     auto card = deck.back();
-    std::cout << "draw one card: " << *card << endl;
+    std::cout << "draw one card from the deck: " << *card << endl;
 
     deck.pop_back();
 //    Check if the cards set shrinks after draw out one card and
 //    shuffles before each draw in order to simulate the random draw a card:
     std::cout << "deck size: " << deck.size() << endl;
-    std::cout << "next card: " << *deck.back() << endl;
-    std::cout << "draw( ) works" << endl;
+//    std::cout << "next card: " << *deck.back() << endl;
+    std::cout << "slide the card to the end of Top Board" << endl;
     return card;
 }
 
@@ -193,9 +193,9 @@ std::vector<Cards*> Deck::topBoardGenetor(Deck &deck) {
     for (auto i = 0; i < 6; i++) {
         tb->emplace_back(deck.draw());
     }
-    std::cout << "TopBoard size: " << tb->size() << endl;
+//    std::cout << "TopBoard size: " << tb->size() << endl;
     // displayTopBoard(*tb);
-    std::cout << "topBoardGenetor(Deck deck) works" << endl;
+//    std::cout << "topBoardGenetor(Deck deck) works" << endl;
     return *tb;
 }
 
@@ -204,7 +204,7 @@ void Deck::displayTopBoard(std::vector<Cards*> &topBoard) {
     int index =  0;
     for (auto it = topBoard.begin(); it != topBoard.end(); ++it)
         cout << "Position " << ++j << " - Cost: "<< posArray[index++] << " Coins. " << **it << endl;
-    std::cout << "displayTopBoard( topBoard ) works" << endl;
+//    std::cout << "displayTopBoard( topBoard ) works" << endl;
 }
 
 void Deck::updateTopBoard(int &position, std::vector<Cards*> &topBoard, Deck &deck) {
@@ -278,7 +278,7 @@ void Deck::exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck) {
     topBoard.emplace_back(deck.draw());
     cout << "Top Board cards series size is " << topBoard.size() << endl ;
     cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
-    cout << "Deck::exchange(hand, topboard, deck) works"  << endl;
+//    cout << "Deck::exchange(hand, topboard, deck) works"  << endl;
 
     // display updated top board
     cout << "Top Board:" << endl;

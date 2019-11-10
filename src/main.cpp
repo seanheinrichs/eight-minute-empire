@@ -33,6 +33,9 @@ int main()
     // playerMethodsDriver();
 
     // Part 5)
+//    afterActionExample();
+
+    // Part 6)
      gameScoreExample();
 
     return 0;

@@ -41,10 +41,10 @@ int *GameScore::countAnvilPoint(int *anvil) {
     else if (*anvil < 4) {
         point = new int(1);
     }
-    else if (*anvil < 5) {
+    else if (*anvil < 6) {
         point = new int(2);
     }
-    else if (*anvil < 6) {
+    else if (*anvil < 7) {
         point = new int(3);
     }
     else {
@@ -54,16 +54,16 @@ int *GameScore::countAnvilPoint(int *anvil) {
 }
 
 int *GameScore::countCarrotPoint(int *carrot) {
-    if (*carrot < 2) {
+    if (*carrot < 3) {
         point = new int(0);
     }
-    else if (*carrot < 4) {
+    else if (*carrot < 5) {
         point = new int(1);
     }
-    else if (*carrot < 5) {
+    else if (*carrot < 7) {
         point = new int(2);
     }
-    else if (*carrot < 6) {
+    else if (*carrot < 8) {
         point = new int(3);
     }
     else {
@@ -76,13 +76,13 @@ int *GameScore::countRockPoint(int *rock) {
     if (*rock < 2) {
         point = new int(0);
     }
-    else if (*rock < 4) {
+    else if (*rock < 3) {
         point = new int(1);
     }
-    else if (*rock < 5) {
+    else if (*rock < 4) {
         point = new int(2);
     }
-    else if (*rock < 6) {
+    else if (*rock < 5) {
         point = new int(3);
     }
     else {
@@ -95,13 +95,13 @@ int *GameScore::countCrystalPoint(int *crystal) {
     if (*crystal < 1) {
         point = new int(0);
     }
-    else if (*crystal < 3) {
+    else if (*crystal < 2) {
         point = new int(1);
     }
-    else if (*crystal < 4) {
+    else if (*crystal < 3) {
         point = new int(2);
     }
-    else if (*crystal < 5) {
+    else if (*crystal < 4) {
         point = new int(3);
     }
     else {
@@ -111,7 +111,9 @@ int *GameScore::countCrystalPoint(int *crystal) {
 }
 
 
-int *GameScore::computeGameScore(Player * &players, std::vector<Cards *> &gameHand) {
+//int *GameScore::computeGameScore(Player * &players, std::vector<Cards *> &gameHand) {
+int *GameScore::computeGameScore(Player * &players) {
+    auto gameHand = players->getGameHand();
     int* sum = new int(0);
     int* rock = new int(0);
     int* crystal = new int(0);
@@ -120,16 +122,16 @@ int *GameScore::computeGameScore(Player * &players, std::vector<Cards *> &gameHa
     int* carrot = new int(0);
     int* tree = new int(0);
 
-    int* numTree = numOfTree(gameHand);
-    int* numRock = numOfRock(gameHand);
-    int* numCrystal = numOfCrystal(gameHand);
-    int* numCarrot = numOfCarrot(gameHand);
-    int* numAnvil = numOfAnvil(gameHand);
-    int* numWild = numOfWild(gameHand);
+    int* numTree = numOfTree(*gameHand);
+    int* numRock = numOfRock(*gameHand);
+    int* numCrystal = numOfCrystal(*gameHand);
+    int* numCarrot = numOfCarrot(*gameHand);
+    int* numAnvil = numOfAnvil(*gameHand);
+    int* numWild = numOfWild(*gameHand);
 
     // check if player's hand has Wild cards
     if (*numWild > 0) {
-        std::cout << "You have wild: " << *numWild << ", rock: " << *numRock <<
+        std::cout << players->getName() << ", you have wild: " << *numWild << ", rock: " << *numRock <<
                   ", tree: " << *numTree << ", crystal: " << *numCrystal << ", carrot: " << *numCarrot
                   << ", anvil card: " << *numAnvil << endl;
         for (auto i = 0; i < *numWild; i++) {
@@ -137,18 +139,20 @@ int *GameScore::computeGameScore(Player * &players, std::vector<Cards *> &gameHa
 
             std::cout << "You have wild cards which can exchange to other cards if you hold at least one card of the same good type." << endl;
             std::cout << "Please note if you input the one that actually you don't have that type of good card, your wild card will be forfeit : )" << endl;
-            std::cout << "Which card would you like to exchange? Please input in lowercase (Eg. rock tree crystal carrot anvil)" << endl;
+            std::cout << players->getName() << ", which card would you like to exchange? Please input in lowercase (Eg. rock tree crystal carrot anvil)" << endl;
             std::cin >> input;
-            if (*numRock >0  && input.compare("rock") == 0)
-                *numRock++;
-            else if (*numTree > 0 && input.compare("tree") == 0)
-                *numTree++;
-            else if (*numCrystal > 0 && input.compare("crystal") == 0)
-                *numCrystal++;
-            else if (*numCarrot > 0 && input.compare("carrot") == 0)
-                *numCarrot++;
-            else if (*numAnvil > 0 && input.compare("anvil") == 0)
-                *numAnvil++;
+            if (*numRock >0  && input == "rock") {
+                *numRock += 1;
+            }
+            else if (*numTree > 0 && input == "tree")
+                *numTree += 1;
+            else if (*numCrystal > 0 && input == "crystal")
+                *numCrystal += 1;
+            else if (*numCarrot > 0 && input == "carrot"){
+                *numCarrot += 1;
+            }
+            else if (*numAnvil > 0 && input == "anvil")
+                *numAnvil += 1;
             else
                 continue;
         }
