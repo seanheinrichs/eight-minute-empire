@@ -266,6 +266,11 @@ void GameScore::winnerGenerator(std:: vector <Player*> playerVector) {
     }
 }
 
+//    Game rules:
+//    players: coins : 5 -> 8, 4 -> 9, 3 -> 11, 2 -> 14
+//    players: armies:  1 p -> 14 (cubes)  if 2 players, place 10 armies of a 3-rd party armies in turn on map
+//    players: cities: 1p -> 3 cities (discs)
+
 //    auto numArmiesOnMap = 14 - players.at(0)->getArmies();
 //    auto numCoins = players.at(0)->getCoins();
 //    auto numCities = players.at(0)->getCities();

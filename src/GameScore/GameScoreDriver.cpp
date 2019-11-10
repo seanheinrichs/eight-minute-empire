@@ -8,6 +8,7 @@
 
 void gameScoreExample() {
 
+    cout << "========= Setup game start from map ===============" << endl;
     MapLoader loader;
     std::string fileLocation = "../assets/map1.map";
     Map m = loader.generateMap(fileLocation);
@@ -18,6 +19,17 @@ void gameScoreExample() {
     Player *mike = new Player("mike", 3, 16);
     Player *jia = new Player("jia", 3, 17);
     std:: vector <Player*> playerVector = {sean, mike, jia};
+
+    cout << "=========Build 3 Player's Coins ===============" << endl;
+    sean->setCoins(11);
+    mike->setCoins(11);
+    jia->setCoins(11);
+
+    cout << "=========Build 3 Player's Armies ===============" << endl;
+    sean->setArmies(4);
+    mike->setArmies(4);
+    jia->setArmies(4);
+
 
     cout << "=========Build 3 Player's Hand ===============" << endl;
     Deck *deck1 = new Deck();
@@ -50,6 +62,7 @@ void gameScoreExample() {
         }
     }
 
+    cout << "============= get points from map-board ===================" << endl;
     cout << "From board " << playerVector.at(0)->getName() <<" gets " << playerVector.at(0)->getPoints() << " points" << endl;
     cout << "From board " << playerVector.at(1)->getName() <<" gets " << playerVector.at(1)->getPoints() << " points" << endl;
     cout << "From board " << playerVector.at(2)->getName() <<" gets " << playerVector.at(2)->getPoints() << " points" << endl;
