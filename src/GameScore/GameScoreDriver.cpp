@@ -18,8 +18,8 @@ void gameScoreExample() {
     Cards* cards05 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
     Cards* cards06 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 2");
     Cards* cards07 = new Cards(1,"Crystal", "PLACE_NEW_ARMIES_ON_BOARD 1");
-    Cards* cards08 = new Cards(1,"Crystal", "MOVE_OVER_LAND 2");
-    Cards* cards09 = new Cards(1,"Rock", "MOVE_OVER_LAND 2");
+    Cards* cards08 = new Cards(1,"Crystal", "MOVE_OVER_GROUND 2");
+    Cards* cards09 = new Cards(1,"Rock", "MOVE_OVER_GROUND 2");
     Cards* cards10 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
     Cards* cards11 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
     Cards* cards12 = new Cards(1, "Rock", "MOVE_OVER_WATER 3");
