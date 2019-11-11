@@ -56,7 +56,7 @@ public:
     int* computeGameScore(Player* &players);
 //    int* computeGameScore(Player* &players,  std::vector<Cards *> &gameHand);
 
-    void winnerGenerator ( std:: vector <Player*> playerVector);
+//    void winnerGenerator ( std:: vector <Player*> &playerVector, Map &gameBoard);
 
 };
 

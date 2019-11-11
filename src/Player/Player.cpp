@@ -439,6 +439,10 @@ int Player::getAge() const { return *age; }
 
 int Player::getPoints() const { return *points; }
 
+int Player::getArmiesOnBoard() const { return *armiesOnBoard; }
+
+int Player::getRegions() const { return *regions; }
+
 std::string Player::getName() const { return *name; }
 
 BiddingFacility *Player::getBiddingFacility() const { return biddingFacility; }
@@ -458,3 +462,10 @@ void Player::setAge(int age) { *Player::age = age; }
 void Player::setName(std::string name) { *Player::name = name; }
 
 void Player::addPoints(int additionalPoints) { *Player::points += additionalPoints; }
+
+void Player::setArmiesOnBoard(int armiesOnBoard) { *Player::armiesOnBoard = armiesOnBoard; }
+
+void Player::setRegions(int regions) { *Player::regions = regions; }
+
+
+
