@@ -19,8 +19,8 @@ private:
   int *cities;
   int *age;
   int *points;
-  int *armiesOnBoard;
-  int *regions;
+  int armiesOnBoard;
+  int regions;
   std::string *name;
   std::vector<Cards*> *gameHand;
   BiddingFacility *biddingFacility;
@@ -66,8 +66,8 @@ public:
   void setAge(int age);
   void setName(std::string name);
   void addPoints(int additionalPoints);
-  void setArmiesOnBoard(int armiesOnBoard);
-  void setRegions(int regions);
+  void setArmiesOnBoard(int &armiesOnBoard);
+  void setRegions(int &regions);
 };
 
 #endif

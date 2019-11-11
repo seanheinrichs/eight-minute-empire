@@ -9,23 +9,9 @@
 
 class GameScore {
     int* point;
-    std::vector<Cards*> gameHand;
-    std::vector<Player*> players;
-    int* numOfRegions;
-    int* numOfContinents;
-    int* numOfCoins;
-    int* numOfArmies;
-    // Rules priotity: mostPoints ->  mostCoins -> mostArmies -> mostRegions
-    int* mostPoints;
-    int* mostCoins;
-    int* mostArmies;
-    int* mostRegions;
 
-//    std::vector<Cards*> players->getGameHand();
 public:
     GameScore();
-
-    GameScore(const vector<Cards *> &gameHand, const vector<Player *> &players);
 
     virtual ~GameScore();
 
@@ -54,9 +40,8 @@ public:
     int* numOfWild(std::vector<Cards*> &gameHand);
 
     int* computeGameScore(Player* &players);
-//    int* computeGameScore(Player* &players,  std::vector<Cards *> &gameHand);
 
-//    void winnerGenerator ( std:: vector <Player*> &playerVector, Map &gameBoard);
+    void winnerGenerator ( std:: vector <Player*> &playerVector, Map &gameBoard);
 
 };
 

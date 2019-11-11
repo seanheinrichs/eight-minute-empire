@@ -36,7 +36,7 @@ int main()
 //    afterActionExample();
 
     // Part 6)
-     gameScoreExample();
+//     gameScoreExample();
 
     return 0;
 }
