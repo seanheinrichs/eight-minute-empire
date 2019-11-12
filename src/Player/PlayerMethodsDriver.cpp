@@ -50,7 +50,7 @@ void playerMethodsDriver() {
     // create cards to showcase all available actions
     Cards *card1 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
     Cards *card2 = new Cards(1,"Wild", "PLACE_NEW_ARMIES_ON_BOARD 2");
-    Cards *card3 = new Cards(1,"Crystal", "MOVE_OVER_LAND 2");
+    Cards *card3 = new Cards(1,"Crystal", "MOVE_OVER_GROUND 2");
     Cards *card4 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 3");
     Cards *card5 = new Cards(1,"Rock", "PLACE_NEW_ARMIES_ON_BOARD 2 OR BUILD_A_CITY 1");
     Cards *card6 = new Cards(1,"Carrot", "BUILD_A_CITY 1");

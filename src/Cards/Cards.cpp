@@ -11,7 +11,7 @@ Cards::Cards() {
 }
 
 ostream &operator<<(ostream &os, const Cards &cards) {
-    os <<"numOfGood: " << *cards.getNumOfGood() <<" good: " << *cards.getGood() << " action: " << *cards.getAction();
+    os << *cards.getGood() << " (" << *cards.getNumOfGood() << ") - " << *cards.getAction();
     return os;
 }
 
@@ -102,8 +102,6 @@ Cards* cards39 = new Cards(1,"Anvil", "MOVE_OVER_GROUND 5");
 Cards* cards40 = new Cards(1,"Anvil", "MOVE_OVER_GROUND 4");
 Cards* cards41 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_GROUND 4");
 Cards* cards42 = new Cards(1,"Anvil", "PLACE_NEW_ARMIES_ON_BOARD 3 OR MOVE_OVER_GROUND 3");
-// random generator function:
-//int seed1 (int i) { return std::rand() % i;}
 
 Deck::Deck() {
     position = new int();
@@ -149,7 +147,6 @@ Deck::Deck() {
     deck.push_back(cards40);
     deck.push_back(cards41);
     deck.push_back(cards42);
-    std::cout<<"Deck is good and have " << deck.size()<< " cards remained." << endl;
 }
 
 Deck::~Deck() {
@@ -283,6 +280,7 @@ void Deck::exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck) {
     // display updated top board
     cout << "Top Board:" << endl;
     displayTopBoard(topBoard);
+    cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
     cout << endl << endl;
 }
 

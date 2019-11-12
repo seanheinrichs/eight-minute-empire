@@ -1,4 +1,3 @@
-
 #ifndef EIGHT_MINUTE_EMPIRE_GAMESCORE_H
 #define EIGHT_MINUTE_EMPIRE_GAMESCORE_H
 
@@ -44,6 +43,5 @@ public:
     void winnerGenerator ( std:: vector <Player*> &playerVector, Map &gameBoard);
 
 };
-
 
 #endif //EIGHT_MINUTE_EMPIRE_GAMESCORE_H
