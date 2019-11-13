@@ -1,4 +1,3 @@
-
 #ifndef EIGHT_MINUTE_EMPIRE_GAMESCORE_H
 #define EIGHT_MINUTE_EMPIRE_GAMESCORE_H
 
@@ -8,56 +7,21 @@
 #include "Map.h"
 
 class GameScore {
-    int* point;
-    std::vector<Cards*> gameHand;
-    std::vector<Player*> players;
-    int* numOfRegions;
-    int* numOfContinents;
-    int* numOfCoins;
-    int* numOfArmies;
-    // Rules priotity: mostPoints ->  mostCoins -> mostArmies -> mostRegions
-    int* mostPoints;
-    int* mostCoins;
-    int* mostArmies;
-    int* mostRegions;
+private:
+    // Utility Methods
+    std::string validateGood();
+    int countGoods(std::vector<Cards*> &gameHand, std::string good);
+    void countPointsInHand(Player &player);
+    int countTreePoints(int tree);
+    int countAnvilPoints(int anvil);
+    int countCarrotPoints(int carrot);
+    int countRockPoints(int rock);
+    int countCrystalPoints(int crystal);
 
-//    std::vector<Cards*> players->getGameHand();
 public:
-    GameScore();
 
-    GameScore(const vector<Cards *> &gameHand, const vector<Player *> &players);
-
-    virtual ~GameScore();
-
-    // compute points of cards with the same good type
-    int* countTreePoint(int *tree);
-
-    int* countAnvilPoint(int *anvil);
-
-    int* countCarrotPoint(int *carrot);
-
-    int* countRockPoint(int *rock);
-
-    int* countCrystalPoint(int *crystal);
-
-    // first count number of the same good type
-    int* numOfTree(std::vector<Cards*> &gameHand);
-
-    int* numOfAnvil(std::vector<Cards*> &gameHand);
-
-    int* numOfCarrot(std::vector<Cards*> &gameHand);
-
-    int* numOfRock(std::vector<Cards*> &gameHand);
-
-    int* numOfCrystal(std::vector<Cards*> &gameHand);
-
-    int* numOfWild(std::vector<Cards*> &gameHand);
-
-    int* computeGameScore(std::vector<Cards *> &gameHand);
-
-    void winnerGenerator ( std:: vector <Player*> playerVector);
-
+    // gameplay methods
+    void generateWinner (std::vector<Player*> &players, Map &gameBoard);
 };
-
 
 #endif //EIGHT_MINUTE_EMPIRE_GAMESCORE_H

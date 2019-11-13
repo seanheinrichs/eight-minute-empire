@@ -294,6 +294,7 @@ bool Player::ignore()
             std::cout << "Invalid answer. Please response with \'y\' or \'n\': ";
         }
     } while (invalidAnswer);
+    std::cout << std::endl;
     return (answer == "n");
 }
 
@@ -305,7 +306,7 @@ void Player::takeAction(std::string action, Map &gameBoard, std::vector<Player*>
     if (playerAction == "MOVE_OVER_WATER") {
         moveArmies(quantity, gameBoard, true);
     }
-    else if (playerAction == "MOVE_OVER_LAND") {
+    else if (playerAction == "MOVE_OVER_GROUND") {
         moveArmies(quantity, gameBoard, false);
     }
     else if (playerAction == "PLACE_NEW_ARMIES_ON_BOARD") {
@@ -329,8 +330,8 @@ void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player*
         std::string secondAction = action.substr(action.find("OR") + 3);
 
         std::cout << "Here are your following choices: " << std::endl;
-        std::cout << "1 - " << firstAction << std::endl;
-        std::cout << "2 - " << secondAction << std::endl;
+        std::cout << "1) " << firstAction << std::endl;
+        std::cout << "2) " << secondAction << std::endl;
         std::cout << "Please select one of the following by entering '1' or '2': ";
 
         answer = validateActionSelection();
@@ -348,8 +349,8 @@ void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player*
         std::string secondAction = action.substr(action.find("AND") + 4);
 
         std::cout << "Here are your following choices: " << std::endl;
-        std::cout << "1 - " << firstAction << std::endl;
-        std::cout << "2 - " << secondAction << std::endl;
+        std::cout << "1) " << firstAction << std::endl;
+        std::cout << "2) " << secondAction << std::endl;
         std::cout << "Would you prefer to take '1' or '2' actions? : ";
 
         // validate user selection

@@ -1,264 +1,232 @@
-
 #include "GameScore.h"
 #include "Player.h"
 #include "Cards.h"
 #include "GameState.h"
 #include "Map.h"
 
-GameScore::GameScore() {}
+void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
+    
+    auto regionOwners = gameBoard.getRegionOwners();
+    auto continentOwners = gameBoard.getContinentOwners();
 
-GameScore::~GameScore() {
+    // count points from regions
+    for (int i = 0; i < players.size(); i++) {
+        players.at(i)->addPoints(regionOwners.at(players.at(i)->getName()).size());
+    }
 
+    // count points from continents 
+        for (int i = 0; i < continentOwners.size(); i++) {
+        if (continentOwners.at(i).second == players.at(0)->getName()) {
+            players.at(0)->addPoints(1);
+        } 
+        else if (continentOwners.at(i).second == players.at(1)->getName()) {
+            players.at(1)->addPoints(1);
+        } 
+        else if (players.size() == 3 && continentOwners.at(i).second == players.at(2)->getName()) {
+            players.at(2)->addPoints(1);
+        }
+        else if (players.size() == 4 && continentOwners.at(i).second == players.at(3)->getName()) {
+            players.at(3)->addPoints(1);
+        }
+        else if (players.size() == 5 && continentOwners.at(i).second == players.at(4)->getName()) {
+            players.at(4)->addPoints(1);
+        }
+    }
+
+    // count points from hand
+    for (int i = 0; i < players.size(); i++) {
+        countPointsInHand(*players.at(i));
+    }
+
+    // display final scores
+    std::cout << "Here are the final scores: " << endl;
+    for (int i = 0; i < players.size(); i++) {
+        std::cout << players.at(i)->getName() << ": " << players.at(i)->getPoints() << endl;
+    }
+
+    // calculate winner
+    int winningPlayerIndex = 0;
+
+    for (int i = 0; i < players.size() - 1; i++) {
+        if (players.at(winningPlayerIndex)->getPoints() < players.at(i + 1)->getPoints()) {
+            winningPlayerIndex = i + 1;
+        }
+    }
+
+    std::cout << endl << "The winner is: " << players.at(winningPlayerIndex)->getName() << "!" << endl;
 }
 
-GameScore::GameScore(const vector<Cards *> &gameHand, const vector<Player *> &players) : gameHand(gameHand),
-                                                                                         players(players) {}
+// Utility Methods
 
+void GameScore::countPointsInHand(Player &player) {
+    
+    // goods to be counted
+    int rocks = countGoods(*player.getGameHand(), "Rock");
+    int crystals = countGoods(*player.getGameHand(), "Crystal");
+    int anvils = countGoods(*player.getGameHand(), "Anvil");
+    int carrots = countGoods(*player.getGameHand(), "Carrot");
+    int trees = countGoods(*player.getGameHand(), "Tree");
+    int wilds = countGoods(*player.getGameHand(), "Wild");
 
-int *GameScore::countTreePoint(int *tree) {
-    if (*tree < 2) {
-        point = new int(0);
+    // display player's hand
+    std::cout << player.getName() <<  ", you have the following goods: " <<endl;
+    std::cout << "- Rocks: " << rocks << endl;
+    std::cout << "- Crystals: " << crystals << endl;
+    std::cout << "- Anvils: " << anvils << endl;
+    std::cout << "- Carrots: " << carrots << endl;
+    std::cout << "- Trees: " << trees << endl;
+    std::cout << "- Wilds: " << wilds << endl;
+
+    // if the user has wilds, allow them to exchange
+    if (wilds > 0) {
+        std::cout << "You can make your wild cards any of the following: Rock | Crystal | Anvil | Carrot | Tree " << endl;
+        for (int i = 0; i < wilds; i++) {
+            
+            std::string wildExchange = validateGood();
+            
+            if (wildExchange == "Rock") {
+                rocks++;
+            }
+            else if (wildExchange == "Tree") {
+                trees++;
+            }
+            else if (wildExchange == "Crystal") {
+                crystals++;
+            }
+            else if (wildExchange == "Carrot") {
+                carrots++;
+            }
+            else if (wildExchange == "Anvil") {
+                anvils++;
+            }
+        }
     }
-    else if (*tree < 4) {
-        point = new int(1);
+
+    // calculate point totals for each good
+    rocks = countRockPoints(rocks);
+    crystals = countCrystalPoints(crystals);
+    anvils = countAnvilPoints(anvils);
+    carrots = countCarrotPoints(carrots);
+    trees = countTreePoints(trees);
+
+    player.addPoints(rocks + crystals + anvils + carrots + trees);
+}
+
+int GameScore::countTreePoints(int tree) {
+    if (tree < 2) {
+        return 0;
     }
-    else if (*tree < 5) {
-        point = new int(2);
+    else if (tree < 4) {
+        return 1;
     }
-    else if (*tree < 6) {
-        point = new int(3);
+    else if (tree == 4) {
+        return 2;
+    }
+    else if (tree == 5) {
+        return 3;
     }
     else {
-        point = new int(5);
+        return 5;
     }
-    return point;
 }
 
-int *GameScore::countAnvilPoint(int *anvil) {
-    if (*anvil < 2) {
-        point = new int(0);
+int GameScore::countAnvilPoints(int anvil) {
+    if (anvil < 2) {
+        return 0;
     }
-    else if (*anvil < 4) {
-        point = new int(1);
+    else if (anvil < 4) {
+        return 1;
     }
-    else if (*anvil < 5) {
-        point = new int(2);
+    else if (anvil < 6) {
+        return 2;
     }
-    else if (*anvil < 6) {
-        point = new int(3);
+    else if (anvil == 6) {
+        return 3;
     }
     else {
-        point = new int(5);
+        return 5;
     }
-    return point;
 }
 
-int *GameScore::countCarrotPoint(int *carrot) {
-    if (*carrot < 2) {
-        point = new int(0);
+int GameScore::countCarrotPoints(int carrot) {
+    if (carrot < 2) {
+        return 0;
     }
-    else if (*carrot < 4) {
-        point = new int(1);
+    else if (carrot < 5) {
+        return 1;
     }
-    else if (*carrot < 5) {
-        point = new int(2);
+    else if (carrot < 7) {
+        return 2;
     }
-    else if (*carrot < 6) {
-        point = new int(3);
+    else if (carrot == 7) {
+        return 3;
     }
     else {
-        point = new int(5);
+        return 5;
     }
-    return point;
 }
 
-int *GameScore::countRockPoint(int *rock) {
-    if (*rock < 2) {
-        point = new int(0);
+int GameScore::countRockPoints(int rock) {
+    if (rock < 2) {
+        return 0;
     }
-    else if (*rock < 4) {
-        point = new int(1);
+    else if (rock < 3) {
+        return 1;
     }
-    else if (*rock < 5) {
-        point = new int(2);
+    else if (rock < 4) {
+        return 2;
     }
-    else if (*rock < 6) {
-        point = new int(3);
+    else if (rock == 4) {
+        return 3;
     }
     else {
-        point = new int(5);
+        return 5;
     }
-    return point;
 }
 
-int *GameScore::countCrystalPoint(int *crystal) {
-    if (*crystal < 1) {
-        point = new int(0);
+int GameScore::countCrystalPoints(int crystal) {
+    if (crystal < 1) {
+        return 0;
     }
-    else if (*crystal < 3) {
-        point = new int(1);
+    else if (crystal == 1) {
+        return 1;
     }
-    else if (*crystal < 4) {
-        point = new int(2);
+    else if (crystal == 2) {
+        return 2;
     }
-    else if (*crystal < 5) {
-        point = new int(3);
+    else if (crystal == 3) {
+        return 3;
     }
     else {
-        point = new int(5);
+        return 4;
     }
-    return point;
 }
 
-
-int *GameScore::computeGameScore(std::vector<Cards *> &gameHand) {
-    int* sum = new int(0);
-    int* rock = new int(0);
-    int* crystal = new int(0);
-    int* anvil = new int(0);
-    int* wild = new int(0);
-    int* carrot = new int(0);
-    int* tree = new int(0);
-
-    int* numTree = numOfTree(gameHand);
-    int* numRock = numOfRock(gameHand);
-    int* numCrystal = numOfCrystal(gameHand);
-    int* numCarrot = numOfCarrot(gameHand);
-    int* numAnvil = numOfAnvil(gameHand);
-    int* numWild = numOfWild(gameHand);
-
-    // check if player's hand has Wild cards
-    if (*numWild > 0) {
-        std::cout << "You have wild: " << *numWild << ", rock: " << *numRock <<
-                  ", tree: " << *numTree << ", crystal: " << *numCrystal << ", carrot: " << *numCarrot
-                  << ", anvil card: " << *numAnvil << endl;
-        for (auto i = 0; i < *numWild; i++) {
-            std::string input;
-
-            std::cout << "You have wild cards which can exchange to other cards if you hold at least one card of the same good type." << endl;
-            std::cout << "Please note if you input the one that actually you don't have that type of good card, your wild card will be forfeit : )" << endl;
-            std::cout << "Which card would you like to exchange? Please input in lowercase (Eg. rock tree crystal carrot anvil)" << endl;
-            std::cin >> input;
-            if (*numRock >0  && input.compare("rock") == 0)
-                *numRock++;
-            else if (*numTree > 0 && input.compare("tree") == 0)
-                *numTree++;
-            else if (*numCrystal > 0 && input.compare("crystal") == 0)
-                *numCrystal++;
-            else if (*numCarrot > 0 && input.compare("carrot") == 0)
-                *numCarrot++;
-            else if (*numAnvil > 0 && input.compare("anvil") == 0)
-                *numAnvil++;
-            else
-                continue;
-        }
-    }
-    rock = countRockPoint(numRock);
-    crystal = countCrystalPoint(numCrystal);
-    anvil = countAnvilPoint(numAnvil);
-    carrot = countCarrotPoint(numCarrot);
-    tree = countTreePoint(numTree);
-
-    *sum = *rock + *crystal + *anvil + *carrot + *tree;
-
-    return sum;
-
-}
-
-int *GameScore::numOfTree(std::vector<Cards*> &gameHand) {
-    int* num = new int(0); int* sum = new int(0);
+int GameScore::countGoods(std::vector<Cards*> &gameHand, std::string good) {
+    int sum = 0;
     for (int i = 0; i < gameHand.size(); i++) {
-         if (gameHand[i]->getGood()->compare("Tree") == 0) {
-            num = gameHand[i]->getNumOfGood();
-            *sum += *num;
-         }
-    }
-    return sum;
-}
-
-int *GameScore::numOfAnvil(std::vector<Cards *> &gameHand) {
-    int* num = new int(0); int* sum = new int(0);
-    for (int i = 0; i < gameHand.size(); i++) {
-        if (gameHand[i]->getGood()->compare("Anvil") == 0) {
-            num = gameHand[i]->getNumOfGood();
-            sum++;
+        if (*gameHand[i]->getGood() == good) {
+            sum += *gameHand[i]->getNumOfGood();
         }
     }
     return sum;
 }
 
-int *GameScore::numOfCarrot(std::vector<Cards *> &gameHand) {
-    int* num = new int(0); int* sum = new int(0);
-    for (int i = 0; i < gameHand.size(); i++) {
-        if (gameHand[i]->getGood()->compare("Carrot") == 0) {
-            num = gameHand[i]->getNumOfGood();
-            *sum += *num;
+std::string GameScore::validateGood() {
+    bool invalidGood = false;
+    std::string good;
+
+    std::cout << "Which card would you like to choose: ";
+    do {
+        std::cin >> good;
+        if (good == "Tree" || good == "Rock" || good == "Anvil" || good == "Crystal" || good == "Carrot") {
+            invalidGood = false;
         }
-    }
-    return sum;
-}
-
-int *GameScore::numOfRock(std::vector<Cards *> &gameHand) {
-    int* num = new int(0); int* sum = new int(0);
-    for (int i = 0; i < gameHand.size(); i++) {
-        if (gameHand[i]->getGood()->compare("Rock") == 0) {
-            num = gameHand[i]->getNumOfGood();
-            *sum += *num;
+        else {
+            invalidGood = true;
+            cout << "That is an invalid selection. Please choose another good: ";
         }
-    }
-    return sum;
+    } while (invalidGood);
+
+    return good;
 }
-
-int *GameScore::numOfCrystal(std::vector<Cards *> &gameHand) {
-    int* num = new int(0); int* sum = new int(0);
-    for (int i = 0; i < gameHand.size(); i++) {
-        if (gameHand[i]->getGood()->compare("Crystal") == 0) {
-            num = gameHand[i]->getNumOfGood();
-            *sum += *num;
-        }
-    }
-    return sum;
-}
-
-int *GameScore::numOfWild(std::vector<Cards *> &gameHand) {
-    int* num = new int(0); int* sum = new int(0);
-    for (int i = 0; i < gameHand.size(); i++) {
-        if (gameHand[i]->getGood()->compare("Wild") == 0) {
-            num = gameHand[i]->getNumOfGood();
-            *sum += *num;
-        }
-    }
-    return sum;
-}
-
-void GameScore::winnerGenerator(std:: vector <Player*> playerVector) {
-    auto mostScorePlayers = new std::vector<Player *>();
-    int *max = new int(0);
-    std::string *winner;
-
-    mostScorePlayers->emplace_back(playerVector.at(0));
-    *max = playerVector.at(0)->getPoints();  // max Points
-    // 1st loop get Player vector with most Points, note the max # of players is 5 in this game
-    for (int i = 1; i < playerVector.size(); i++) {
-        // playerVector.at(0) already inside mostScore group
-        if (playerVector.at(i)->getPoints() > *max) {
-            for (int j = 0; j < mostScorePlayers->size(); j++)
-                mostScorePlayers->pop_back();
-            mostScorePlayers->emplace_back(playerVector.at(i));
-            *max = playerVector.at(i)->getPoints();
-        } else if (playerVector.at(i)->getPoints() == *max) {
-            mostScorePlayers->emplace_back(playerVector.at(i));
-        } else
-            continue;
-    }
-    if (mostScorePlayers->size() == 1) {
-        *winner = mostScorePlayers->at(0)->getName();
-        std::cout << "Winner is " << *winner << endl;
-        return;
-    } else {
-        *winner = mostScorePlayers->at(0)->getName();
-        std::cout << "Winner is " << *winner << endl;
-        return;
-    }
-}
-
