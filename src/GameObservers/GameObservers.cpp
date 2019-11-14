@@ -46,8 +46,20 @@ bool Observable::detach(std::string id)
 
 void Observable::notify()
 {
+    // loop over each observer and call notify
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
         iter->update();
+    }
+}
+
+Observer::Observer(std::string uid) : id(new std::string(uid)) {}
+
+Observer::~Observer()
+{
+    if (id)
+    {
+        delete id;
+        id = NULL;
     }
 }

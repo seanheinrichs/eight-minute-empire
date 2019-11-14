@@ -29,7 +29,7 @@ class Observer
 
 private:
     // id to identify the observer
-    std::string id;
+    std::string *id;
     // update method
     void update();
 
