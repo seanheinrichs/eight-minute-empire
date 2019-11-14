@@ -13,6 +13,7 @@ include_directories(src/GameState)
 include_directories(src/GameStartup)
 include_directories(src/AfterAction)
 include_directories(src/GameScore)
+include_directories(src/GameObservers)
 
 add_executable(eight_minute_empire
     src/BiddingFacility/BiddingFacility.cpp
@@ -47,4 +48,6 @@ add_executable(eight_minute_empire
     src/GameScore/GameScore.h
     src/GameScore/GameScoreDriver.cpp
     src/GameScore/GameScoreDriver.h
+    src/GameObservers/GameObservers.h
+    src/GameObservers/GameObservers.cpp
     src/main.cpp)
