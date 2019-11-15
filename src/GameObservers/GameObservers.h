@@ -3,6 +3,7 @@
 #include <vector>
 #include "GameState.h"
 
+// Abstract class for Observers
 class Observer
 {
 private:
@@ -21,29 +22,29 @@ public:
     virtual void update(const GameState &state) = 0;
 };
 
+// Provides information on current phase
 class PhaseObserver : public Observer
 {
 private:
     std::string *currentPlayer;
     std::string *action;
 
-    void displayPhase();
-
 public:
     PhaseObserver(std::string uid);
     ~PhaseObserver();
 
+    // Updates instance variables, displays phase
     virtual void update(const GameState &state);
 };
 
-class StatisticsObserver : Observer
+class StatisticsObserver : public Observer
 {
-private:
-    void drawGraph();
-
 public:
-    StatisticsObserver();
+    StatisticsObserver(std::string uid);
     ~StatisticsObserver();
+
+    // Updates data, draws graph
+    virtual void update(const GameState &state);
 };
 
 class Observable

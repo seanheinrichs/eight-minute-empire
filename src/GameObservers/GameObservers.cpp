@@ -1,5 +1,6 @@
 #include "GameObservers.h"
 
+// Observer definitions
 Observer::Observer(std::string uid) : id(new std::string(uid)) {}
 
 Observer::~Observer()
@@ -16,6 +17,7 @@ std::string Observer::getId()
     return *id;
 }
 
+// PhaseObserver definitions
 PhaseObserver::PhaseObserver(std::string uid) : Observer::Observer(uid)
 {
     currentPlayer = new std::string();
@@ -37,16 +39,20 @@ PhaseObserver::~PhaseObserver()
     }
 }
 
-void PhaseObserver::displayPhase()
+void PhaseObserver::update(const GameState &state)
 {
     std::cout << "It is " << *currentPlayer << "'s turn: " << *action << std::endl;
 }
 
-void PhaseObserver::update(const GameState &state)
+// StatisticsObserver definitions
+StatisticsObserver::StatisticsObserver(std::string uid) : Observer::Observer(uid){};
+
+void StatisticsObserver::update(const GameState &state)
 {
-    displayPhase();
+    std::cout << "TURBOGRAPHIX" << std::endl;
 }
 
+// Observable definitions
 Observable::Observable()
 {
     observers = new std::vector<Observer *>();

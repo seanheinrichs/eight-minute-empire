@@ -39,10 +39,10 @@ int main()
     GameState state;
     Observable subject;
     auto *phase = new PhaseObserver("phase");
+    auto *stats = new StatisticsObserver("stats");
 
     subject.attach(phase);
-    subject.notify(state);
-    subject.detach("phase");
+    subject.attach(stats);
     subject.notify(state);
     return 0;
 }
