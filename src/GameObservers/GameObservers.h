@@ -21,7 +21,7 @@ public:
     virtual void update() = 0;
 };
 
-class PhaseObserver : Observer
+class PhaseObserver : public Observer
 {
 private:
     std::string *currentPlayer;

@@ -15,6 +15,7 @@
 #include "AfterAction/AfterActionDriver.h"
 #include "GameScore/GameScore.h"
 #include "GameScore/GameScoreDriver.h"
+#include "GameObservers/GameObservers.h"
 
 int main()
 {
@@ -34,6 +35,12 @@ int main()
 
     // Part 5)
     // gameScoreExample();
+
+    auto subject = Observable{};
+    auto *phase = new PhaseObserver("phase");
+
+    subject.attach(phase);
+    subject.notify();
 
     return 0;
 }
