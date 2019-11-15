@@ -52,4 +52,5 @@ add_executable(eight_minute_empire
         src/Player/PlayerMethodsDriver.cpp
         src/Player/PlayerMethodsDriver.h
         src/main.cpp
-        CMakeLists.txt)
+        src/Map/SingletonDriver.cpp
+        src/Map/SingletonDriver.h)

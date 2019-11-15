@@ -79,3 +79,21 @@ public:
     // determine all regions connected by land and water, return vector of regions
     std::vector<std::string> getRegionsConnectedByLandAndWater(std::string regionName);
 };
+
+class Singleton {
+private:
+
+    Map* map;
+    Singleton();
+
+    virtual ~Singleton();
+
+private:
+
+    static Singleton* _instance;
+
+public:
+    static Singleton* instance();
+
+    static void resetInstance();
+};

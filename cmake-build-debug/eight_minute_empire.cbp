@@ -181,6 +181,12 @@
 		<Unit filename="E:/345_A3/eight-minute-empire/src/Map/MapDriver.h">
 			<Option target="eight_minute_empire"/>
 		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/Map/SingletonDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/Map/SingletonDriver.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/MapLoader/MapLoader.cpp">
 			<Option target="eight_minute_empire"/>
 		</Unit>
