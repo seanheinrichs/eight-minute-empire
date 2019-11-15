@@ -5,6 +5,9 @@
 #include "Player.h"
 #include <iostream>
 
+// Forward Declaration
+class Deck;
+
 class GameState {
 public:
   // game state member variables public as their purpose is to be mutated

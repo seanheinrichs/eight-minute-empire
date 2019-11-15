@@ -5,7 +5,7 @@
 #include "Map.h"
 
 void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
-    
+
     auto regionOwners = gameBoard.getRegionOwners();
     auto continentOwners = gameBoard.getContinentOwners();
 
@@ -14,14 +14,14 @@ void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
         players.at(i)->addPoints(regionOwners.at(players.at(i)->getName()).size());
     }
 
-    // count points from continents 
-        for (int i = 0; i < continentOwners.size(); i++) {
+    // count points from continents
+    for (int i = 0; i < continentOwners.size(); i++) {
         if (continentOwners.at(i).second == players.at(0)->getName()) {
             players.at(0)->addPoints(1);
-        } 
+        }
         else if (continentOwners.at(i).second == players.at(1)->getName()) {
             players.at(1)->addPoints(1);
-        } 
+        }
         else if (players.size() == 3 && continentOwners.at(i).second == players.at(2)->getName()) {
             players.at(2)->addPoints(1);
         }
@@ -59,7 +59,7 @@ void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
 // Utility Methods
 
 void GameScore::countPointsInHand(Player &player) {
-    
+
     // goods to be counted
     int rocks = countGoods(*player.getGameHand(), "Rock");
     int crystals = countGoods(*player.getGameHand(), "Crystal");
@@ -81,9 +81,9 @@ void GameScore::countPointsInHand(Player &player) {
     if (wilds > 0) {
         std::cout << "You can make your wild cards any of the following: Rock | Crystal | Anvil | Carrot | Tree " << endl;
         for (int i = 0; i < wilds; i++) {
-            
+
             std::string wildExchange = validateGood();
-            
+
             if (wildExchange == "Rock") {
                 rocks++;
             }

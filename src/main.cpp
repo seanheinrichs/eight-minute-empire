@@ -1,11 +1,4 @@
-#include "Map/Map.h"
-#include "MapLoader/MapLoader.h"
-#include "Cards/Cards.h"
-#include "Player/Player.h"
-#include "BiddingFacility/BiddingFacility.h"
-#include "MainLoop/MainLoop.h"
-#include "GameScore/GameScore.h"
-#include "PlayerStrategies/PlayerStrategiesDriver.h"
+#include "Map/MapDriver.h"
 
 int main()
 {
@@ -13,6 +6,14 @@ int main()
 
     // Part 1)
     playerStrategiesDriver();
+
+    // Part 2)
+
+    // Part 3)
+
+    // Part 4)
+    mapSingletonTest();
+    // singletonExample();
 
     return 0;
 }

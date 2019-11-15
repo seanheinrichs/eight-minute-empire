@@ -91,14 +91,11 @@ Player::~Player()
 
 bool Player::payCoin(int cost)
 {
-
-  if (*coins < cost)
-  {
+  if (*coins < cost) {
     std::cout << "You don't have enough coins to purchase that." << std::endl;
     return false;
   }
-  else
-  {
+  else {
     setCoins(*coins - cost);
     std::cout << "Successful purchase " << *name << ", you have " << *coins << " coins remaining in your pile." << std::endl << std::endl;
     return true;
@@ -108,8 +105,7 @@ bool Player::payCoin(int cost)
 bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
 {
   // check to see if player has available armies to place
-  if (*armies == 0)
-  {
+  if (*armies == 0) {
     std::cout << "Sorry, " << *name << " you have no more available armies." << std::endl;
     return false;
   }
@@ -119,22 +115,18 @@ bool Player::placeNewArmies(int totalArmies, Map &gameBoard)
   std::vector<std::string> placementRegions;
 
   // if player doesn't have enough armies to fulfill the value on card, place remaining armies
-  if (totalArmies > *armies)
-  {
+  if (totalArmies > *armies) {
     spendableArmies = *armies;
   }
-  else
-  {
+  else {
     spendableArmies = totalArmies;
   }
 
   // inform player where they can place units (ie. starting area and where they have cities)
-  if (spendableArmies == 1)
-  {
+  if (spendableArmies == 1) {
     std::cout << *name << ", you have " << spendableArmies << " army to place on the map." << std::endl;
   }
-  else
-  {
+  else {
     std::cout << *name << ", you have " << spendableArmies << " armies to place on the map." << std::endl;
   }
   std::cout << "Here are the areas in which you may place an army: " << std::endl;
@@ -208,8 +200,7 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
 bool Player::buildCity(Map &gameBoard)
 {
   // check to see if player has available cities to place
-  if (*cities == 0)
-  {
+  if (*cities == 0) {
     std::cout << "Sorry, " << *name << "you have no more available cities." << std::endl;
     return false;
   }
@@ -220,8 +211,7 @@ bool Player::buildCity(Map &gameBoard)
   // inform player where they can place a city
   std::cout << *name << ", here are the regions in which you may place a city: " << std::endl;
   placementRegions = gameBoard.getRegionsToAddCities(*name);
-  for (int i = 0; i < placementRegions.size(); i++)
-  {
+  for (int i = 0; i < placementRegions.size(); i++) {
     std::cout << "- " << placementRegions.at(i) << std::endl;
   }
 
@@ -248,20 +238,16 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
   do
   {
     std::cin >> playerName;
-    for (int i = 0; i < allPlayers.size(); i++)
-    {
-      if (playerName == *name || playerName != allPlayers.at(i)->getName())
-      {
+    for (int i = 0; i < allPlayers.size(); i++) {
+      if (playerName == *name || playerName != allPlayers.at(i)->getName()) {
         invalidPlayerName = true;
       }
-      else
-      {
+      else {
         invalidPlayerName = false;
         break;
       }
     }
-    if (invalidPlayerName)
-    {
+    if (invalidPlayerName) {
       std::cout << "ERROR: Invalid player name provided. Please select another player: ";
     }
   } while (invalidPlayerName);
@@ -269,8 +255,7 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
   // inform player where the armies from the targeted player are
   std::cout << *name << ", here are the regions where " << playerName << " has armies." << std::endl;
   regionsWithEnemies = gameBoard.getRegionsWithArmies(playerName);
-  for (int i = 0; i < regionsWithEnemies.size(); i++)
-  {
+  for (int i = 0; i < regionsWithEnemies.size(); i++) {
     std::cout << "- " << regionsWithEnemies.at(i) << std::endl;
   }
 
@@ -393,19 +378,15 @@ std::string Player::validateRegion(std::vector<std::string> placementRegions)
   std::string regionName;
 
   // accept and validate user input
-  do
-  {
+  do {
     std::cin >> regionName;
-    for (int i = 0; i < placementRegions.size(); i++)
-    {
-      if (placementRegions.at(i) == regionName)
-      {
+    for (int i = 0; i < placementRegions.size(); i++) {
+      if (placementRegions.at(i) == regionName) {
         invalidInput = false;
         break;
       }
     }
-    if (invalidInput)
-    {
+    if (invalidInput) {
       std::cout << "ERROR: Invalid region. Please enter a region from the list. " << std::endl;
     }
   } while (invalidInput);

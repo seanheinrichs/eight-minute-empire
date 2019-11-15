@@ -29,7 +29,7 @@ void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Card
     if (action.find("OR") != std::string::npos || action.find("AND") != std::string::npos) {
         state.players->at(turnIndex)->andOrAction(action, *state.map, *state.players);
     }
-        // otherwise call takeAction
+    // otherwise call takeAction
     else {
         state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
     }
