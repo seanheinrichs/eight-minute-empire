@@ -39,6 +39,10 @@ public:
 
 class StatisticsObserver : public Observer
 {
+private:
+    // makes a graph row
+    std::string graphRow(std::string header, int width, int value);
+
 public:
     StatisticsObserver(std::string uid);
     ~StatisticsObserver();
