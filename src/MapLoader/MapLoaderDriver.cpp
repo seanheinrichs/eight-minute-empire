@@ -5,10 +5,10 @@ void validMapFileExamples()
     MapLoader loader1;
     MapLoader loader2;
 
-    Map m1 = loader1.generateMap("assets/map1.map");
-    m1.printNodes();
-    Map m2 = loader2.generateMap("assets/map6.map");
-    m2.printNodes();
+    Map* m1 = loader1.generateMap("assets/map1.map");
+    m1->printNodes();
+    Map* m2 = loader2.generateMap("assets/map6.map");
+    m2->printNodes();
 }
 
 void invalidContinentFileExample()
@@ -42,6 +42,6 @@ void graphNotConnectedInFileExample() {
 
 void mapWithNoPlayersExample() {
     MapLoader loader;
-    Map m = loader.generateMap("assets/map8.map");
-    m.printNodes();
+    Map* m = loader.generateMap("assets/map8.map");
+    m->printNodes();
 }

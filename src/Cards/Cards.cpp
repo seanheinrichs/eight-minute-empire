@@ -248,4 +248,3 @@ void Deck::exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck) {
     topBoard.emplace_back(deck.draw());
     cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
 }
-

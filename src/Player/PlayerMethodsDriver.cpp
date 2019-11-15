@@ -1,6 +1,6 @@
-#include "Map/Map.h"
-#include "Cards/Cards.h"
-#include "Player/Player.h"
+#include "Map.h"
+#include "Cards.h"
+#include "Player.h"
 
 void playerMethodsDriver() {
 
@@ -45,7 +45,8 @@ void playerMethodsDriver() {
     nodeVector.emplace_back(n2);
     nodeVector.emplace_back(n3);
 
-    Map m1(nodeVector, "region1", regions, continents, players);
+//    Map m1(nodeVector, "region1", regions, continents, players);
+    auto m1 = Map::getInstance(nodeVector, "region1", regions, continents, players);
 
     // create cards to showcase all available actions
     Cards *card1 = new Cards(1,"Wild", "MOVE_OVER_WATER 2");
@@ -57,32 +58,32 @@ void playerMethodsDriver() {
     Cards *card7 = new Cards(1,"Carrot", "DESTROY_ARMY 1 AND PLACE_NEW_ARMIES_ON_BOARD 1");
 
     // demo calls
-    playerVector.at(0)->takeAction(*card1->getAction(), m1, playerVector);
+    playerVector.at(0)->takeAction(*card1->getAction(), *m1, playerVector);
 
-    m1.printNodes();
+    m1->printNodes();
 
-    playerVector.at(1)->takeAction(*card2->getAction(), m1, playerVector);
+    playerVector.at(1)->takeAction(*card2->getAction(), *m1, playerVector);
 
-    m1.printNodes();
+    m1->printNodes();
 
-    playerVector.at(2)->takeAction(*card3->getAction(), m1, playerVector);
+    playerVector.at(2)->takeAction(*card3->getAction(), *m1, playerVector);
 
-    m1.printNodes();
+    m1->printNodes();
 
-    playerVector.at(0)->takeAction(*card4->getAction(), m1, playerVector);
+    playerVector.at(0)->takeAction(*card4->getAction(), *m1, playerVector);
 
-    m1.printNodes();
+    m1->printNodes();
 
-    playerVector.at(1)->andOrAction(*card5->getAction(), m1, playerVector);
+    playerVector.at(1)->andOrAction(*card5->getAction(), *m1, playerVector);
 
-    m1.printNodes();
+    m1->printNodes();
 
-    playerVector.at(2)->takeAction(*card6->getAction(), m1, playerVector);
+    playerVector.at(2)->takeAction(*card6->getAction(), *m1, playerVector);
 
-    m1.printNodes();
+    m1->printNodes();
 
-    playerVector.at(0)->andOrAction(*card7->getAction(), m1, playerVector);
+    playerVector.at(0)->andOrAction(*card7->getAction(), *m1, playerVector);
 
-    m1.printNodes();
+    m1->printNodes();
 }
 

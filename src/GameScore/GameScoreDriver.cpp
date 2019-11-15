@@ -11,8 +11,8 @@ void gameScoreExample() {
 
     // std::string fileLocation = "../assets/map1.map"; // for CLION
     std::string fileLocation = "assets/map1.map";       // for VSCODE
-    
-    Map m = loader.generateMap(fileLocation);
+
+    auto m = loader.generateMap(fileLocation);
 
     Cards* cards01 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
     Cards* cards02 = new Cards(1,"Rock", "MOVE_OVER_WATER 2");
@@ -67,5 +67,5 @@ void gameScoreExample() {
     playerVector.at(2)->getGameHand()->emplace_back(cards21);
 
     GameScore gameScore;
-    gameScore.generateWinner(playerVector, m);
+    gameScore.generateWinner(playerVector, *m);
 }
