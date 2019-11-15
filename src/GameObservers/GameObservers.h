@@ -18,7 +18,7 @@ public:
     std::string getId();
 
     // update the observer with new data
-    void update();
+    virtual void update() = 0;
 };
 
 class PhaseObserver : Observer
@@ -32,6 +32,8 @@ private:
 public:
     PhaseObserver(std::string uid);
     ~PhaseObserver();
+
+    virtual void update();
 };
 
 class StatisticsObserver : Observer
@@ -47,14 +49,14 @@ public:
 class Observable
 {
 private:
-    std::vector<Observer> *observers;
+    std::vector<Observer *> *observers;
 
 public:
     Observable();
     ~Observable();
 
     // pushes new observer onto vector
-    bool attach(Observer o);
+    bool attach(Observer *o);
     // erases observer by id from vector
     bool detach(std::string id);
     // calls update on all observers to notify of change

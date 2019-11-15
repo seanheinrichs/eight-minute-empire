@@ -11,6 +11,11 @@ Observer::~Observer()
     }
 }
 
+std::string Observer::getId()
+{
+    return *id;
+}
+
 PhaseObserver::PhaseObserver(std::string uid) : Observer::Observer(uid)
 {
     currentPlayer = new std::string();
@@ -37,9 +42,14 @@ void PhaseObserver::displayPhase()
     std::cout << "It is " << *currentPlayer << "'s turn: " << *action << std::endl;
 }
 
+void PhaseObserver::update()
+{
+    std::cout << "placeholder" << std::endl;
+}
+
 Observable::Observable()
 {
-    observers = new std::vector<Observer>();
+    observers = new std::vector<Observer *>();
 }
 
 Observable::~Observable()
@@ -51,11 +61,11 @@ Observable::~Observable()
     }
 }
 
-bool Observable::attach(Observer o)
+bool Observable::attach(Observer *o)
 {
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
-        if (iter->getId() == o.getId())
+        if ((*iter)->getId() == o->getId())
         {
             // failure: id not unique
             return false;
@@ -70,7 +80,7 @@ bool Observable::detach(std::string id)
 {
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
-        if (iter->getId() == id)
+        if ((*iter)->getId() == id)
         {
             // success: id found
             observers->erase(iter);
@@ -86,6 +96,6 @@ void Observable::notify()
     // loop over each observer and call notify
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
-        iter->update();
+        (*iter)->update();
     }
 }
