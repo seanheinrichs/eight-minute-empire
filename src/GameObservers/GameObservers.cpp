@@ -39,9 +39,14 @@ PhaseObserver::~PhaseObserver()
     }
 }
 
-void PhaseObserver::update(const GameState &state)
+void PhaseObserver::update(const GameState &state, std::string playerName, std::string playerAction)
 {
+    *currentPlayer = playerName;
+    *action = playerAction;
     std::cout << "It is " << *currentPlayer << "'s turn: " << *action << std::endl;
+
+    std::cout << "Here is what the map now looks like:" << std::endl;
+    state.map->printNodes();
 }
 
 // StatisticsObserver definitions
@@ -71,7 +76,7 @@ std::string StatisticsObserver::graphRow(std::string header, int width, int valu
     return row + "\n";
 }
 
-void StatisticsObserver::update(const GameState &state)
+void StatisticsObserver::update(const GameState &state, std::string playerName, std::string playerAction)
 {
     auto regionOwners = state.map->getRegionOwners();
     auto continentOwners = state.map->getContinentOwners();
@@ -179,11 +184,11 @@ bool Observable::detach(std::string id)
     return false;
 };
 
-void Observable::notify(const GameState &state)
+void Observable::notify(const GameState &state, std::string playerName, std::string playerAction)
 {
     // loop over each observer and call notify
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
-        (*iter)->update(state);
+        (*iter)->update(state, playerName, playerAction);
     }
 }

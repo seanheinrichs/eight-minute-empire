@@ -28,21 +28,20 @@ int main()
     // gameStartupExample();
 
     // Part 3 AND 5)
-    // mainLoopDriver();
+    mainLoopDriver();
 
     // Part 4)
     // playerMethodsDriver();
 
     // Part 5)
     // gameScoreExample();
+    // GameState state;
+    // Observable subject;
+    // auto *phase = new PhaseObserver("phase");
+    // auto *stats = new StatisticsObserver("stats");
 
-    GameState state;
-    Observable subject;
-    auto *phase = new PhaseObserver("phase");
-    auto *stats = new StatisticsObserver("stats");
-
-    subject.attach(phase);
-    subject.attach(stats);
-    subject.notify(state);
+    // subject.attach(phase);
+    // subject.attach(stats);
+    // subject.notify(state);
     return 0;
 }

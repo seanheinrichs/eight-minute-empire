@@ -19,7 +19,7 @@ public:
     std::string getId();
 
     // update the observer with new data
-    virtual void update(const GameState &state) = 0;
+    virtual void update(const GameState &state, std::string playerName, std::string playerAction) = 0;
 };
 
 // Provides information on current phase
@@ -34,7 +34,7 @@ public:
     ~PhaseObserver();
 
     // Updates instance variables, displays phase
-    virtual void update(const GameState &state);
+    virtual void update(const GameState &state, std::string playerName, std::string playerAction);
 };
 
 class StatisticsObserver : public Observer
@@ -48,7 +48,7 @@ public:
     ~StatisticsObserver();
 
     // Updates data, draws graph
-    virtual void update(const GameState &state);
+    virtual void update(const GameState &state, std::string playerName, std::string playerAction);
 };
 
 class Observable
@@ -65,5 +65,5 @@ public:
     // erases observer by id from vector
     bool detach(std::string id);
     // calls update on all observers to notify of change
-    void notify(const GameState &state);
+    void notify(const GameState &state, std::string playerName, std::string playerAction);
 };
