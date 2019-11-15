@@ -16,6 +16,7 @@ Player::Player(std::string name, int age)
   Player::age = new int(age);
   Player::gameHand = new std::vector<Cards*>();
   Player::biddingFacility = new BiddingFacility();
+  Player::playerStrategy = new HumanPlayer();
 }
 
 Player::Player(std::string name, int numOfPlayers, int age)
@@ -27,6 +28,7 @@ Player::Player(std::string name, int numOfPlayers, int age)
   Player::age = new int(age);
   Player::gameHand = new std::vector<Cards*>();
   Player::biddingFacility = new BiddingFacility();
+  Player::playerStrategy = new HumanPlayer();
 
   // Amount of coins available to Players is determined by # of Players
   switch (numOfPlayers)
@@ -442,9 +444,11 @@ int Player::getPoints() const { return *points; }
 
 std::string Player::getName() const { return *name; }
 
+std::vector<Cards*> *Player::getGameHand() const { return gameHand; }
+
 BiddingFacility *Player::getBiddingFacility() const { return biddingFacility; }
 
-std::vector<Cards*> *Player::getGameHand() const { return gameHand; }
+PlayerStrategies *Player::getPlayerStrategies() const { return playerStrategy; }
 
 // Mutators
 
@@ -457,5 +461,7 @@ void Player::setCities(int cities) { *Player::cities = cities; }
 void Player::setAge(int age) { *Player::age = age; }
 
 void Player::setName(std::string name) { *Player::name = name; }
+
+void Player::setPlayerStrategy(PlayerStrategies *newPlayerStrategy) { this->playerStrategy = newPlayerStrategy; }
 
 void Player::addPoints(int additionalPoints) { *Player::points += additionalPoints; }

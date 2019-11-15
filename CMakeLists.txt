@@ -47,4 +47,4 @@ add_executable(eight_minute_empire
     src/GameScore/GameScore.h
     src/GameScore/GameScoreDriver.cpp
     src/GameScore/GameScoreDriver.h
-    src/main.cpp)
+    src/main.cpp src/PlayerStrategies/PlayerStrategies.cpp src/PlayerStrategies/PlayerStrategies.h src/PlayerStrategies/PlayerStrategiesDriver.cpp src/PlayerStrategies/PlayerStrategiesDriver.h)

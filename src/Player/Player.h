@@ -2,13 +2,16 @@
 #define EIGHT_MINUTE_EMPIRE_PLAYER_H
 
 #include "../BiddingFacility/BiddingFacility.h"
+#include "PlayerStrategies/PlayerStrategies.h"
 #include "../Map/Map.h"
 #include <string>
 #include <vector>
 
+
 // Forward Declaration
 class Cards;
 class BiddingFacility;
+class PlayerStrategies;
 
 class Player
 {
@@ -22,6 +25,7 @@ private:
   std::string *name;
   std::vector<Cards*> *gameHand;
   BiddingFacility *biddingFacility;
+  PlayerStrategies *playerStrategy;
 
   // Utility Methods
   std::string validateRegion(std::vector<std::string> placementRegions);
@@ -52,8 +56,9 @@ public:
   int getAge() const;
   int getPoints() const;
   std::string getName() const;
-  BiddingFacility *getBiddingFacility() const;
   std::vector<Cards*> *getGameHand() const;
+  BiddingFacility *getBiddingFacility() const;
+  PlayerStrategies *getPlayerStrategies() const;
 
   // Mutators
   void setCoins(int coins);
@@ -61,6 +66,7 @@ public:
   void setCities(int cities);
   void setAge(int age);
   void setName(std::string name);
+  void setPlayerStrategy(PlayerStrategies* newPlayerStrategy);
   void addPoints(int additionalPoints);
 };
 
