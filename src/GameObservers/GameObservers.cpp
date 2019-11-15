@@ -42,9 +42,9 @@ void PhaseObserver::displayPhase()
     std::cout << "It is " << *currentPlayer << "'s turn: " << *action << std::endl;
 }
 
-void PhaseObserver::update()
+void PhaseObserver::update(const GameState &state)
 {
-    std::cout << "placeholder" << std::endl;
+    displayPhase();
 }
 
 Observable::Observable()
@@ -91,11 +91,11 @@ bool Observable::detach(std::string id)
     return false;
 };
 
-void Observable::notify()
+void Observable::notify(const GameState &state)
 {
     // loop over each observer and call notify
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
-        (*iter)->update();
+        (*iter)->update(state);
     }
 }

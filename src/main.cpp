@@ -36,11 +36,13 @@ int main()
     // Part 5)
     // gameScoreExample();
 
-    auto subject = Observable{};
+    GameState state;
+    Observable subject;
     auto *phase = new PhaseObserver("phase");
 
     subject.attach(phase);
-    subject.notify();
-
+    subject.notify(state);
+    subject.detach("phase");
+    subject.notify(state);
     return 0;
 }

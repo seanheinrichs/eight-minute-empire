@@ -18,7 +18,7 @@ public:
     std::string getId();
 
     // update the observer with new data
-    virtual void update() = 0;
+    virtual void update(const GameState &state) = 0;
 };
 
 class PhaseObserver : public Observer
@@ -33,7 +33,7 @@ public:
     PhaseObserver(std::string uid);
     ~PhaseObserver();
 
-    virtual void update();
+    virtual void update(const GameState &state);
 };
 
 class StatisticsObserver : Observer
@@ -60,5 +60,5 @@ public:
     // erases observer by id from vector
     bool detach(std::string id);
     // calls update on all observers to notify of change
-    void notify();
+    void notify(const GameState &state);
 };
