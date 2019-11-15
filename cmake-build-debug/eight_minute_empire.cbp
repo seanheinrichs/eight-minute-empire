@@ -100,9 +100,6 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="E:/345_A3/eight-minute-empire/CMakeLists.txt">
-			<Option target="eight_minute_empire"/>
-		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/AfterAction/AfterActionDriver.cpp">
 			<Option target="eight_minute_empire"/>
 		</Unit>
