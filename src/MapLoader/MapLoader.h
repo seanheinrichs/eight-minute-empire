@@ -38,5 +38,5 @@ public:
     ~MapLoader();
 
     // called to create a map from a file
-    Map generateMap(const std::string &fileName);
+    Map* generateMap(const std::string &fileName);
 };

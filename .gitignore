@@ -43,3 +43,5 @@ CMakeFiles
 cmake_install.cmake
 Makefile
 eight_minute_empire
+
+*.cdp
