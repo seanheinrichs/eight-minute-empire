@@ -43,6 +43,7 @@ void PhaseObserver::update(const GameState &state, std::string playerName, std::
 {
     *currentPlayer = playerName;
     *action = playerAction;
+    std::cout << "== Game Phase Information ==" << std::endl;
     std::cout << "It is " << *currentPlayer << "'s turn: " << *action << std::endl;
 
     std::cout << "Here is what the map now looks like:" << std::endl;
