@@ -49,7 +49,38 @@ StatisticsObserver::StatisticsObserver(std::string uid) : Observer::Observer(uid
 
 void StatisticsObserver::update(const GameState &state)
 {
-    std::cout << "TURBOGRAPHIX" << std::endl;
+    // Header
+    std::cout << "== Game Standings ==" << std::endl;
+
+    // Display player bar graphs
+    std::cout << "Mike:" << std::endl;
+    std::cout << "Points     |"
+              << "000000" << std::endl;
+    std::cout << "Regions    |"
+              << "000" << std::endl;
+    std::cout << "Continents |"
+              << "00000" << std::endl;
+    std::cout << "Armies     |"
+              << "00000000" << std::endl;
+    std::cout << "Cities     |"
+              << "0" << std::endl;
+
+    std::cout << std::endl;
+    // Display region and continent owners
+    std::cout << "Region Owners:" << std::endl;
+    std::cout << "Canada | "
+              << "Mike" << std::endl;
+    std::cout << "USA    | "
+              << "Michael" << std::endl;
+    std::cout << "UK     | "
+              << "Mikey" << std::endl;
+
+    // Display region and continent owners
+    std::cout << "Continent Owners:" << std::endl;
+    std::cout << "North America | "
+              << "Mike" << std::endl;
+    std::cout << "Europe        | "
+              << "Michael" << std::endl;
 }
 
 // Observable definitions
