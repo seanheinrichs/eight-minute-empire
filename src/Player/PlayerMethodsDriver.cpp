@@ -1,6 +1,6 @@
-#include "Map/Map.h"
-#include "Cards/Cards.h"
-#include "Player/Player.h"
+#include "Map.h"
+#include "Cards.h"
+#include "Player.h"
 
 void playerMethodsDriver() {
 

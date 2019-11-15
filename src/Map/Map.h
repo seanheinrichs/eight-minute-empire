@@ -55,6 +55,8 @@ public:
     std::map<std::string, std::vector<std::string>> getRegionOwners();
     // return pairs of regions and their owner
     std::vector<std::pair<std::string, std::string>> getContinentOwners();
+    // return numbers of armies on board which belong to the player
+    int getArmiesOnBoard(std::string playerName);
 
     // add one army
     void addArmy(std::string regionName, std::string playerName);
@@ -76,4 +78,22 @@ public:
     std::vector<std::string> getRegionsConnectedByLand(std::string regionName);
     // determine all regions connected by land and water, return vector of regions
     std::vector<std::string> getRegionsConnectedByLandAndWater(std::string regionName);
+};
+
+class Singleton {
+private:
+
+    Map* map;
+    Singleton();
+
+    virtual ~Singleton();
+
+private:
+
+    static Singleton* _instance;
+
+public:
+    static Singleton* instance();
+
+    static void resetInstance();
 };

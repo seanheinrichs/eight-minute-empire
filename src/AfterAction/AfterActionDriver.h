@@ -7,9 +7,5 @@
 
 void afterActionExample();
 
-//class AfterActionDriver {
-//
-//};
-
 
 #endif //EIGHT_MINUTE_EMPIRE_AFTERACTIONDRIVER_H

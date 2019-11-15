@@ -1,3 +1,4 @@
+#include <SingletonDriver.h>
 #include "BiddingFacility/BiddingFacilityDriver.h"
 #include "Cards/CardsDriver.h"
 #include "GameState/GameStateDriver.h"
@@ -18,13 +19,17 @@
 
 int main()
 {
+    //// Assignment 3 Drivers ////
+    // Part 4)
+    singletonExample();
+
     //// Assignment 2 Drivers ////
 
     // Part 1)
     // gameStateDriver();
 
     // Part 2)
-     gameStartupExample();
+//     gameStartupExample();
 
     // Part 3 AND 5)
     // mainLoopDriver();
