@@ -1,5 +1,42 @@
 #include "GameObservers.h"
 
+Observer::Observer(std::string uid) : id(new std::string(uid)) {}
+
+Observer::~Observer()
+{
+    if (id)
+    {
+        delete id;
+        id = NULL;
+    }
+}
+
+PhaseObserver::PhaseObserver(std::string uid) : Observer::Observer(uid)
+{
+    currentPlayer = new std::string();
+    action = new std::string();
+}
+
+PhaseObserver::~PhaseObserver()
+{
+    if (currentPlayer)
+    {
+        delete currentPlayer;
+        currentPlayer = NULL;
+    }
+
+    if (action)
+    {
+        delete action;
+        action = NULL;
+    }
+}
+
+void PhaseObserver::displayPhase()
+{
+    std::cout << "It is " << *currentPlayer << "'s turn: " << *action << std::endl;
+}
+
 Observable::Observable()
 {
     observers = new std::vector<Observer>();
@@ -18,7 +55,7 @@ bool Observable::attach(Observer o)
 {
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
-        if (iter->id == o.id)
+        if (iter->getId() == o.getId())
         {
             // failure: id not unique
             return false;
@@ -33,7 +70,7 @@ bool Observable::detach(std::string id)
 {
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
-        if (iter->id == id)
+        if (iter->getId() == id)
         {
             // success: id found
             observers->erase(iter);
@@ -50,16 +87,5 @@ void Observable::notify()
     for (auto iter = observers->begin(); iter != observers->end(); iter++)
     {
         iter->update();
-    }
-}
-
-Observer::Observer(std::string uid) : id(new std::string(uid)) {}
-
-Observer::~Observer()
-{
-    if (id)
-    {
-        delete id;
-        id = NULL;
     }
 }

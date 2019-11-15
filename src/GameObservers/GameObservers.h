@@ -1,6 +1,49 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include "GameState.h"
+
+class Observer
+{
+private:
+    // id to identify the observer
+    std::string *id;
+
+public:
+    // uniqueness of uid is enforced
+    Observer(std::string uid);
+    ~Observer();
+
+    // getter for the unique id
+    std::string getId();
+
+    // update the observer with new data
+    void update();
+};
+
+class PhaseObserver : Observer
+{
+private:
+    std::string *currentPlayer;
+    std::string *action;
+
+    void displayPhase();
+
+public:
+    PhaseObserver(std::string uid);
+    ~PhaseObserver();
+};
+
+class StatisticsObserver : Observer
+{
+private:
+    void drawGraph();
+
+public:
+    StatisticsObserver();
+    ~StatisticsObserver();
+};
+
 class Observable
 {
 private:
@@ -16,47 +59,4 @@ public:
     bool detach(std::string id);
     // calls update on all observers to notify of change
     void notify();
-};
-
-class Observer
-{
-    // Observable::notify needs access to update()
-    friend void Observable::notify();
-    // Observable::detach needs access to id
-    friend bool Observable::detach(std::string id);
-    // Observable::attach needs access to the id to check for uniqueness
-    friend bool Observable::attach(Observer o);
-
-private:
-    // id to identify the observer
-    std::string *id;
-    // update method
-    void update();
-
-public:
-    Observer(std::string uid);
-    ~Observer();
-};
-
-class PhaseObserver : Observer
-{
-private:
-    std::string *currentPlayer;
-    std::string *action;
-
-    void displayPhase();
-
-public:
-    PhaseObserver();
-    ~PhaseObserver();
-};
-
-class StatisticsObserver : Observer
-{
-private:
-    void drawGraph();
-
-public:
-    StatisticsObserver();
-    ~StatisticsObserver();
 };
