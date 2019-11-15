@@ -24,7 +24,7 @@ int main()
     // gameStateDriver();
 
     // Part 2)
-    // gameStartupExample();
+     gameStartupExample();
 
     // Part 3 AND 5)
     // mainLoopDriver();
