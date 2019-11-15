@@ -10,6 +10,9 @@
 #include <iostream>
 using namespace std;
 
+// Forward Declaration
+class Player;
+
 class Cards
 {
 
