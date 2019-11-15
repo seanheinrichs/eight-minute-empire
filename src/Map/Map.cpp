@@ -453,54 +453,70 @@ void Map::updateOwner(int index)
     }
 }
 
-Singleton::~Singleton() {
-    if (map) {
-        delete map;
-        map = nullptr;
+Map* Map::map_instance = nullptr;
+
+Map *Map::getInstance(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players) {
+    if (!map_instance) {
+        map_instance = new Map(inputNodes, startRegion, regions, continents, players);
     }
-    if (_instance) {
-        delete _instance;
-        _instance = nullptr;
+    return map_instance;
+}
+
+void Map::resetMapInstance() {
+    if (map_instance) {
+        delete map_instance;
+        map_instance = nullptr;
     }
 }
 
-Singleton* Singleton::_instance = nullptr;
-
-Singleton* Singleton::instance() {
-    if (!_instance) {
-        _instance = new Singleton();
-    }
-    return _instance;
-}
-
-Singleton::Singleton() {
-    // generate map
-    bool validMap = false;
-
-    // will run until a valid map is provided
-    while (!validMap) {
-        try {
-            // get file location
-            std::string fileLocation;
-            std::cout << "Enter map file location: ";
-            std::cin >> fileLocation;
-
-            // load map
-            MapLoader loader;
-            map = new Map(loader.generateMap(fileLocation));
-            validMap = true;
-        }
-
-        catch (const char *msg) {
-            std::cout << "Error: Invalid map file. ";
-            std::cout << msg << std::endl;
-        }
-    }
-}
-
-void Singleton::resetInstance() {
-    if (_instance) {
-        delete _instance;
-        _instance = nullptr;
-    }
-}
+//Singleton::~Singleton() {
+//    if (map) {
+//        delete map;
+//        map = nullptr;
+//    }
+//    if (_instance) {
+//        delete _instance;
+//        _instance = nullptr;
+//    }
+//}
+//
+//Singleton* Singleton::_instance = nullptr;
+//
+//Singleton* Singleton::instance() {
+//    if (!_instance) {
+//        _instance = new Singleton();
+//    }
+//    return _instance;
+//}
+//
+//Singleton::Singleton() {
+//    // generate map
+//    bool validMap = false;
+//
+//    // will run until a valid map is provided
+//    while (!validMap) {
+//        try {
+//            // get file location
+//            std::string fileLocation;
+//            std::cout << "Enter map file location: ";
+//            std::cin >> fileLocation;
+//
+//            // load map
+//            MapLoader loader;
+//            map = new Map(loader.generateMap(fileLocation));
+//            validMap = true;
+//        }
+//
+//        catch (const char *msg) {
+//            std::cout << "Error: Invalid map file. ";
+//            std::cout << msg << std::endl;
+//        }
+//    }
+//}
+//
+//void Singleton::resetInstance() {
+//    if (_instance) {
+//        delete _instance;
+//        _instance = nullptr;
+//    }
+//}

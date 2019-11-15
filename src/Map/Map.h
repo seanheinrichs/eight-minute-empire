@@ -27,6 +27,10 @@ struct Node
 class Map
 {
 private:
+
+    //singleton_instance
+    static Map* map_instance;
+
     // connected graph of Nodes
     std::vector<Node> *nodes;
     // starting node
@@ -39,11 +43,18 @@ private:
     // recalculate the owner of a node
     void updateOwner(int index);
 
-public:
     // constructors and destructors
     Map(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players);
     Map(Map const &m);
+
+public:
+
     ~Map();
+
+    // singleton instance
+    static Map* getInstance(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players);
+
+    static void resetMapInstance();
 
     // print details of each node
     void printNodes();
@@ -80,20 +91,20 @@ public:
     std::vector<std::string> getRegionsConnectedByLandAndWater(std::string regionName);
 };
 
-class Singleton {
-private:
-
-    Map* map;
-    Singleton();
-
-    virtual ~Singleton();
-
-private:
-
-    static Singleton* _instance;
-
-public:
-    static Singleton* instance();
-
-    static void resetInstance();
-};
+//class Singleton {
+//private:
+//
+//    Map* map;
+//    Singleton();
+//
+//    virtual ~Singleton();
+//
+//private:
+//
+//    static Singleton* _instance;
+//
+//public:
+//    static Singleton* instance();
+//
+//    static void resetInstance();
+//};

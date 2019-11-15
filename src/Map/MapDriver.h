@@ -1,7 +1,9 @@
 #pragma once
 #include "Map.h"
 
-void singletonExample();
+void mapSingletonTest();
+
+//void singletonExample();
 
 // Example of a valid map
 void validMapExample();

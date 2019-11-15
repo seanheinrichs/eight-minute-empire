@@ -12,7 +12,6 @@
 #include "PlayerMethodsDriver.h"
 #include "GameStartupDriver.h"
 #include "MainLoop/MainLoop.h"
-#include "AfterAction/AfterActionDriver.h"
 #include "GameScore/GameScore.h"
 #include "GameScore/GameScoreDriver.h"
 
@@ -20,7 +19,8 @@ int main()
 {
     //// Assignment 3 Drivers ////
     // Part 4)
-    singletonExample();
+    mapSingletonTest();
+//    singletonExample();
 
     //// Assignment 2 Drivers ////
 
