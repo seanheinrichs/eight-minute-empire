@@ -66,9 +66,6 @@ public:
     std::map<std::string, std::vector<std::string>> getRegionOwners();
     // return pairs of regions and their owner
     std::vector<std::pair<std::string, std::string>> getContinentOwners();
-    // return numbers of armies on board which belong to the player
-    int getArmiesOnBoard(std::string playerName);
-
     // add one army
     void addArmy(std::string regionName, std::string playerName);
     // move one army

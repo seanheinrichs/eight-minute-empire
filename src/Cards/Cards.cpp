@@ -162,7 +162,7 @@ Deck::~Deck() {
 
 
 Cards* Deck::draw() {
-    std::srand (unsigned (std::time(0)));
+    std::srand (unsigned (std::time(0)));   
     std::random_shuffle(deck.begin(), deck.end());
 
     auto card = deck.back();

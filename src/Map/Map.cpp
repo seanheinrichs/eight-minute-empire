@@ -264,23 +264,6 @@ std::vector<std::pair<std::string, std::string>> Map::getContinentOwners()
     return continentOwners;
 }
 
-int Map::getArmiesOnBoard(std::string playerName) {
-    int numArmiesOnBoard = 0;
-    std::vector<Node>::iterator nodeIter = nodes->begin();
-    std::map<std::string, std::pair<int, bool>>::iterator armyIter;
-    while (nodeIter != nodes->end()) {
-        armyIter = nodeIter->armies.begin();
-        while (armyIter != nodeIter->armies.end()) {
-            if (armyIter->first == playerName) {
-                numArmiesOnBoard += armyIter->second.first;
-            }
-            armyIter++;
-        }
-        nodeIter++;
-    }
-    return numArmiesOnBoard;
-}
-
 std::vector<std::string> Map::getRegionNames()
 {
     std::vector<std::string> output;
