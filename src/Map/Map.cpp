@@ -453,7 +453,7 @@ void Map::updateOwner(int index)
     }
 }
 
-Map* Map::map_instance = nullptr;
+Map* Map::map_instance = 0;
 
 Map *Map::getInstance(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players) {
     if (!map_instance) {

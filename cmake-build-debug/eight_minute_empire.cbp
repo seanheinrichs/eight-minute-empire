@@ -122,6 +122,42 @@
 		<Unit filename="E:/345_A3/eight-minute-empire/src/GameScore/GameScore.h">
 			<Option target="eight_minute_empire"/>
 		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameScore/GameScoreDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameScore/GameScoreDriver.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameStartup/GameStartup.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameStartup/GameStartup.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameStartup/GameStartupDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameStartup/GameStartupDriver.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameState/GameState.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameState/GameState.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameState/GameStateDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/GameState/GameStateDriver.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/MainLoop/MainLoop.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/MainLoop/MainLoop.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/Map/Map.cpp">
 			<Option target="eight_minute_empire"/>
 		</Unit>
@@ -134,10 +170,34 @@
 		<Unit filename="E:/345_A3/eight-minute-empire/src/Map/MapDriver.h">
 			<Option target="eight_minute_empire"/>
 		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/MapLoader/MapLoader.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/MapLoader/MapLoader.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/MapLoader/MapLoaderDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/MapLoader/MapLoaderDriver.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/Player/Player.cpp">
 			<Option target="eight_minute_empire"/>
 		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/Player/Player.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/Player/PlayerDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/Player/PlayerDriver.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/Player/PlayerMethodsDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/Player/PlayerMethodsDriver.h">
 			<Option target="eight_minute_empire"/>
 		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/main.cpp">

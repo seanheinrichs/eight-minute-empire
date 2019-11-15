@@ -1,5 +1,6 @@
 #pragma once
 #include "MapLoader.h"
+#include "Map.h"
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -109,7 +110,7 @@ Node MapLoader::generateNode(const std::vector<std::string> inputVector) {
   return n;
 }
 
-Map MapLoader::generateMap(const std::string &fileName) {
+Map* MapLoader::generateMap(const std::string &fileName) {
   // processing variables
   std::ifstream inputFile(fileName);
   std::string line;
@@ -195,7 +196,10 @@ Map MapLoader::generateMap(const std::string &fileName) {
       throw "Graph not fully connected.";
     }
 
-    return Map(nodes, start, regionData, continentData, playerData);
+    Map* m1 = Map::getInstance(nodes, start, regionData, continentData, playerData);
+
+//    return Map(nodes, start, regionData, continentData, playerData);
+    return m1;
   } else {
     throw "File not found.";
   }

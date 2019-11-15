@@ -22,31 +22,31 @@ add_executable(eight_minute_empire
         src/Cards/Cards.h
         src/GameScore/GameScore.cpp
         src/GameScore/GameScore.h
-#        src/GameScore/GameScoreDriver.cpp
-#        src/GameScore/GameScoreDriver.h
-#        src/GameStartup/GameStartup.cpp
-#        src/GameStartup/GameStartup.h
-#        src/GameStartup/GameStartupDriver.cpp
-#        src/GameStartup/GameStartupDriver.h
-#        src/GameState/GameState.cpp
-#        src/GameState/GameState.h
-#        src/GameState/GameStateDriver.cpp
-#        src/GameState/GameStateDriver.h
-#        src/MainLoop/MainLoop.cpp
-#        src/MainLoop/MainLoop.h
+        src/GameScore/GameScoreDriver.cpp
+        src/GameScore/GameScoreDriver.h
+        src/GameStartup/GameStartup.cpp
+        src/GameStartup/GameStartup.h
+        src/GameStartup/GameStartupDriver.cpp
+        src/GameStartup/GameStartupDriver.h
+        src/GameState/GameState.cpp
+        src/GameState/GameState.h
+        src/GameState/GameStateDriver.cpp
+        src/GameState/GameStateDriver.h
+        src/MainLoop/MainLoop.cpp
+        src/MainLoop/MainLoop.h
         src/Map/Map.cpp
         src/Map/Map.h
         src/Map/MapDriver.cpp
         src/Map/MapDriver.h
-#        src/MapLoader/MapLoader.cpp
-#        src/MapLoader/MapLoader.h
-#        src/MapLoader/MapLoaderDriver.cpp
-#        src/MapLoader/MapLoaderDriver.h
+        src/MapLoader/MapLoader.cpp
+        src/MapLoader/MapLoader.h
+        src/MapLoader/MapLoaderDriver.cpp
+        src/MapLoader/MapLoaderDriver.h
         src/Player/Player.cpp
         src/Player/Player.h
-#        src/Player/PlayerDriver.cpp
-#        src/Player/PlayerDriver.h
-#        src/Player/PlayerMethodsDriver.cpp
-#        src/Player/PlayerMethodsDriver.h
+        src/Player/PlayerDriver.cpp
+        src/Player/PlayerDriver.h
+        src/Player/PlayerMethodsDriver.cpp
+        src/Player/PlayerMethodsDriver.h
         src/main.cpp
         )

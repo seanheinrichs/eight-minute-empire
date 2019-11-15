@@ -12,7 +12,7 @@ void gameScoreExample() {
     MapLoader loader;
     std::string fileLocation = "../assets/map1.map"; // for CLion
 //    std::string fileLocation = "assets/map1.map"; // for VSCode
-    Map m = loader.generateMap(fileLocation);
+    auto m = loader.generateMap(fileLocation);
 
     Player *sean = new Player("sean", 3, 15);
     Player *mike = new Player("mike", 3, 16);
@@ -38,7 +38,7 @@ void gameScoreExample() {
     cout << "=========Test GameScore( ) ===============" << endl;
     GameScore gameScore;
     cout << "=======================================================\n"<< endl;
-    gameScore.winnerGenerator(playerVector, m);
+    gameScore.winnerGenerator(playerVector, *m);
     cout << "=======================================================\n"<< endl;
 
 }
