@@ -24,16 +24,16 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="E:/345_A3/eight-minute-empire/src"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/AfterAction"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/BiddingFacility"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/Cards"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/GameScore"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/GameStartup"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/GameState"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/MainLoop"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/Map"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/MapLoader"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/Player"/>
-					<Add directory="E:/345_A3/eight-minute-empire/src/GameState"/>
-					<Add directory="E:/345_A3/eight-minute-empire/src/GameStartup"/>
-					<Add directory="E:/345_A3/eight-minute-empire/src/AfterAction"/>
-					<Add directory="E:/345_A3/eight-minute-empire/src/GameScore"/>
 					<Add directory="C:/Mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="C:/Mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
 					<Add directory="C:/Mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
@@ -55,16 +55,16 @@
 				<Option type="1"/>
 				<Option compiler="gcc"/>
 				<Compiler>
-					<Add directory="E:/345_A3/eight-minute-empire/src"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/AfterAction"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/BiddingFacility"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/Cards"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/GameScore"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/GameStartup"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/GameState"/>
+					<Add directory="E:/345_A3/eight-minute-empire/src/MainLoop"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/Map"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/MapLoader"/>
 					<Add directory="E:/345_A3/eight-minute-empire/src/Player"/>
-					<Add directory="E:/345_A3/eight-minute-empire/src/GameState"/>
-					<Add directory="E:/345_A3/eight-minute-empire/src/GameStartup"/>
-					<Add directory="E:/345_A3/eight-minute-empire/src/AfterAction"/>
-					<Add directory="E:/345_A3/eight-minute-empire/src/GameScore"/>
 					<Add directory="C:/Mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++"/>
 					<Add directory="C:/Mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/i686-w64-mingw32"/>
 					<Add directory="C:/Mingw-w64/mingw32/bin/../lib/gcc/i686-w64-mingw32/8.1.0/include/c++/backward"/>
@@ -110,6 +110,12 @@
 			<Option target="eight_minute_empire"/>
 		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/BiddingFacility/BiddingFacility.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/BiddingFacility/BiddingFacilityDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/BiddingFacility/BiddingFacilityDriver.h">
 			<Option target="eight_minute_empire"/>
 		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/Cards/Cards.cpp">
@@ -176,6 +182,12 @@
 			<Option target="eight_minute_empire"/>
 		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/MapLoader/MapLoader.h">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/MapLoader/MapLoaderDriver.cpp">
+			<Option target="eight_minute_empire"/>
+		</Unit>
+		<Unit filename="E:/345_A3/eight-minute-empire/src/MapLoader/MapLoaderDriver.h">
 			<Option target="eight_minute_empire"/>
 		</Unit>
 		<Unit filename="E:/345_A3/eight-minute-empire/src/Player/Player.cpp">
