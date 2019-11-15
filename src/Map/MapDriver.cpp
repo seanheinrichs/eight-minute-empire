@@ -41,6 +41,7 @@ void mapSingletonTest() {
     m1->printNodes();
     cout << "============ -------map 2-------- ==============="<< endl;
     m2->printNodes();
+    cout << "notice that map 2 also has sean's record, which prove singleton works fine." << endl;
 }
 
 
