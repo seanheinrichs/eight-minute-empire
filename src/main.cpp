@@ -1,4 +1,5 @@
 #include "Map/MapDriver.h"
+#include "PlayerStrategies/PlayerStrategiesDriver.h"
 
 int main()
 {

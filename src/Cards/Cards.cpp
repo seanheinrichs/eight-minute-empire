@@ -249,17 +249,28 @@ void Deck::exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck) {
     cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
 }
 
-void Deck::greedyComputerExchange(Player &player, std::vector<Cards *> &topBoard, Deck &deck) {
+void Deck::computerExchange(Player &player, std::vector<Cards *> &topBoard, Deck &deck) {
     int purchaseIndex = 0;
     int cost = 0;
 
     cout<< "Top Board:" << endl;
     displayTopBoard(topBoard);
 
-    for (int i = 0; i < topBoard.size(); i++) {
-        if ((*topBoard.at(i)->getAction()).find("BUILD_A_CITY") != std::string::npos || (*topBoard.at(i)->getAction()).find("DESTROY_ARMY") != std::string::npos) {
-            purchaseIndex = i;
-            break;
+    // Greedy Computer Logic - Purchase "BUILD_A_CITY" or "DESTROY_ARMY"
+    if (player.getPlayerStrategies()->displayCurrentStrategy() == "Greedy Computer") {
+        for (int i = 0; i < topBoard.size(); i++) {
+            if ((*topBoard.at(i)->getAction()).find("BUILD_A_CITY") != std::string::npos || (*topBoard.at(i)->getAction()).find("DESTROY_ARMY") != std::string::npos) {
+                purchaseIndex = i;
+                break;
+            }
+        }
+    }
+    else {
+        for (int i = 0; i < topBoard.size(); i++) {
+            if ((*topBoard.at(i)->getAction()).find("PLACE_NEW_ARMIES_ON_BOARD") != std::string::npos) {
+                purchaseIndex = i;
+                break;
+            }
         }
     }
 

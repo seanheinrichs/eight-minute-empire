@@ -5,22 +5,26 @@
 void GreedyComputer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
 {
     // card purchase - purchase BUILD_A_CITY or DESTROY_ARMY cards if available, otherwise purchase cheapest
-    state.deck->greedyComputerExchange(*state.players->at(turnIndex), topBoard, *state.deck);
+    state.deck->computerExchange(*state.players->at(turnIndex), topBoard, *state.deck);
 
-    // check to see if card is of type "AND" or "OR"
+    std::string action = *(state.players->at(turnIndex)->getGameHand()->at(currentTurn-1)->getAction());
 
+    // check to see if card is of type "AND" or "OR", if true call andOrAction()
+    if (action.find("OR") != std::string::npos || action.find("AND") != std::string::npos) {
+        state.players->at(turnIndex)->andOrAction(action, *state.map, *state.players);
+    }
     // otherwise call takeAction
-
-    std::cout << "Greedy Computer want to DESTROY ALL HUMANS" << std::endl;
-
+    else {
+        state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
+    }
 }
 
 std::string GreedyComputer::displayCurrentStrategy() {
     return "Greedy Computer";
 }
 
-void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn) {
-
+void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
+{
     // card purchase - user selects
     state.deck->exchange(*state.players->at(turnIndex), topBoard, *state.deck);
 
@@ -40,18 +44,27 @@ void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Card
     else {
         state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
     }
-
 }
 
 std::string HumanPlayer::displayCurrentStrategy() {
     return "Human Player";
 }
 
+void ModerateComputer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
+{
+    // card purchase - purchase PLACE_NEW_ARMIES_ON_BOARD cards if available, otherwise purchase cheapest
+    state.deck->computerExchange(*state.players->at(turnIndex), topBoard, *state.deck);
 
-void ModerateComputer::selectAction(GameState &state, int turnindex, std::vector<Cards*> &topBoard, int currentTurn) {
+    std::string action = *(state.players->at(turnIndex)->getGameHand()->at(currentTurn-1)->getAction());
 
-    std::cout << "Moderate Computer wants to control ALL THE ZONES!";
-
+    // check to see if card is of type "AND" or "OR", if true call andOrAction()
+    if (action.find("OR") != std::string::npos || action.find("AND") != std::string::npos) {
+        state.players->at(turnIndex)->andOrAction(action, *state.map, *state.players);
+    }
+        // otherwise call takeAction
+    else {
+        state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
+    }
 }
 
 std::string ModerateComputer::displayCurrentStrategy() {

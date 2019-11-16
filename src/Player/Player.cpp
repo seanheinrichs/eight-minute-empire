@@ -128,52 +128,56 @@ void Player::placeNewArmies(int totalArmies, Map &gameBoard)
         spendableArmies = totalArmies;
     }
 
-    // Human Player Logic - User Interaction
-    if (playerStrategy->displayCurrentStrategy() == "Human Player") {
-        // inform player where they can place units (ie. starting area and where they have cities)
-        if (spendableArmies == 1) {
-            std::cout << *name << ", you have " << spendableArmies << " army to place on the map." << std::endl;
-        }
-        else {
-            std::cout << *name << ", you have " << spendableArmies << " armies to place on the map." << std::endl;
-        }
-        std::cout << "Here are the areas in which you may place an army: " << std::endl;
-        placementRegions = gameBoard.getRegionsToAddArmies(*name);
-        for (int i = 0; i < placementRegions.size(); i++)
-        {
-            std::cout << "- " << placementRegions.at(i) << std::endl;
-        }
+    for (int i = 0; i < spendableArmies; i++) {
+        // Human Player Logic - User Interaction
+        if (playerStrategy->displayCurrentStrategy() == "Human Player") {
+            // inform player where they can place units (ie. starting area and where they have cities)
+            if (spendableArmies == 1) {
+                std::cout << *name << ", you have " << spendableArmies << " army to place on the map." << std::endl;
+            }
+            else {
+                std::cout << *name << ", you have " << spendableArmies << " armies to place on the map." << std::endl;
+            }
+            std::cout << "Here are the areas in which you may place an army: " << std::endl;
+            placementRegions = gameBoard.getRegionsToAddArmies(*name);
+            for (int i = 0; i < placementRegions.size(); i++) {
+                std::cout << "- " << placementRegions.at(i) << std::endl;
+            }
 
-        // place new armies
-        for (int i = 0; i < spendableArmies; i++)
-        {
-            std::cout << "Select a region in which you like to place an army: ";
-            regionName = validateRegion(placementRegions);
+            // place new armies
+            {
+                std::cout << "Select a region in which you like to place an army: ";
+                regionName = validateRegion(placementRegions);
+            }
         }
+            // Greedy Computer Logic - Randomly Select a Region to Place Unit
+        else if (playerStrategy-> displayCurrentStrategy() == "Greedy Computer") {
+            placementRegions = gameBoard.getRegionsToAddArmies(*name);
+            for (int i = 0; i < spendableArmies; i++){
+                regionName = placementRegions.at(rand() % placementRegions.size());
+            }
+        }
+            // Moderate Computer Logic - Only Place Armies on the Starting Area
+        else {
+            for (int i = 0; i < spendableArmies; i++) {
+                regionName = *gameBoard.getStart();
+            }
+        }
+        (*armies)--;
+        gameBoard.addArmy(regionName, *name);
+        std::cout << "Successfully added an army to " << regionName << "." << std::endl
+                  << std::endl;
     }
-        // Greedy Computer Logic - Randomly Select a Region to Place Unit
-    else if (playerStrategy-> displayCurrentStrategy() == "Greedy Computer") {
-        placementRegions = gameBoard.getRegionsToAddArmies(*name);
-        regionName = placementRegions.at(rand() % placementRegions.size());
-    }
-        // Moderate Computer Logic - Only Place Armies on the Starting Area
-    else {
-        regionName = *gameBoard.getStart();
-    }
-    (*armies)--;
-    gameBoard.addArmy(regionName, *name);
-    std::cout << "Successfully added an army to " << regionName << "." << std::endl
-              << std::endl;
 }
 
 void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
 {
-    for (int i = 0; i < totalMoves; i++) {
-        std::string origin;
-        std::string destination;
-        std::vector<std::string> regionsWithArmies;
-        std::vector<std::string> connections;
+    std::string origin;
+    std::string destination;
+    std::vector<std::string> regionsWithArmies;
+    std::vector<std::string> connections;
 
+    for (int i = 0; i < totalMoves; i++) {
         // Human Logic - User Interaction
         if (playerStrategy->displayCurrentStrategy() == "Human Player") {
             // display regions where player currently has armies
@@ -203,8 +207,8 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
             std::cout << "Please select a region in which to move an army to: ";
             destination = validateRegion(connections);
         }
-        // Greedy Computer - Randomly Moves Troops
-        else if (playerStrategy->displayCurrentStrategy() == "Greedy Computer") {
+        // Greedy and Moderate Computer - Randomly Moves Troops
+        else {
             // randomly select a possible origin
             regionsWithArmies = gameBoard.getRegionsWithArmies(*name);
             origin = regionsWithArmies.at(rand() % regionsWithArmies.size());
@@ -215,15 +219,15 @@ void Player::moveArmies(int totalMoves, Map &gameBoard, bool waterMove)
             }
             else {
                 connections = gameBoard.getRegionsConnectedByLand(origin);
+                // ensure that a connection exists
+                while (connections.size() == 0){
+                    origin = regionsWithArmies.at(rand() % regionsWithArmies.size());
+                    connections = gameBoard.getRegionsConnectedByLand(origin);
+                }
             }
 
             // randomly select a possible destination
             destination = connections.at(rand() % connections.size());
-        }
-        // Moderate Computer - Ignore Movement
-        else {
-            std::cout << *name << " has decided to ignore this card effect.";
-            return;
         }
         // move army
         gameBoard.moveArmy(origin, destination, *name);
@@ -274,37 +278,49 @@ void Player::destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers)
 
     // Human Player Logic - User Interaction
     if (playerStrategy->displayCurrentStrategy() == "Human Player") {
+        // select another player whose army will be destroyed
+        std::cout << *name << ", please select a player to destroy one of their armies: ";
+        do
+        {
+            std::cin >> playerName;
+            for (int i = 0; i < allPlayers.size(); i++) {
+                if (playerName == *name || playerName != allPlayers.at(i)->getName()) {
+                    invalidPlayerName = true;
+                }
+                else {
+                    invalidPlayerName = false;
+                    break;
+                }
+            }
+            if (invalidPlayerName) {
+                std::cout << "ERROR: Invalid player name provided. Please select another player: ";
+            }
+        } while (invalidPlayerName);
 
+        // inform player where the armies from the targeted player are
+        std::cout << *name << ", here are the regions where " << playerName << " has armies." << std::endl;
+        regionsWithEnemies = gameBoard.getRegionsWithArmies(playerName);
+        for (int i = 0; i < regionsWithEnemies.size(); i++) {
+            std::cout << "- " << regionsWithEnemies.at(i) << std::endl;
+        }
+
+        // select a region to destroy a unit
+        std::cout << "Please select a region to remove an army from: ";
+        regionName = validateRegion(regionsWithEnemies);
     }
-    // select another player whose army will be destroyed
-    std::cout << *name << ", please select a player to destroy one of their armies: ";
-    do
-    {
-        std::cin >> playerName;
-        for (int i = 0; i < allPlayers.size(); i++) {
-            if (playerName == *name || playerName != allPlayers.at(i)->getName()) {
-                invalidPlayerName = true;
+    // Greedy Computer and Moderate Computer Logic - Destroy Random Player's Army
+    else {
+        for (int i = 0; i < allPlayers.size(); i++){
+            if (allPlayers.at(i)->getName() == *name){
+                continue;
             }
             else {
-                invalidPlayerName = false;
-                break;
+                playerName = allPlayers.at(i)->getName();
             }
         }
-        if (invalidPlayerName) {
-            std::cout << "ERROR: Invalid player name provided. Please select another player: ";
-        }
-    } while (invalidPlayerName);
-
-    // inform player where the armies from the targeted player are
-    std::cout << *name << ", here are the regions where " << playerName << " has armies." << std::endl;
-    regionsWithEnemies = gameBoard.getRegionsWithArmies(playerName);
-    for (int i = 0; i < regionsWithEnemies.size(); i++) {
-        std::cout << "- " << regionsWithEnemies.at(i) << std::endl;
+        regionsWithEnemies = gameBoard.getRegionsWithArmies(playerName);
+        regionName = regionsWithEnemies.at(rand() % regionsWithEnemies.size());
     }
-
-    // select a region to destroy a unit
-    std::cout << "Please select a region to remove an army from: ";
-    regionName = validateRegion(regionsWithEnemies);
     gameBoard.destroyArmy(regionName, playerName);
     std::cout << "Successfully removed one of " << playerName << "'s armies from " << regionName << "." << std::endl
               << std::endl;
@@ -354,61 +370,115 @@ void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player*
 {
     int answer;
 
-    if (action.find("OR") != std::string::npos) {
-        // split string into two halves
-        std::string firstAction = action.substr(0, action.find("OR"));
-        std::string secondAction = action.substr(action.find("OR") + 3);
+    // Human Player Logic - User Interaction
+    if (playerStrategy->displayCurrentStrategy() == "Human Player") {
+        // OR Card Type
+        if (action.find("OR") != std::string::npos) {
+            // split string into two halves
+            std::string firstAction = action.substr(0, action.find("OR"));
+            std::string secondAction = action.substr(action.find("OR") + 3);
 
-        std::cout << "Here are your following choices: " << std::endl;
-        std::cout << "1) " << firstAction << std::endl;
-        std::cout << "2) " << secondAction << std::endl;
-        std::cout << "Please select one of the following by entering '1' or '2': ";
+            std::cout << "Here are your following choices: " << std::endl;
+            std::cout << "1) " << firstAction << std::endl;
+            std::cout << "2) " << secondAction << std::endl;
+            std::cout << "Please select one of the following by entering '1' or '2': ";
 
-        answer = validateActionSelection();
+            answer = validateActionSelection();
 
-        if (answer == 1) {
-            takeAction(firstAction, gameBoard, allPlayers);
+            if (answer == 1) {
+                takeAction(firstAction, gameBoard, allPlayers);
+            }
+            else {
+                takeAction(secondAction, gameBoard, allPlayers);
+            }
         }
+        // AND Card Type
         else {
+            // split string into two halves
+            std::string firstAction = action.substr(0, action.find("AND"));
+            std::string secondAction = action.substr(action.find("AND") + 4);
+
+            std::cout << "Here are your following choices: " << std::endl;
+            std::cout << "1) " << firstAction << std::endl;
+            std::cout << "2) " << secondAction << std::endl;
+            std::cout << "Would you prefer to take '1' or '2' actions? : ";
+
+            // validate user selection
+            answer = validateActionSelection();
+
+            // player only wants to use one of the actions
+            if (answer == 1) {
+                std::cout << "Please select one of the above actions by entering '1' or '2': ";
+                answer = validateActionSelection();
+                if (answer == 1) {
+                    takeAction(firstAction, gameBoard, allPlayers);
+                }
+                else {
+                    takeAction(secondAction, gameBoard, allPlayers);
+                }
+            }
+                // player wants to use both actions
+            else {
+                std::cout << "Which action would you like to use first? Please select one of the above actions by entering '1' or '2': ";
+                answer = validateActionSelection();
+                if (answer == 1) {
+                    takeAction(firstAction, gameBoard, allPlayers);
+                    takeAction(secondAction, gameBoard, allPlayers);
+                }
+                else {
+                    takeAction(secondAction, gameBoard, allPlayers);
+                    takeAction(firstAction, gameBoard, allPlayers);
+                }
+            }
+        }
+    }
+    // Greedy Computer Logic - OR (Always Choose BUILD_A_CITY or DESTROY_ARMY) | AND (Do First Action then Second)
+    else if (playerStrategy->displayCurrentStrategy() == "Greedy Computer") {
+        // OR Card Type
+        if (action.find("OR") != std::string::npos) {
+            // split string into two halves
+            std::string firstAction = action.substr(0, action.find("OR"));
+            std::string secondAction = action.substr(action.find("OR") + 3);
+            if (firstAction.find("CITY") != std::string::npos || firstAction.find("DESTROY")){
+                takeAction(secondAction, gameBoard, allPlayers);
+            }
+            else {
+                takeAction(firstAction, gameBoard, allPlayers);
+            }
+        }
+        // AND Card Type
+        else {
+            // split string into two halves
+            std::string firstAction = action.substr(0, action.find("AND"));
+            std::string secondAction = action.substr(action.find("AND") + 4);
+
+            takeAction(firstAction, gameBoard, allPlayers);
             takeAction(secondAction, gameBoard, allPlayers);
         }
     }
+    // Moderate Computer Logic - OR (Always Choose PLACE_NEW_ARMIES) | AND (Do First Action then Second)
     else {
-        // split string into two halves
-        std::string firstAction = action.substr(0, action.find("AND"));
-        std::string secondAction = action.substr(action.find("AND") + 4);
+        // OR Card Type
+        if (action.find("OR") != std::string::npos) {
+            // split string into two halves
+            std::string firstAction = action.substr(0, action.find("OR"));
+            std::string secondAction = action.substr(action.find("OR") + 3);
 
-        std::cout << "Here are your following choices: " << std::endl;
-        std::cout << "1) " << firstAction << std::endl;
-        std::cout << "2) " << secondAction << std::endl;
-        std::cout << "Would you prefer to take '1' or '2' actions? : ";
-
-        // validate user selection
-        answer = validateActionSelection();
-
-        // player only wants to use one of the actions
-        if (answer == 1) {
-            std::cout << "Please select one of the above actions by entering '1' or '2': ";
-            answer = validateActionSelection();
-            if (answer == 1) {
+            if (firstAction.find("PLACE_NEW_ARMIES_ON_BOARD") != std::string::npos){
                 takeAction(firstAction, gameBoard, allPlayers);
             }
             else {
                 takeAction(secondAction, gameBoard, allPlayers);
             }
         }
-            // player wants to use both actions
+        // AND Card Type
         else {
-            std::cout << "Which action would you like to use first? Please select one of the above actions by entering '1' or '2': ";
-            answer = validateActionSelection();
-            if (answer == 1) {
-                takeAction(firstAction, gameBoard, allPlayers);
-                takeAction(secondAction, gameBoard, allPlayers);
-            }
-            else {
-                takeAction(secondAction, gameBoard, allPlayers);
-                takeAction(firstAction, gameBoard, allPlayers);
-            }
+            // split string into two halves
+            std::string firstAction = action.substr(0, action.find("AND"));
+            std::string secondAction = action.substr(action.find("AND") + 4);
+
+            takeAction(firstAction, gameBoard, allPlayers);
+            takeAction(secondAction, gameBoard, allPlayers);
         }
     }
 }

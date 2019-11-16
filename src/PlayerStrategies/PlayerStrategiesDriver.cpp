@@ -8,10 +8,8 @@
 class Player;
 class Cards;
 
-void playerStrategiesDriver() {
-
-    //TODO: Change GameStart to ask for Computer Players
-
+void playerStrategiesDriver()
+{
     // setting up the game
     GameState state = GameState();
     int firstPlayerIndex = startGame(state);

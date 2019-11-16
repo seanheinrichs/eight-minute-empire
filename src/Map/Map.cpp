@@ -299,8 +299,8 @@ std::vector<std::string> Map::getRegionsToAddCities(std::string playerName)
     auto nodeIter = nodes->begin();
     while (nodeIter != nodes->end())
     {
-        // if player has an army on a region, add it to the list (unless they already have a city there)
-        if (nodeIter->armies[playerName].first > 0 && nodeIter->armies[playerName].second != true)
+        // if player has an army on a region, add it to the list
+        if (nodeIter->armies[playerName].first > 0)
         {
             regionNames.push_back(nodeIter->region);
         }
