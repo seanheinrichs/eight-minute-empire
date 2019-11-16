@@ -50,7 +50,7 @@ void PhaseObserver::update(const GameState &state, std::string playerName, std::
         }
         else if (playerAction[i] >= 'A' || playerAction[i] <= 'Z')
         {
-            playerAction[i] = tolower(playerAction[i]);
+            playerAction[i] = std::tolower(playerAction[i]);
         }
     }
 
