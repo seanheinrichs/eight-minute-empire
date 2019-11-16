@@ -12,6 +12,7 @@ include_directories(src/MainLoop)
 include_directories(src/Map)
 include_directories(src/MapLoader)
 include_directories(src/Player)
+include_directories(src/GameObservers)
 
 add_executable(eight_minute_empire
     src/BiddingFacility/BiddingFacility.cpp
@@ -48,5 +49,9 @@ add_executable(eight_minute_empire
     src/PlayerStrategies/PlayerStrategies.h
     src/PlayerStrategies/PlayerStrategiesDriver.cpp
     src/PlayerStrategies/PlayerStrategiesDriver.h
+    src/GameObservers/GameObservers.h
+    src/GameObservers/GameObservers.cpp
+    src/GameObservers/GameObserverDriver.h
+    src/GameObservers/GameObserverDriver.cpp
     src/main.cpp
 )
