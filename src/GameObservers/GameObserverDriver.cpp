@@ -1,16 +1,27 @@
 #include "MainLoop.h"
 #include "GameState.h"
 #include "GameStartup.h"
+#include "GameObservers.h"
 #include <iostream>
 
-void mainLoopDriver()
+void gameObserversDriver()
 {
+    std::cout << "This driver will display the observers by running an actual game" << std::endl;
+    std::cout << "At the end of each turn the gamephase willl be updated and new statistics will be displayed\n"
+              << std::endl;
 
     // setting up the game
     GameState state = GameState();
     int firstPlayerIndex = startGame(state);
     int gameLength = state.determineGameLength();
     std::vector<Cards *> topBoard = state.deck->topBoardGenetor(*state.deck);
+
+    // Setting up the observers
+    Observable subject{};
+    auto *phase = new PhaseObserver("phase");
+    auto *stats = new StatisticsObserver("stats");
+    subject.attach(phase);
+    subject.attach(stats);
 
     // number of game terms limited by number of players
     for (int i = 1; i <= gameLength; i++)
@@ -26,31 +37,32 @@ void mainLoopDriver()
             int turnIndex = j % state.players->size();
 
             // infrom players on whose turn it is, display current state of the map
-            std::cout << state.players->at(turnIndex)->getName() << ", it is now your turn. Here is the current state of the game." << endl
-                      << endl;
-            state.map->printNodes();
+            std::cout << state.players->at(turnIndex)->getName() << ", it is now your turn." << std::endl;
 
             // player purchases a card
             state.deck->exchange(*state.players->at(turnIndex), topBoard, *state.deck);
 
             // player has the option to ignore card effect, effectively ending their turn
             bool endTurn = state.players->at(turnIndex)->ignore();
+            std::string action = *(state.players->at(turnIndex)->getGameHand()->at(i - 1)->getAction());
+
             if (endTurn)
             {
+                subject.notify(state, state.players->at(turnIndex)->getName(), action);
                 continue;
             }
-
-            std::string action = *(state.players->at(turnIndex)->getGameHand()->at(i - 1)->getAction());
 
             //if card action is of type "AND" or "OR" call andOrAction()
             if (action.find("OR") != std::string::npos || action.find("AND") != std::string::npos)
             {
                 state.players->at(turnIndex)->andOrAction(action, *state.map, *state.players);
+                subject.notify(state, state.players->at(turnIndex)->getName(), action);
             }
             // otherwise call takeAction
             else
             {
                 state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
+                subject.notify(state, state.players->at(turnIndex)->getName(), action);
             }
         }
     }
