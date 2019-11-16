@@ -41,6 +41,19 @@ PhaseObserver::~PhaseObserver()
 
 void PhaseObserver::update(const GameState &state, std::string playerName, std::string playerAction)
 {
+    // make action lowercase and remove underscores
+    for (int i = 0; i < playerAction.length(); i++)
+    {
+        if (playerAction[i] == '_')
+        {
+            playerAction[i] = ' ';
+        }
+        else if (playerAction[i] >= 'A' || playerAction[i] <= 'Z')
+        {
+            playerAction[i] = tolower(playerAction[i]);
+        }
+    }
+
     *currentPlayer = playerName;
     *action = playerAction;
     std::cout << "== Game Phase Information ==" << std::endl;
