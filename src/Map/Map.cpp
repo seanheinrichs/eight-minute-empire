@@ -299,8 +299,8 @@ std::vector<std::string> Map::getRegionsToAddCities(std::string playerName)
     auto nodeIter = nodes->begin();
     while (nodeIter != nodes->end())
     {
-        // if player has an army on a region, add it to the list (unless they already have a city there)
-        if (nodeIter->armies[playerName].first > 0 && nodeIter->armies[playerName].second != true)
+        // if player has an army on a region, add it to the list
+        if (nodeIter->armies[playerName].first > 0)
         {
             regionNames.push_back(nodeIter->region);
         }
@@ -450,56 +450,31 @@ void Map::resetMapInstance() {
         delete map_instance;
         map_instance = nullptr;
     }
+    std::cout << "resetMapInstance( ) works." << std::endl;
 }
 
-//Singleton::~Singleton() {
-//    if (map) {
-//        delete map;
-//        map = nullptr;
-//    }
-//    if (_instance) {
-//        delete _instance;
-//        _instance = nullptr;
-//    }
-//}
-//
-//Singleton* Singleton::_instance = nullptr;
-//
-//Singleton* Singleton::instance() {
-//    if (!_instance) {
-//        _instance = new Singleton();
-//    }
-//    return _instance;
-//}
-//
-//Singleton::Singleton() {
-//    // generate map
-//    bool validMap = false;
-//
-//    // will run until a valid map is provided
-//    while (!validMap) {
-//        try {
-//            // get file location
-//            std::string fileLocation;
-//            std::cout << "Enter map file location: ";
-//            std::cin >> fileLocation;
-//
-//            // load map
-//            MapLoader loader;
-//            map = new Map(loader.generateMap(fileLocation));
-//            validMap = true;
-//        }
-//
-//        catch (const char *msg) {
-//            std::cout << "Error: Invalid map file. ";
-//            std::cout << msg << std::endl;
-//        }
-//    }
-//}
-//
-//void Singleton::resetInstance() {
-//    if (_instance) {
-//        delete _instance;
-//        _instance = nullptr;
-//    }
-//}
+Map *Map::getInstance() {
+    if (map_instance == 0) {
+        // generate map
+        bool validMap = false;
+        // will run until a valid map is provided
+        while (!validMap) {
+            try {
+                // get file location
+                std::string fileLocation;
+                std::cout << "Enter map file location: ";
+                std::cin >> fileLocation;
+
+                // load map
+                MapLoader loader;
+                map_instance = loader.generateMap(fileLocation);
+                validMap = true;
+            }
+            catch (const char *msg) {
+                std::cout << "Error: Invalid map file. ";
+                std::cout << msg << std::endl;
+            }
+        }
+    }
+    return map_instance;
+}

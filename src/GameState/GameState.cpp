@@ -18,7 +18,7 @@ GameState::GameState() {
 
       // load map
       MapLoader loader;
-//      map = new Map(loader.generateMap(fileLocation));
+      //map = new Map(loader.generateMap(fileLocation));
       map = loader.generateMap(fileLocation);
       validMap = true;
     }
