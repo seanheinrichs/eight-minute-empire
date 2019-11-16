@@ -60,8 +60,9 @@ GameState::GameState() {
 
 GameState::~GameState() {
   if (map) {
-    delete map;
-    map = NULL;
+      Map::resetMapInstance();
+//    delete map;
+//    map = NULL;
   }
   if (players) {
     delete players;

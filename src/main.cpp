@@ -7,8 +7,8 @@ int main()
     //// Assignment 3 Drivers ////
 
     // Part 1)
-//    playerStrategiesDriver();
-//    Map::resetMapInstance();
+    playerStrategiesDriver();
+    Map::resetMapInstance();
 
     // Part 2)
 
