@@ -265,6 +265,7 @@ void Deck::computerExchange(Player &player, std::vector<Cards *> &topBoard, Deck
             }
         }
     }
+    // Moderate Computer Logic - Purchase "PLACE_NEW_ARMIES_ON_BOARD"
     else {
         for (int i = 0; i < topBoard.size(); i++) {
             if ((*topBoard.at(i)->getAction()).find("PLACE_NEW_ARMIES_ON_BOARD") != std::string::npos) {

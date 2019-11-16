@@ -41,7 +41,7 @@ public:
   // General Gameplay Methods
   bool payCoin(int cost);
 
-  // Human Player Methods
+  // Player Action Methods
   void placeNewArmies(int totalArmies, Map &gameBoard);
   void moveArmies(int totalMoves, Map &gameBoard, bool waterMove);
   void buildCity(Map &gameBoard);
