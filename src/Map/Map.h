@@ -54,7 +54,7 @@ public:
     // singleton instance
     static Map* getInstance(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players);
 
-    // singleton instance from filelocation
+    // singleton instance from file location
     static Map* getInstance();
 
     static void resetMapInstance();
@@ -90,21 +90,3 @@ public:
     // determine all regions connected by land and water, return vector of regions
     std::vector<std::string> getRegionsConnectedByLandAndWater(std::string regionName);
 };
-
-//class Singleton {
-//private:
-//
-//    Map* map;
-//    Singleton();
-//
-//    virtual ~Singleton();
-//
-//private:
-//
-//    static Singleton* _instance;
-//
-//public:
-//    static Singleton* instance();
-//
-//    static void resetInstance();
-//};
