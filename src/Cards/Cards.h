@@ -10,6 +10,9 @@
 #include <iostream>
 using namespace std;
 
+// Forward Declaration
+class Player;
+
 class Cards
 {
 
@@ -64,6 +67,7 @@ public:
     std::vector<Cards*> handGenetor(Cards* &card);
     void displayHand(std::vector<Cards*> &hand);
     void exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck);
+    void computerExchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck);
 };
 
 static std::vector<Cards*> deck;
