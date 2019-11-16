@@ -83,7 +83,7 @@ std::string StatisticsObserver::graphRow(std::string header, int width, int valu
     // Build the bar in the bar graph
     for (int i = 0; i < value; i++)
     {
-        row += "0";
+        row += "\u25A0";
     }
 
     // Return the row with a newline character on the end
