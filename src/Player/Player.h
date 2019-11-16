@@ -2,11 +2,10 @@
 #define EIGHT_MINUTE_EMPIRE_PLAYER_H
 
 #include "../BiddingFacility/BiddingFacility.h"
-#include "PlayerStrategies/PlayerStrategies.h"
+#include "../PlayerStrategies/PlayerStrategies.h"
 #include "../Map/Map.h"
 #include <string>
 #include <vector>
-
 
 // Forward Declaration
 class Cards;
@@ -39,11 +38,13 @@ public:
   // Deconstructor
   ~Player();
 
-  // Gameplay Methods
+  // General Gameplay Methods
   bool payCoin(int cost);
-  bool placeNewArmies(int totalArmies, Map &gameBoard);
+
+  // Human Player Methods
+  void placeNewArmies(int totalArmies, Map &gameBoard);
   void moveArmies(int totalMoves, Map &gameBoard, bool waterMove);
-  bool buildCity(Map &gameBoard);
+  void buildCity(Map &gameBoard);
   void destroyArmy(Map &gameBoard, std::vector<Player *> allPlayers);
   bool ignore();
   void andOrAction(std::string action, Map &gameBoard, std::vector<Player *> &allPlayers);

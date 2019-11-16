@@ -248,3 +248,55 @@ void Deck::exchange(Player &player, std::vector<Cards*> &topBoard, Deck &deck) {
     topBoard.emplace_back(deck.draw());
     cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
 }
+
+void Deck::greedyComputerExchange(Player &player, std::vector<Cards *> &topBoard, Deck &deck) {
+    int purchaseIndex = 0;
+    int cost = 0;
+
+    cout<< "Top Board:" << endl;
+    displayTopBoard(topBoard);
+
+    for (int i = 0; i < topBoard.size(); i++) {
+        if ((*topBoard.at(i)->getAction()).find("BUILD_A_CITY") != std::string::npos || (*topBoard.at(i)->getAction()).find("DESTROY_ARMY") != std::string::npos) {
+            purchaseIndex = i;
+            break;
+        }
+    }
+
+    // ensure at each index that AI can afford purchase, if not purchase the cheapest card
+    if (purchaseIndex == 0) {
+        cost = 0;
+    }
+    else if (purchaseIndex == 1 || purchaseIndex == 2) {
+        if (player.getCoins() < 1) {
+            purchaseIndex = 0;
+            cost = 0;
+        } else {
+            cost = 1;
+        }
+    }
+    else if (purchaseIndex == 3 || purchaseIndex == 4) {
+        if (player.getCoins() < 2) {
+            purchaseIndex = 0;
+            cost = 0;
+        } else {
+            cost = 2;
+        }
+    }
+    else if (purchaseIndex == 5) {
+        if (player.getCoins() < 3) {
+            purchaseIndex = 0;
+            cost = 0;
+        } else {
+            cost = 3;
+        }
+    }
+
+    player.payCoin(cost);
+
+    // update gamehand and update top board
+    player.getGameHand()->emplace_back(topBoard.at(purchaseIndex));
+    topBoard.erase(topBoard.begin()+purchaseIndex);
+    topBoard.emplace_back(deck.draw());
+    cout << player.getName() << " added the following card to their hand: " << *player.getGameHand()->back() << endl;
+}

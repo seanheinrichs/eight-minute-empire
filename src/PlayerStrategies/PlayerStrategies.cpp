@@ -2,9 +2,16 @@
 
 #include "PlayerStrategies.h"
 
-void GreedyComputer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> topBoard, int currentTurn) {
+void GreedyComputer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
+{
+    // card purchase - purchase BUILD_A_CITY or DESTROY_ARMY cards if available, otherwise purchase cheapest
+    state.deck->greedyComputerExchange(*state.players->at(turnIndex), topBoard, *state.deck);
 
-    std::cout << "Greedy Computer want to DESTROY ALL HUMANS";
+    // check to see if card is of type "AND" or "OR"
+
+    // otherwise call takeAction
+
+    std::cout << "Greedy Computer want to DESTROY ALL HUMANS" << std::endl;
 
 }
 
@@ -12,9 +19,9 @@ std::string GreedyComputer::displayCurrentStrategy() {
     return "Greedy Computer";
 }
 
-void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> topBoard, int currentTurn) {
+void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn) {
 
-    // player purchases a card
+    // card purchase - user selects
     state.deck->exchange(*state.players->at(turnIndex), topBoard, *state.deck);
 
     // player has the option to ignore card effect, effectively ending their turn
@@ -25,7 +32,7 @@ void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Card
 
     std::string action = *(state.players->at(turnIndex)->getGameHand()->at(currentTurn-1)->getAction());
 
-    //if card action is of type "AND" or "OR" call andOrAction()
+    // check to see if card is of type "AND" or "OR", if true call andOrAction()
     if (action.find("OR") != std::string::npos || action.find("AND") != std::string::npos) {
         state.players->at(turnIndex)->andOrAction(action, *state.map, *state.players);
     }
@@ -41,7 +48,7 @@ std::string HumanPlayer::displayCurrentStrategy() {
 }
 
 
-void ModerateComputer::selectAction(GameState &state, int turnindex, std::vector<Cards*> topBoard, int currentTurn) {
+void ModerateComputer::selectAction(GameState &state, int turnindex, std::vector<Cards*> &topBoard, int currentTurn) {
 
     std::cout << "Moderate Computer wants to control ALL THE ZONES!";
 
