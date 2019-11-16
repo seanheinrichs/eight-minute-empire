@@ -1,12 +1,12 @@
 #include "Map/MapDriver.h"
+#include "GameObserverDriver.h"
 
 int main()
 {
     //// Assignment 3 Drivers ////
 
-    // Part 1)
-
-    // Part 2)
+    // Part 1) & 2)
+    gameObserversDriver();
 
     // Part 3)
 

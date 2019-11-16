@@ -132,8 +132,11 @@ void StatisticsObserver::update(const GameState &state, std::string playerName, 
     std::cout << "Region Owners:" << std::endl;
     for (auto regionIter = regionOwners.begin(); regionIter != regionOwners.end(); regionIter++)
     {
+        // Replace no owner with empty string for pretty printing
+        std::string name = regionIter->first == "" ? "No owner" : regionIter->first;
+
         // display the player's name
-        std::cout << regionIter->first << ": ";
+        std::cout << name << ": ";
 
         // display each continent they own separated by comma, up to second last
         for (int j = 0; j < regionIter->second.size() - 1; j++)
@@ -148,8 +151,10 @@ void StatisticsObserver::update(const GameState &state, std::string playerName, 
     std::cout << "\nContinent Owners:" << std::endl;
     for (auto continentIter = continentOwners.begin(); continentIter != continentOwners.end(); continentIter++)
     {
+        std::string name = continentIter->second == "" ? "No owner" : continentIter->second;
+
         // continent's name followed by the owner's name
-        std::cout << continentIter->first << ": " << continentIter->second << std::endl;
+        std::cout << continentIter->first << ": " << name << std::endl;
     }
 }
 

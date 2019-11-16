@@ -42,12 +42,10 @@ void mainLoopDriver()
             // player has the option to ignore card effect, effectively ending their turn
             bool endTurn = state.players->at(turnIndex)->ignore();
             std::string action = *(state.players->at(turnIndex)->getGameHand()->at(i - 1)->getAction());
-            // TODO: Get endTurn for PhaseObserver
-            // TODO: get action for phase observer
-            subject.notify(state, state.players->at(turnIndex)->getName(), action);
 
             if (endTurn)
             {
+                subject.notify(state, state.players->at(turnIndex)->getName(), action);
                 continue;
             }
 
@@ -55,11 +53,13 @@ void mainLoopDriver()
             if (action.find("OR") != std::string::npos || action.find("AND") != std::string::npos)
             {
                 state.players->at(turnIndex)->andOrAction(action, *state.map, *state.players);
+                subject.notify(state, state.players->at(turnIndex)->getName(), action);
             }
             // otherwise call takeAction
             else
             {
                 state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
+                subject.notify(state, state.players->at(turnIndex)->getName(), action);
             }
         }
     }

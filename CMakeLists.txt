@@ -51,5 +51,7 @@ add_executable(eight_minute_empire
         src/Player/PlayerMethodsDriver.h
         src/GameObservers/GameObservers.h
         src/GameObservers/GameObservers.cpp
+        src/GameObservers/GameObserverDriver.h
+        src/GameObservers/GameObserverDriver.cpp
         src/main.cpp
         )
