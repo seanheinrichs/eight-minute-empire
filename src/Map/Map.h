@@ -54,6 +54,9 @@ public:
     // singleton instance
     static Map* getInstance(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players);
 
+    // singleton instance from filelocation
+    static Map* getInstance();
+
     static void resetMapInstance();
 
     // print details of each node

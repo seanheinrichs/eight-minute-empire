@@ -42,6 +42,17 @@ void mapSingletonTest() {
     cout << "============ -------map 2-------- ==============="<< endl;
     m2->printNodes();
     cout << "notice that map 2 also has sean's record, which prove singleton works fine." << endl;
+    cout << "\n=============== Test resetMapInstance( ) ================"<< endl;
+    Map::resetMapInstance();
+
+    cout << "\n=============== Test getInstance( ) from filelocation ================"<< endl;
+    cout << "Suggest file location: ../assets/map8.map      for CLion"<< endl;
+    cout << "Suggest file location: assets/map8.map      for VSCode"<< endl;
+    auto map = Map::getInstance();
+    map->addArmy("Canada", "Player1");
+    map->printNodes();
+    Map::resetMapInstance();
+
 }
 
 
