@@ -141,7 +141,7 @@ void changePlayerStrategy(std::vector<Player*> players) {
                 break;
         }
 
-        std::cout << "Would you like to change the strategy of another player? ";
+        std::cout << "Would you like to change the strategy of another player?\n ";
         continueChangingStrategy = validateChangeStrategy();
     }
 }

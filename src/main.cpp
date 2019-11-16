@@ -14,7 +14,6 @@ int main()
 
     // Part 4)
     mapSingletonTest();
-    // singletonExample();
 
     return 0;
 }
