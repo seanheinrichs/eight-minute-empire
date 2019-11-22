@@ -1,0 +1,9 @@
+COMMENT| This map is for British Isles
+COMMENT| Note that the nesting of delimiters is consistent: | ; / ,
+REGIONS|England;Scotland;Wales;Ireland
+CONTINENTS|Ireland;Britain
+START|England
+NODE|England;Britain;;;Scotland,false/Wales,false/Ireland,true
+NODE|Scotland;Britain;;;England,false/Ireland,true
+NODE|Walse;Britain;;;England,false/Ireland,true
+NODE|Ireland;Ireland;;;England,true/Scotland,true/Wales,true
