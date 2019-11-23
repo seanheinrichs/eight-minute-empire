@@ -48,12 +48,27 @@ GameState::GameState(bool tournament)
   // generate players
   players = new std::vector<Player *>();
   int playerCount;
-  std::cout << "How many people are playing (2-5)? ";
-  std::cin >> playerCount;
-  while (playerCount < 2 || playerCount > 5)
+
+  // 2-4 players in tournament mode, 2-5 in non-tournament mode
+  if (tournament)
   {
-    std::cout << "Invalid player count, please select a number between 2 and 5: ";
+    std::cout << "How many people are playing (2-4)? ";
     std::cin >> playerCount;
+    while (playerCount < 2 || playerCount > 4)
+    {
+      std::cout << "Invalid player count, please select a number between 2 and 4: ";
+      std::cin >> playerCount;
+    }
+  }
+  else
+  {
+    std::cout << "How many people are playing (2-5)? ";
+    std::cin >> playerCount;
+    while (playerCount < 2 || playerCount > 5)
+    {
+      std::cout << "Invalid player count, please select a number between 2 and 5: ";
+      std::cin >> playerCount;
+    }
   }
   std::cout << std::endl;
 
