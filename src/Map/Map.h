@@ -27,9 +27,8 @@ struct Node
 class Map
 {
 private:
-
     //singleton_instance
-    static Map* map_instance;
+    static Map *map_instance;
 
     // connected graph of Nodes
     std::vector<Node> *nodes;
@@ -48,14 +47,13 @@ private:
     Map(Map const &m);
 
 public:
-
     ~Map();
 
     // singleton instance
-    static Map* getInstance(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players);
+    static Map *getInstance(std::vector<Node> inputNodes, std::string startRegion, std::vector<std::string> regions, std::vector<std::string> continents, std::vector<std::string> players);
 
     // singleton instance from file location
-    static Map* getInstance();
+    static Map *getInstance();
 
     static void resetMapInstance();
 

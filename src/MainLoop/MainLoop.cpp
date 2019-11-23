@@ -7,7 +7,7 @@ void mainLoopDriver()
 {
 
     // setting up the game
-    GameState state = GameState();
+    GameState state = GameState(false);
     int firstPlayerIndex = startGame(state);
     int gameLength = state.determineGameLength();
     std::vector<Cards *> topBoard = state.deck->topBoardGenetor(*state.deck);

@@ -1,9 +1,7 @@
-COMMENT| This map is for the American revolution
-COMMENT| It allows you to control Europe and North American and
-COMMENT| fight across USA/Canada/America
+COMMENT|This is an example of a valid map
 COMMENT| Note that the nesting of delimiters is consistent: | ; / ,
 REGIONS|Canada;USA;UK
-CONTINENTS|North America;Europe
+CONTINENTS|North America;Europe;Asia
 START|Canada
 COMMENT| Nodes MUST come last in the map file
 NODE|Canada;North America;;;USA,false

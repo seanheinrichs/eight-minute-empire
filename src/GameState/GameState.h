@@ -8,7 +8,8 @@
 // Forward Declaration
 class Deck;
 
-class GameState {
+class GameState
+{
 public:
   // game state member variables public as their purpose is to be mutated
   // throughout the game
@@ -22,7 +23,7 @@ public:
   // players
   std::vector<Player *> *players;
 
-  GameState();
+  GameState(bool tournament);
   ~GameState();
 
   int determineGameLength();

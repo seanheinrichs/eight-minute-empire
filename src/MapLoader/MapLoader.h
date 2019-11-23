@@ -17,7 +17,7 @@ private:
     void validateMapData(const Node &n);
     // verify that graph if fully connected
     bool validateGraph(std::vector<Node> nodes, std::string start);
-    
+
     // HELPER FUNCTIONS
     // split string into vector of strings
     std::vector<std::string> split(const std::string &input, char delimiter);
@@ -25,7 +25,6 @@ private:
     void walkGraph(Node node, std::vector<Node> nodes, std::vector<std::string> &visited);
     // check if vector contains string
     bool vectorContains(std::vector<std::string> inputVector, std::string value);
-
 
 public:
     MapLoader();
@@ -38,5 +37,8 @@ public:
     ~MapLoader();
 
     // called to create a map from a file
-    Map* generateMap(const std::string &fileName);
+    Map *generateMap(const std::string &fileName);
+
+    // select a map from a pregenerated list
+    Map *generateMap();
 };

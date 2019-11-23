@@ -3,27 +3,40 @@
 #include "Player.h"
 #include <utility>
 
-GameState::GameState() {
+GameState::GameState(bool tournament)
+{
 
   // generate map
   bool validMap = false;
 
   // will run until a valid map is provided
-  while (!validMap) {
-    try {
-      // get file location
-      std::string fileLocation;
-      std::cout << "Enter map file location: ";
-      std::cin >> fileLocation;
+  while (!validMap)
+  {
+    try
+    {
 
       // load map
       MapLoader loader;
-      //map = new Map(loader.generateMap(fileLocation));
-      map = loader.generateMap(fileLocation);
+
+      if (tournament)
+      {
+        map = loader.generateMap();
+      }
+      else
+      {
+        // get file location
+        std::string fileLocation;
+        std::cout << "Enter map file location: ";
+        std::cin >> fileLocation;
+
+        map = loader.generateMap(fileLocation);
+      }
+
       validMap = true;
     }
 
-    catch (const char *msg) {
+    catch (const char *msg)
+    {
       std::cout << "Error: Invalid map file. ";
       std::cout << msg << std::endl;
     }
@@ -37,14 +50,16 @@ GameState::GameState() {
   int playerCount;
   std::cout << "How many people are playing (2-5)? ";
   std::cin >> playerCount;
-  while (playerCount < 2 || playerCount > 5) {
-      std::cout << "Invalid player count, please select a number between 2 and 5: ";
-      std::cin >> playerCount;
+  while (playerCount < 2 || playerCount > 5)
+  {
+    std::cout << "Invalid player count, please select a number between 2 and 5: ";
+    std::cin >> playerCount;
   }
   std::cout << std::endl;
 
   // get player names and ages
-  for (int i = 0; i < playerCount; i++) {
+  for (int i = 0; i < playerCount; i++)
+  {
     std::string name;
     int age;
 
@@ -58,31 +73,37 @@ GameState::GameState() {
   }
 }
 
-GameState::~GameState() {
-  if (map) {
-      Map::resetMapInstance();
-//    delete map;
-//    map = NULL;
+GameState::~GameState()
+{
+  if (map)
+  {
+    Map::resetMapInstance();
+    //    delete map;
+    //    map = NULL;
   }
-  if (players) {
+  if (players)
+  {
     delete players;
     players = NULL;
   }
-  if (deck) {
+  if (deck)
+  {
     delete deck;
     deck = NULL;
   }
 }
 
-int GameState::determineGameLength() {
-    switch (players->size()) {
-        case (2):
-            return 13;
-        case (3):
-            return 10;
-        case (4):
-            return 8;
-        case (5):
-            return 7;
-    }
+int GameState::determineGameLength()
+{
+  switch (players->size())
+  {
+  case (2):
+    return 13;
+  case (3):
+    return 10;
+  case (4):
+    return 8;
+  case (5):
+    return 7;
+  }
 }

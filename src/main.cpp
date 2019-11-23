@@ -8,19 +8,19 @@ int main()
     //// Assignment 3 Drivers ////
 
     // Part 1)
-    playerStrategiesDriver();
+    // playerStrategiesDriver();
 
     // Clear state between drivers
-    Map::resetMapInstance();
+    // Map::resetMapInstance();
 
     // Part 2) and 3)
     gameObserversDriver();
 
     // Clear state between drivers
-    Map::resetMapInstance();
+    // Map::resetMapInstance();
 
     // Part 4)
-    mapSingletonTest();
+    // mapSingletonTest();
 
     return 0;
 }

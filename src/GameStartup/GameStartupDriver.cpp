@@ -11,8 +11,8 @@ void gameStartupExample()
   std::cout << "In the two game states below, the cards are shuffled different.\n";
   std::cout << "They are drawn from the top of shuffled deck and are therefore different.\n";
   std::cout << "==== MAKE SURE TO LOAD THE FOLLOWING EMPTY MAP: assets/map8.map ====\n";
-  GameState state1 = GameState();
-  GameState state2 = GameState();
+  GameState state1 = GameState(false);
+  GameState state2 = GameState(false);
 
   std::cout << "Now that we have loaded the map and created the game's state, let's start the game:\n";
   int firstPlayerIndex = startGame(state1);
