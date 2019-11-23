@@ -2,7 +2,7 @@
 
 #include "PlayerStrategies.h"
 
-void GreedyComputer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
+std::string GreedyComputer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
 {
     // card purchase - purchase BUILD_A_CITY or DESTROY_ARMY cards if available, otherwise purchase cheapest
     state.deck->computerExchange(*state.players->at(turnIndex), topBoard, *state.deck);
@@ -17,24 +17,26 @@ void GreedyComputer::selectAction(GameState &state, int turnIndex, std::vector<C
     else {
         state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
     }
+
+    return action;
 }
 
 std::string GreedyComputer::displayCurrentStrategy() {
     return "Greedy Computer";
 }
 
-void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
+std::string HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
 {
     // card purchase - user selects
     state.deck->exchange(*state.players->at(turnIndex), topBoard, *state.deck);
 
+    std::string action = *(state.players->at(turnIndex)->getGameHand()->at(currentTurn-1)->getAction());
+
     // player has the option to ignore card effect, effectively ending their turn
     bool endTurn = state.players->at(turnIndex)->ignore();
     if (endTurn) {
-        return;
+        return action;
     }
-
-    std::string action = *(state.players->at(turnIndex)->getGameHand()->at(currentTurn-1)->getAction());
 
     // check to see if card is of type "AND" or "OR", if true call andOrAction()
     if (action.find("OR") != std::string::npos || action.find("AND") != std::string::npos) {
@@ -44,13 +46,15 @@ void HumanPlayer::selectAction(GameState &state, int turnIndex, std::vector<Card
     else {
         state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
     }
+
+    return action;
 }
 
 std::string HumanPlayer::displayCurrentStrategy() {
     return "Human Player";
 }
 
-void ModerateComputer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
+std::string ModerateComputer::selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn)
 {
     // card purchase - purchase PLACE_NEW_ARMIES_ON_BOARD cards if available, otherwise purchase cheapest
     state.deck->computerExchange(*state.players->at(turnIndex), topBoard, *state.deck);
@@ -65,6 +69,8 @@ void ModerateComputer::selectAction(GameState &state, int turnIndex, std::vector
     else {
         state.players->at(turnIndex)->takeAction(action, *state.map, *state.players);
     }
+
+    return action;
 }
 
 std::string ModerateComputer::displayCurrentStrategy() {

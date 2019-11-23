@@ -11,28 +11,28 @@ class GameState;
 // Abstract Class
 class PlayerStrategies {
 public:
-    virtual void selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn) = 0;
+    virtual std::string selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn) = 0;
     virtual std::string displayCurrentStrategy() = 0;
 };
 
 // Greedy Computer - all actions lean towards building Cities and Destroying Opponents
 class GreedyComputer : public PlayerStrategies {
 public:
-    virtual void selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn);
+    virtual std::string selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn);
     virtual std::string displayCurrentStrategy();
 };
 
 // Human Player - all actions are made through user interactions
 class HumanPlayer : public PlayerStrategies {
 public:
-    virtual void selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn);
+    virtual std::string selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn);
     virtual std::string displayCurrentStrategy();
 };
 
 // Moderate Computer - all actions lean towards controlling the starting region
 class ModerateComputer : public PlayerStrategies {
 public:
-    virtual void selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn);
+    virtual std::string selectAction(GameState &state, int turnIndex, std::vector<Cards*> &topBoard, int currentTurn);
     virtual std::string displayCurrentStrategy();
 };
 

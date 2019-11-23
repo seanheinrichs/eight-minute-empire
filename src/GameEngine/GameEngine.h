@@ -6,21 +6,12 @@
 
 class GameEngine {
 
-private:
-    bool * isTournamentGame;
-
 public:
+
     // Gameplay methods
     bool selectGameMode();
-    std::vector<Player *> createPlayers();
     void singleGame();
     void tournamentGame();
-
-    // Accessor Methods
-    bool getIsTournamentGame();
-
-    // Mutator Methods
-    void setIsTournamentGame();
 };
 
 
