@@ -2,25 +2,16 @@
 #include "GameObserverDriver.h"
 #include "PlayerStrategies/PlayerStrategiesDriver.h"
 #include "Map/Map.h"
+#include "GameEngine/GameEngineDriver.h"
 
 int main()
 {
-    //// Assignment 3 Drivers ////
+    //// Assignment 4 Drivers ////
 
     // Part 1)
-    // playerStrategiesDriver();
 
-    // Clear state between drivers
-    // Map::resetMapInstance();
-
-    // Part 2) and 3)
-    gameObserversDriver();
-
-    // Clear state between drivers
-    // Map::resetMapInstance();
-
-    // Part 4)
-    // mapSingletonTest();
+    // Part 2)
+    gameEngineDriver();
 
     return 0;
 }
