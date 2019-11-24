@@ -13,6 +13,7 @@ include_directories(src/Map)
 include_directories(src/MapLoader)
 include_directories(src/Player)
 include_directories(src/GameObservers)
+include_directories(src/GameEngine)
 
 add_executable(eight_minute_empire
     src/BiddingFacility/BiddingFacility.cpp
