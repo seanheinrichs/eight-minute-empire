@@ -14,6 +14,7 @@ public:
 
     gameCard(int numOfGood, string good, string action, int numOfAction);
     gameCard(int numOfGood, string good, string action1, int numOfAction1, bool isAnd, string action2, int numOfAction2);
+    gameCard(int numOfGood, string good, string action, int numOfAction, string action1, int numOfAction1, bool isAnd, string action2, int numOfAction2);
 
     int *getNumOfGood() const;
 
@@ -75,6 +76,10 @@ public:
     virtual std::vector<gameCard*> createCardSet(string type) = 0;
 
     virtual void display(string type, gameCard* card) = 0;
+
+    virtual void display(std::vector<gameCard*> cardVector) = 0;
+
+    virtual void destroy(std::vector<gameCard*> cardVector) = 0;
 };
 
 // a concrete Card factory
@@ -83,8 +88,8 @@ public:
     // produce one customized card with two types: One Action and Two Action
     gameCard* create(string type);
 
-    // produces a set of gameCards with 8 types of options.
-    // "OneAction" type and "TwoAction" type :produced a set of 42 gameCards as same as the original game set.
+    // produces a set of gameCards with 9 types of options.
+    // "Full" type, "OneAction" type and "TwoAction" type :produced a set of 42 gameCards as same as the original game set.
     // "Wild" type, "Crystal" type, "Rock" type, "Carrot" type, "Tree" type, "Anvil" type are sets of customized gameCard set,
     // which clients can customized the sizes of "OneAction" Card set and "TwoAction" Card set.
     std::vector<gameCard*> createCardSet(string type);
@@ -96,4 +101,9 @@ public:
     // Therefore, the purpose of this function just for practising factory pattern
     void display(string type, gameCard* card);
 
+    // general purpose of display( cardVector) can be used for all gameCard constructors except TwoAction constuctor
+    void display(std::vector<gameCard*> cardVector);
+
+    // delete vector elements and itself
+    void destroy(std::vector<gameCard*> cardVector);
 };

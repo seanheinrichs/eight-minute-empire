@@ -15,11 +15,46 @@ gameCard::gameCard() {
 }
 
 gameCard::~gameCard() {
-
+    if(numOfGood) {
+        delete numOfGood;
+        numOfGood = nullptr;
+    }
+    if(good) {
+        delete good;
+        good = nullptr;
+    }
+    if(action) {
+        delete action;
+        action = nullptr;
+    }
+    if(action1) {
+        delete action1;
+        action1 = nullptr;
+    }
+    if(action2) {
+        delete action2;
+        action2 = nullptr;
+    }
+    if(numOfAction) {
+        delete numOfAction;
+        numOfAction = nullptr;
+    }
+    if(numOfAction1) {
+        delete numOfAction1;
+        numOfAction1 = nullptr;
+    }
+    if(numOfAction2) {
+        delete numOfAction2;
+        numOfAction2 = nullptr;
+    }
+    if(isAnd) {
+        delete isAnd;
+        isAnd = nullptr;
+    }
 }
 
 gameCard::gameCard(int numOfGood, string good, string action, int numOfAction) :
-        numOfGood(new int(numOfAction)), good(new string(good)), action(new string(action)),
+        numOfGood(new int(numOfGood)), good(new string(good)), action(new string(action)),
         numOfAction(new int(numOfAction)){}
 
 gameCard::gameCard(int numOfGood, string good, string action1, int numOfAction1, bool isAnd, string action2,
@@ -27,6 +62,13 @@ gameCard::gameCard(int numOfGood, string good, string action1, int numOfAction1,
         numOfGood(new int(numOfGood)), good(new string(good)), action1(new string(action1)),
         numOfAction1(new int(numOfAction1)), isAnd(new bool(isAnd)), action2(new string(action2)),
         numOfAction2(new int(numOfAction2)) {}
+
+gameCard::gameCard(int numOfGood, string good, string action, int numOfAction, string action1, int numOfAction1,
+                   bool isAnd, string action2, int numOfAction2) :
+                   numOfGood(new int(numOfGood)), good(new string(good)), action(new string(action)),
+                   numOfAction(new int(numOfAction)), action1(new string(action1)),
+                   numOfAction1(new int(numOfAction1)), isAnd(new bool(isAnd)), action2(new string(action2)),
+                   numOfAction2(new int(numOfAction2)) {}
 
 int *gameCard::getNumOfGood() const {
     return numOfGood;
@@ -118,7 +160,6 @@ ostream &operator<<(ostream &os, const gameCard &card) {
 
     return os;
 }
-
 
 gameCard *Card::create(string type) {
     std::string actions[5];
@@ -478,6 +519,59 @@ std::vector<gameCard *> Card::createCardSet(string type) {
         }
         cout << type << " Card Factory produced " <<  sizeOfSet + sizeOfTwoActionSet << " cards. " << endl;
         return wildCardVector;
+    } else if (type == "Full") {
+        // Wild card
+        cardVector.emplace_back(new gameCard(1, goods[5], actions[2], 2, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[5], actions[2], 2, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[5], actions[0], 2, "", 0, false, "", 0));
+        // Crystal card
+        cardVector.emplace_back(new gameCard(1, goods[0], actions[0], 2, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[0], actions[0], 2, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[0], actions[0], 2, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[0], actions[0], 1, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[0], actions[1], 2, "", 0, false, "", 0));
+        // Rock card
+        cardVector.emplace_back(new gameCard(1, goods[1], actions[1], 2, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[1], actions[2], 2, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[1], actions[2], 2, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[1], actions[2], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[1], actions[0], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[1], actions[0], 3, "", 0, false, "", 0));
+        // Carrot card
+        cardVector.emplace_back(new gameCard(1, goods[2], actions[3], 1, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[2], actions[0], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[2], actions[1], 4, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[2], actions[1], 4, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[2], actions[1], 5, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[2], actions[3], 1, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[2], actions[2], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[2], actions[0], 3, "", 0, false, "", 0));
+        // Tree card
+        cardVector.emplace_back(new gameCard(1, goods[3], actions[1], 5, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[3], actions[1], 6, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[3], actions[0], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[3], actions[2], 4, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[3], actions[2], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(2, goods[3], actions[3], 1, "", 0, false, "", 0));
+        // Anvil card
+        cardVector.emplace_back(new gameCard(1, goods[4], actions[0], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[4], actions[0], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[4], actions[2], 3, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[4], actions[3], 1, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(2, goods[4], actions[1], 4, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[4], actions[1], 5, "", 0, false, "", 0));
+        cardVector.emplace_back(new gameCard(1, goods[4], actions[1], 4, "", 0, false, "", 0));
+        // TwoAction card
+        cardVector.emplace_back(new gameCard(1, goods[1], "", 0, actions[0], 2, false, actions[3], 1));
+        cardVector.emplace_back(new gameCard(1, goods[2], "", 0, actions[4], 1, true, actions[0], 1));
+        cardVector.emplace_back(new gameCard(1, goods[2], "", 0, actions[0], 4, false, actions[1], 2));
+        cardVector.emplace_back(new gameCard(1, goods[3], "", 0, actions[0], 2, false, actions[1], 3));
+        cardVector.emplace_back(new gameCard(1, goods[3], "", 0, actions[4], 1, false, actions[3], 1));
+        cardVector.emplace_back(new gameCard(1, goods[4], "", 0, actions[0], 3, false, actions[1], 4));
+        cardVector.emplace_back(new gameCard(1, goods[4], "", 0, actions[0], 3, false, actions[1], 3));
+
+        cout << "Full Card Set CardFactory produced " << cardVector.size() << " cards. "<< endl;
+        return cardVector;
     } else
         return std::vector<gameCard *>();
 
@@ -505,9 +599,23 @@ void Card::display(string type, gameCard* card) {
            << " " << *card->getAction2()
            << " " << *card->getNumOfAction2()
            << endl;
-    } else if (type == goods[0] || type == goods[1] || type == goods[2] || type == goods[3] || type == goods[4] || type == goods[5]) {
+    } else if (type == goods[0] || type == goods[1] || type == goods[2] || type == goods[3] || type == goods[4] || type == goods[5] || type == "Full") {
         std::cout << *card ;
     }
     else
-        std::cout << "Undefined type. Please indicate \"OneAction\" or \"TwoAction\" or \"Wild\" or \"Crystal\" or \"Rock\" or \"Carrot\" or \"Tree\" or \"Anvil\". " << endl;
+        std::cout << "Undefined type. Please indicate \"Full\" or \"OneAction\" or \"TwoAction\" or \"Wild\" or \"Crystal\" or \"Rock\" or \"Carrot\" or \"Tree\" or \"Anvil\". " << endl;
+}
+
+void Card::display(std::vector<gameCard *> cardVector) {
+    for (int i = 0; i < cardVector.size(); i++)
+        std::cout << *cardVector[i];
+}
+
+void Card::destroy(std::vector<gameCard *> cv) {
+    for (int i = 0; i < cv.size(); i++) {
+        delete cv[i];
+        cv[i] = nullptr;
+    }
+    cv.clear();
+    std::cout << "The Vector was deleted. " <<endl;
 }
