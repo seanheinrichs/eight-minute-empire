@@ -14,6 +14,7 @@ include_directories(src/MapLoader)
 include_directories(src/Player)
 include_directories(src/GameObservers)
 include_directories(src/GameEngine)
+include_directories(src/CardsFactory)
 
 add_executable(eight_minute_empire
     src/BiddingFacility/BiddingFacility.cpp
@@ -58,5 +59,9 @@ add_executable(eight_minute_empire
     src/GameEngine/GameEngine.cpp
     src/GameEngine/GameEngineDriver.h
     src/GameEngine/GameEngineDriver.cpp
+    src/CardsFactory/Cardsfactory.h
+    src/CardsFactory/Gamecard.cpp
+    src/CardsFactory/CardsFactoryDriver.cpp
+    src/CardsFactory/CardsFactoryDriver.h
     src/main.cpp
 )
