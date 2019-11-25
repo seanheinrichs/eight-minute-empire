@@ -1,0 +1,9 @@
+COMMENT| This map is for the Korean War
+COMMENT| Note that the nesting of delimiters is consistent: | ; / ,
+REGIONS|DPRK;ROK;China;Japan
+CONTINENTS|Asia;Korea
+START|ROK
+NODE|DPRK;Korea;;;ROK,false/China,false/Japan,true
+NODE|ROK;Korea;;;DPRK,false/China,true/Japan,true
+NODE|China;Asia;;;DPRK,false/ROK,true/Japan,true
+NODE|Japan;Asia;;;DPRK,true/ROK,true/China,true
