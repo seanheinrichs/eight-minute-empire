@@ -77,8 +77,6 @@ void cardsFactoryExample() {
     delete c2;
     c1 = nullptr;
     c2 = nullptr;
-    s1.clear();
-    s2.clear();
 
     cout << "============================ Thank you so much for grading! =================================\n";
 
