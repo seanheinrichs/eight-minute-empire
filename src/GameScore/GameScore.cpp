@@ -254,20 +254,26 @@ std::string GameScore::validateGood() {
         }
         // add any needed padding to the player header
         std::string playerHeader = paddedTableEntry("Player", playerWidth);
+        // make the underline the correct length
+        std::string playerHeaderUnderline = "";
+        for (int i=0; i < playerWidth; i++) {
+            playerHeaderUnderline += "-";
+        }
 
         // print the headers
-        std::cout << playerHeader << "Cards " << "Victory Points " << "Coins " << std::endl;
+        std::cout << "|" << playerHeader << "|Cards " << "|Victory Points " << "|Coins |" << std::endl;
+        std::cout << "|" << playerHeaderUnderline << "|------" << "|---------------" << "|------|" << std::endl;
 
         // loop over each player and print their stats
         for (int i=0; i < players.size(); i++) {
             // get padded table entries
             std::string name = paddedTableEntry(players.at(i)->getName(), playerWidth);
-            std::string cards = paddedTableEntry(players.at(i)->getGameHand()->size(), playerWidth);
-            std::string points = paddedTableEntry(players.at(i)->getPoints(), playerWidth);
-            std::string coins = paddedTableEntry(players.at(i)->getCoins(), playerWidth);
+            std::string cards = paddedTableEntry(players.at(i)->getGameHand()->size(), cardsWidth);
+            std::string points = paddedTableEntry(players.at(i)->getPoints(), pointsWidth);
+            std::string coins = paddedTableEntry(players.at(i)->getCoins(), coinsWidth);
 
             // print the column
-            std::cout << name << cards << points << coins << std::endl;
+            std::cout << "|" << name << "|" << cards << "|" << points << "|" << coins << "|" << std::endl;
         }
         
     }
