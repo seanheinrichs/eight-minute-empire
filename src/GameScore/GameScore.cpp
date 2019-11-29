@@ -1,4 +1,5 @@
 #include <string> 
+#include <algorithm>
 #include "GameScore.h"
 #include "Player.h"
 #include "Cards.h"
@@ -68,40 +69,67 @@ void GameScore::countPointsInHand(Player &player) {
     int carrots = countGoods(*player.getGameHand(), "Carrot");
     int trees = countGoods(*player.getGameHand(), "Tree");
     int wilds = countGoods(*player.getGameHand(), "Wild");
+    
+    // If a computer has wildcards, assign them to the good they have the most of
+    if (player.getPlayerStrategies()->displayCurrentStrategy().compare("Human Player") != 0 && wilds > 0) {
+        // Find the good the player has the most of
+        int maxGood = std::max({rocks, crystals, anvils, carrots, trees});
 
-    // display player's hand
-    std::cout << player.getName() <<  ", you have the following goods: " <<endl;
-    std::cout << "- Rocks: " << rocks << endl;
-    std::cout << "- Crystals: " << crystals << endl;
-    std::cout << "- Anvils: " << anvils << endl;
-    std::cout << "- Carrots: " << carrots << endl;
-    std::cout << "- Trees: " << trees << endl;
-    std::cout << "- Wilds: " << wilds << endl;
+        // note that this is not a switch statement since the values being compared are not constants
+        if (maxGood == rocks) {
+            rocks += maxGood;
+        }
+        else if (maxGood == crystals) {
+            crystals += maxGood;
+        }
+        else if (maxGood == anvils) {
+            anvils += maxGood;
+        }
+        else if (maxGood == carrots) {
+            carrots += maxGood;
+        }
+        else if (maxGood == trees) {
+            trees += maxGood;
+        }
+    }
 
-    // if the user has wilds, allow them to exchange
-    if (wilds > 0) {
-        std::cout << "You can make your wild cards any of the following: Rock | Crystal | Anvil | Carrot | Tree " << endl;
-        for (int i = 0; i < wilds; i++) {
+    // If a human player, display relevant information and allow them to choose to allocate wilds
+    else if (player.getPlayerStrategies()->displayCurrentStrategy().compare("Human Player") == 0) {
+        // display player's hand
+        std::cout << player.getName() <<  ", you have the following goods: " <<endl;
+        std::cout << "- Rocks: " << rocks << endl;
+        std::cout << "- Crystals: " << crystals << endl;
+        std::cout << "- Anvils: " << anvils << endl;
+        std::cout << "- Carrots: " << carrots << endl;
+        std::cout << "- Trees: " << trees << endl;
+        std::cout << "- Wilds: " << wilds << endl;
 
-            std::string wildExchange = validateGood();
+        // if the user has wilds, allow them to exchange
+        if (wilds > 0) {
+            std::cout << "You can make your wild cards any of the following: Rock | Crystal | Anvil | Carrot | Tree " << endl;
+            for (int i = 0; i < wilds; i++) {
 
-            if (wildExchange == "Rock") {
-                rocks++;
-            }
-            else if (wildExchange == "Tree") {
-                trees++;
-            }
-            else if (wildExchange == "Crystal") {
-                crystals++;
-            }
-            else if (wildExchange == "Carrot") {
-                carrots++;
-            }
-            else if (wildExchange == "Anvil") {
-                anvils++;
+                std::string wildExchange = validateGood();
+
+                if (wildExchange == "Rock") {
+                    rocks++;
+                }
+                else if (wildExchange == "Tree") {
+                    trees++;
+                }
+                else if (wildExchange == "Crystal") {
+                    crystals++;
+                }
+                else if (wildExchange == "Carrot") {
+                    carrots++;
+                }
+                else if (wildExchange == "Anvil") {
+                    anvils++;
+                }
             }
         }
     }
+
 
     // calculate point totals for each good
     rocks = countRockPoints(rocks);
