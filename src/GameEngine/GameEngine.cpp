@@ -98,6 +98,11 @@ void GameEngine::tournamentGame()
     subject.attach(phase);
     subject.attach(stats);
 
+    
+    // Set the player strategies
+    changePlayerStrategy(*state.players);
+
+
     // each player gets to play once per turn
     for (int i = 1; i <= 30; i++)
     {
