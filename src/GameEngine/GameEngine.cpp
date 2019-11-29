@@ -47,19 +47,15 @@ void GameEngine::singleGame()
     subject.attach(phase);
     subject.attach(stats);
 
-    // TODO: Remove this line
-    changePlayerStrategy(*state.players);
-
     // number of game terms limited by number of players
     for (int i = 1; i <= gameLength; i++)
     {
-        // TODO: Uncomment below
-        // bool changeStrategy = validateChangeStrategy();
+        bool changeStrategy = validateChangeStrategy();
 
-        // if (changeStrategy)
-        // {
-        //     changePlayerStrategy(*state.players);
-        // }
+        if (changeStrategy)
+        {
+            changePlayerStrategy(*state.players);
+        }
 
         std::cout << "Turn " << i << ". " << gameLength - i << " Turns remain." << endl
                   << endl;
@@ -84,8 +80,6 @@ void GameEngine::singleGame()
     // generate the winner and display the results
     gameScore.generateWinner(*(state.players), *(state.map));
 }
-
-// TODO: Players should be set up in gamestate so no bidding facility is needed (Mike)
 
 void GameEngine::tournamentGame()
 {
