@@ -76,7 +76,7 @@ void GameEngine::singleGame()
             subject.notify(state, state.players->at(turnIndex)->getName(), action);
         }
     }
-    // TODO: Generate Results (MIKE)
+    gameScore.generateWinner(*(state.players), *(state.map));
 }
 
 // TODO: Players should be set up in gamestate so no bidding facility is needed (Mike)
@@ -85,6 +85,7 @@ void GameEngine::tournamentGame()
 {
     // setting up the game
     GameState state = GameState(true);
+    GameScore gameScore = GameScore();
     int firstPlayerIndex = startGame(state);
     std::vector<Cards *> topBoard = state.deck->topBoardGenetor(*state.deck);
     std::string action;
@@ -121,5 +122,5 @@ void GameEngine::tournamentGame()
         // increment turn order
         firstPlayerIndex++;
     }
-    // TODO: Results Should Display at End of Game (MIKE)
+    gameScore.generateWinner(*(state.players), *(state.map));
 }

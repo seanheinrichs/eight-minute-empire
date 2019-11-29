@@ -1,3 +1,4 @@
+#include <string> 
 #include "GameScore.h"
 #include "Player.h"
 #include "Cards.h"
@@ -43,6 +44,8 @@ void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
     for (int i = 0; i < players.size(); i++) {
         std::cout << players.at(i)->getName() << ": " << players.at(i)->getPoints() << endl;
     }
+
+    gameResultTable(players);
 
     // calculate winner
     int winningPlayerIndex = 0;
@@ -229,4 +232,56 @@ std::string GameScore::validateGood() {
     } while (invalidGood);
 
     return good;
+}
+
+    void GameScore::gameResultTable(std::vector<Player*> &players) {
+        // width for each cell of the table
+        // added one char to length to space out columns
+        int playerWidth = 8;
+        int cardsWidth = 6;
+        int pointsWidth = 15;
+        int coinsWidth = 6;
+
+        // widen the Player column if a player has a long name
+        for (int i=0; i < players.size(); i++) {
+            int size = players.at(i)->getName().length();
+            if (++size > playerWidth) {
+                playerWidth = size;
+            }
+        }
+        // add any needed padding to the player header
+        std::string playerHeader = paddedTableEntry("Player", playerWidth);
+
+        // print the headers
+        std::cout << playerHeader << "Cards " << "Victory Points " << "Coins " << std::endl;
+
+        // loop over each player and print their stats
+        for (int i=0; i < players.size(); i++) {
+            // get padded table entries
+            std::string name = paddedTableEntry(players.at(i)->getName(), playerWidth);
+            std::string cards = paddedTableEntry(players.at(i)->getGameHand()->size(), playerWidth);
+            std::string points = paddedTableEntry(players.at(i)->getPoints(), playerWidth);
+            std::string coins = paddedTableEntry(players.at(i)->getCoins(), playerWidth);
+
+            // print the column
+            std::cout << name << cards << points << coins << std::endl;
+        }
+        
+    }
+
+// utility method to pad table entries such that columns align
+std::string GameScore::paddedTableEntry(std::string data, int length) {
+    int pad = length - data.length();
+
+    for (int i=0; i < pad; i++) {
+        data += " ";
+    }
+
+    return data;
+}
+
+// handle case where an int needs to be padded with spaces
+std::string GameScore::paddedTableEntry(int data, int length) {
+    std::string castData = std::to_string(data);
+    return paddedTableEntry(castData, length);
 }
