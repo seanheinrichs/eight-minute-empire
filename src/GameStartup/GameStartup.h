@@ -6,7 +6,7 @@
 // 2) If two players, distributes netural armies
 // 3) Runs the bidding phase
 // returns the index of the player who goes first
-int startGame(GameState &state);
+int startGame(GameState &state, bool isTournament);
 
 // Adds apppropriate number of armies to starting region
 void addArmiesToStart(GameState &state);

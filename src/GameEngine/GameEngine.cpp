@@ -35,7 +35,7 @@ void GameEngine::singleGame()
     // setting up the game
     GameState state = GameState(false);
     GameScore gameScore = GameScore();
-    int firstPlayerIndex = startGame(state);
+    int firstPlayerIndex = startGame(state, false);
     int gameLength = state.determineGameLength();
     std::vector<Cards *> topBoard = state.deck->topBoardGenetor(*state.deck);
     std::string action;
@@ -92,7 +92,7 @@ void GameEngine::tournamentGame()
     // setting up the game
     GameState state = GameState(true);
     GameScore gameScore = GameScore();
-    int firstPlayerIndex = startGame(state);
+    int firstPlayerIndex = startGame(state, true);
     std::vector<Cards *> topBoard = state.deck->topBoardGenetor(*state.deck);
     std::string action;
     int cardInsertionLocation = 0;

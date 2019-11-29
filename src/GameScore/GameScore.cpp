@@ -42,12 +42,7 @@ void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
         countPointsInHand(*players.at(i));
     }
 
-    // display final scores
-    std::cout << "Here are the final scores: " << endl;
-    for (int i = 0; i < players.size(); i++) {
-        std::cout << players.at(i)->getName() << ": " << players.at(i)->getPoints() << endl;
-    }
-
+    // display the table of the game's stats once it has ended
     gameResultTable(players);
 
     // calculate winner
@@ -254,6 +249,7 @@ std::string GameScore::validateGood() {
         }
         // add any needed padding to the player header
         std::string playerHeader = paddedTableEntry("Player", playerWidth);
+
         // make the underline the correct length
         std::string playerHeaderUnderline = "";
         for (int i=0; i < playerWidth; i++) {

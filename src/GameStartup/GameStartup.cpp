@@ -2,7 +2,7 @@
 #include "GameStartup.h"
 #include "BiddingFacility.h"
 
-int startGame(GameState &state)
+int startGame(GameState &state, bool isTournament)
 {
   // Add three armies for each player to map
   addArmiesToStart(state);
@@ -13,8 +13,12 @@ int startGame(GameState &state)
     addNeutralArmies(state);
   }
 
-  // Begin the bidding phase
-  int firstPlayer = BiddingFacility::biddingPhase(*(state.players), state.players->size());
+  int firstPlayer = 0;
+
+  // Begin the bidding phase if not in tournament mode
+  if (!isTournament) {
+    firstPlayer = BiddingFacility::biddingPhase(*(state.players), state.players->size());
+  }
 
   return firstPlayer;
 }
