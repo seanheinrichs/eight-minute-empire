@@ -373,21 +373,22 @@ void Player::takeAction(std::string action, Map &gameBoard, std::vector<Player*>
 
     // loop over players once, taking the difference in regions owned
     for (int i = 0; i < allPlayers.size(); i++) {
-        int startTotal = 0;
-        int endTotal = 0;
+        // initialized at one to prevent but where end - start = 1 - 0 = 0, instead of 1
+        int startTotal = 1;
+        int endTotal = 1;
 
         // get how many regions the player owns at the start of the turn
         if (!(startOwners.find(allPlayers.at(i)->getName()) == startOwners.end())) {
-            startTotal = startOwners.at(allPlayers.at(i)->getName()).size();   
+            startTotal += startOwners.at(allPlayers.at(i)->getName()).size();   
         }
         
         // get how many regions the player owns at the end of the turn
         if (!(endOwners.find(allPlayers.at(i)->getName()) == endOwners.end())) {
-            endTotal = endOwners.at(allPlayers.at(i)->getName()).size();   
+            endTotal += endOwners.at(allPlayers.at(i)->getName()).size();   
         }
 
         // take the difference and add/subtract that amount
-        allPlayers.at(i)->addPoints(startTotal - endTotal);
+        allPlayers.at(i)->addPoints(endTotal - startTotal);
     }
 
 }
