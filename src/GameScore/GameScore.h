@@ -17,6 +17,9 @@ private:
     int countCarrotPoints(int carrot);
     int countRockPoints(int rock);
     int countCrystalPoints(int crystal);
+    void gameResultTable(std::vector<Player*> &players);
+    std::string paddedTableEntry(std::string data, int length);
+    std::string paddedTableEntry(int data, int length);
 
 public:
 

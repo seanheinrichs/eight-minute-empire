@@ -464,7 +464,6 @@ void Map::resetMapInstance()
         delete map_instance;
         map_instance = nullptr;
     }
-    std::cout << "resetMapInstance( ) works." << std::endl;
 }
 
 Map *Map::getInstance()

@@ -1,3 +1,5 @@
+#include <string> 
+#include <algorithm>
 #include "GameScore.h"
 #include "Player.h"
 #include "Cards.h"
@@ -11,7 +13,10 @@ void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
 
     // count points from regions
     for (int i = 0; i < players.size(); i++) {
-        players.at(i)->addPoints(regionOwners.at(players.at(i)->getName()).size());
+        // only add points if user is in regionOwners
+        if (!(regionOwners.find(players.at(i)->getName()) == regionOwners.end())) {
+            players.at(i)->addPoints(regionOwners.at(players.at(i)->getName()).size());   
+        }
     }
 
     // count points from continents
@@ -38,11 +43,8 @@ void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
         countPointsInHand(*players.at(i));
     }
 
-    // display final scores
-    std::cout << "Here are the final scores: " << endl;
-    for (int i = 0; i < players.size(); i++) {
-        std::cout << players.at(i)->getName() << ": " << players.at(i)->getPoints() << endl;
-    }
+    // display the table of the game's stats once it has ended
+    gameResultTable(players);
 
     // calculate winner
     int winningPlayerIndex = 0;
@@ -67,40 +69,67 @@ void GameScore::countPointsInHand(Player &player) {
     int carrots = countGoods(*player.getGameHand(), "Carrot");
     int trees = countGoods(*player.getGameHand(), "Tree");
     int wilds = countGoods(*player.getGameHand(), "Wild");
+    
+    // If a computer has wildcards, assign them to the good they have the most of
+    if (player.getPlayerStrategies()->displayCurrentStrategy().compare("Human Player") != 0 && wilds > 0) {
+        // Find the good the player has the most of
+        int maxGood = std::max({rocks, crystals, anvils, carrots, trees});
 
-    // display player's hand
-    std::cout << player.getName() <<  ", you have the following goods: " <<endl;
-    std::cout << "- Rocks: " << rocks << endl;
-    std::cout << "- Crystals: " << crystals << endl;
-    std::cout << "- Anvils: " << anvils << endl;
-    std::cout << "- Carrots: " << carrots << endl;
-    std::cout << "- Trees: " << trees << endl;
-    std::cout << "- Wilds: " << wilds << endl;
+        // note that this is not a switch statement since the values being compared are not constants
+        if (maxGood == rocks) {
+            rocks += maxGood;
+        }
+        else if (maxGood == crystals) {
+            crystals += maxGood;
+        }
+        else if (maxGood == anvils) {
+            anvils += maxGood;
+        }
+        else if (maxGood == carrots) {
+            carrots += maxGood;
+        }
+        else if (maxGood == trees) {
+            trees += maxGood;
+        }
+    }
 
-    // if the user has wilds, allow them to exchange
-    if (wilds > 0) {
-        std::cout << "You can make your wild cards any of the following: Rock | Crystal | Anvil | Carrot | Tree " << endl;
-        for (int i = 0; i < wilds; i++) {
+    // If a human player, display relevant information and allow them to choose to allocate wilds
+    else if (player.getPlayerStrategies()->displayCurrentStrategy().compare("Human Player") == 0) {
+        // display player's hand
+        std::cout << player.getName() <<  ", you have the following goods: " <<endl;
+        std::cout << "- Rocks: " << rocks << endl;
+        std::cout << "- Crystals: " << crystals << endl;
+        std::cout << "- Anvils: " << anvils << endl;
+        std::cout << "- Carrots: " << carrots << endl;
+        std::cout << "- Trees: " << trees << endl;
+        std::cout << "- Wilds: " << wilds << endl;
 
-            std::string wildExchange = validateGood();
+        // if the user has wilds, allow them to exchange
+        if (wilds > 0) {
+            std::cout << "You can make your wild cards any of the following: Rock | Crystal | Anvil | Carrot | Tree " << endl;
+            for (int i = 0; i < wilds; i++) {
 
-            if (wildExchange == "Rock") {
-                rocks++;
-            }
-            else if (wildExchange == "Tree") {
-                trees++;
-            }
-            else if (wildExchange == "Crystal") {
-                crystals++;
-            }
-            else if (wildExchange == "Carrot") {
-                carrots++;
-            }
-            else if (wildExchange == "Anvil") {
-                anvils++;
+                std::string wildExchange = validateGood();
+
+                if (wildExchange == "Rock") {
+                    rocks++;
+                }
+                else if (wildExchange == "Tree") {
+                    trees++;
+                }
+                else if (wildExchange == "Crystal") {
+                    crystals++;
+                }
+                else if (wildExchange == "Carrot") {
+                    carrots++;
+                }
+                else if (wildExchange == "Anvil") {
+                    anvils++;
+                }
             }
         }
     }
+
 
     // calculate point totals for each good
     rocks = countRockPoints(rocks);
@@ -229,4 +258,63 @@ std::string GameScore::validateGood() {
     } while (invalidGood);
 
     return good;
+}
+
+    void GameScore::gameResultTable(std::vector<Player*> &players) {
+        // width for each cell of the table
+        // added one char to length to space out columns
+        int playerWidth = 8;
+        int cardsWidth = 6;
+        int pointsWidth = 15;
+        int coinsWidth = 6;
+
+        // widen the Player column if a player has a long name
+        for (int i=0; i < players.size(); i++) {
+            int size = players.at(i)->getName().length();
+            if (++size > playerWidth) {
+                playerWidth = size;
+            }
+        }
+        // add any needed padding to the player header
+        std::string playerHeader = paddedTableEntry("Player", playerWidth);
+
+        // make the underline the correct length
+        std::string playerHeaderUnderline = "";
+        for (int i=0; i < playerWidth; i++) {
+            playerHeaderUnderline += "-";
+        }
+
+        // print the headers
+        std::cout << "|" << playerHeader << "|Cards " << "|Victory Points " << "|Coins |" << std::endl;
+        std::cout << "|" << playerHeaderUnderline << "|------" << "|---------------" << "|------|" << std::endl;
+
+        // loop over each player and print their stats
+        for (int i=0; i < players.size(); i++) {
+            // get padded table entries
+            std::string name = paddedTableEntry(players.at(i)->getName(), playerWidth);
+            std::string cards = paddedTableEntry(players.at(i)->getGameHand()->size(), cardsWidth);
+            std::string points = paddedTableEntry(players.at(i)->getPoints(), pointsWidth);
+            std::string coins = paddedTableEntry(players.at(i)->getCoins(), coinsWidth);
+
+            // print the column
+            std::cout << "|" << name << "|" << cards << "|" << points << "|" << coins << "|" << std::endl;
+        }
+        
+    }
+
+// utility method to pad table entries such that columns align
+std::string GameScore::paddedTableEntry(std::string data, int length) {
+    int pad = length - data.length();
+
+    for (int i=0; i < pad; i++) {
+        data += " ";
+    }
+
+    return data;
+}
+
+// handle case where an int needs to be padded with spaces
+std::string GameScore::paddedTableEntry(int data, int length) {
+    std::string castData = std::to_string(data);
+    return paddedTableEntry(castData, length);
 }

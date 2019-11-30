@@ -35,7 +35,7 @@ void GameEngine::singleGame()
     // setting up the game
     GameState state = GameState(false);
     GameScore gameScore = GameScore();
-    int firstPlayerIndex = startGame(state);
+    int firstPlayerIndex = startGame(state, false);
     int gameLength = state.determineGameLength();
     std::vector<Cards *> topBoard = state.deck->topBoardGenetor(*state.deck);
     std::string action;
@@ -76,16 +76,17 @@ void GameEngine::singleGame()
             subject.notify(state, state.players->at(turnIndex)->getName(), action);
         }
     }
-    // TODO: Generate Results (MIKE)
-}
 
-// TODO: Players should be set up in gamestate so no bidding facility is needed (Mike)
+    // generate the winner and display the results
+    gameScore.generateWinner(*(state.players), *(state.map));
+}
 
 void GameEngine::tournamentGame()
 {
     // setting up the game
     GameState state = GameState(true);
-    int firstPlayerIndex = startGame(state);
+    GameScore gameScore = GameScore();
+    int firstPlayerIndex = startGame(state, true);
     std::vector<Cards *> topBoard = state.deck->topBoardGenetor(*state.deck);
     std::string action;
     int cardInsertionLocation = 0;
@@ -96,6 +97,11 @@ void GameEngine::tournamentGame()
     auto *stats = new StatisticsObserver("stats");
     subject.attach(phase);
     subject.attach(stats);
+
+    
+    // Set the player strategies
+    changePlayerStrategy(*state.players);
+
 
     // each player gets to play once per turn
     for (int i = 1; i <= 30; i++)
@@ -121,5 +127,7 @@ void GameEngine::tournamentGame()
         // increment turn order
         firstPlayerIndex++;
     }
-    // TODO: Results Should Display at End of Game (MIKE)
+
+    // generate the winner and display the results
+    gameScore.generateWinner(*(state.players), *(state.map));
 }

@@ -15,7 +15,7 @@ void gameStartupExample()
   GameState state2 = GameState(false);
 
   std::cout << "Now that we have loaded the map and created the game's state, let's start the game:\n";
-  int firstPlayerIndex = startGame(state1);
+  int firstPlayerIndex = startGame(state1, false);
 
   std::cout << "The startup phase is completed. Here's the map:\n";
   state1.map->printNodes();
