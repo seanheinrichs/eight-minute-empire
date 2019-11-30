@@ -8,16 +8,7 @@
 
 void GameScore::generateWinner(std::vector<Player *> &players, Map &gameBoard) {
 
-    auto regionOwners = gameBoard.getRegionOwners();
     auto continentOwners = gameBoard.getContinentOwners();
-
-    // count points from regions
-    for (int i = 0; i < players.size(); i++) {
-        // only add points if user is in regionOwners
-        if (!(regionOwners.find(players.at(i)->getName()) == regionOwners.end())) {
-            players.at(i)->addPoints(regionOwners.at(players.at(i)->getName()).size());   
-        }
-    }
 
     // count points from continents
     for (int i = 0; i < continentOwners.size(); i++) {

@@ -346,6 +346,9 @@ bool Player::ignore()
 
 void Player::takeAction(std::string action, Map &gameBoard, std::vector<Player*> &allPlayers)
 {
+    // get region owners at start of turn
+    auto startOwners = gameBoard.getRegionOwners();
+
     std::string playerAction = action.substr(0, action.find(" "));
     int quantity = std::stoi(action.substr(action.find(" ") + 1));
 
@@ -364,6 +367,30 @@ void Player::takeAction(std::string action, Map &gameBoard, std::vector<Player*>
     else if (playerAction == "DESTROY_ARMY") {
         destroyArmy(gameBoard, allPlayers);
     }
+
+    // get region owners at end of turn
+    auto endOwners = gameBoard.getRegionOwners();
+
+    // loop over players once, taking the difference in regions owned
+    for (int i = 0; i < allPlayers.size(); i++) {
+        // initialized at one to prevent but where end - start = 1 - 0 = 0, instead of 1
+        int startTotal = 1;
+        int endTotal = 1;
+
+        // get how many regions the player owns at the start of the turn
+        if (!(startOwners.find(allPlayers.at(i)->getName()) == startOwners.end())) {
+            startTotal += startOwners.at(allPlayers.at(i)->getName()).size();   
+        }
+        
+        // get how many regions the player owns at the end of the turn
+        if (!(endOwners.find(allPlayers.at(i)->getName()) == endOwners.end())) {
+            endTotal += endOwners.at(allPlayers.at(i)->getName()).size();   
+        }
+
+        // take the difference and add/subtract that amount
+        allPlayers.at(i)->addPoints(endTotal - startTotal);
+    }
+
 }
 
 void Player::andOrAction(std::string action, Map &gameBoard, std::vector<Player*> &allPlayers)
